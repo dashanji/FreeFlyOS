@@ -1,0 +1,116 @@
+#ifndef _DT_H_
+#define _DT_H_
+
+/* Application segment type bits */
+#define STA_X           0x8         // Executable segment
+#define STA_E           0x4         // Expand down (non-executable segments)
+#define STA_C           0x4         // Conforming code segment (executable only)
+#define STA_W           0x2         // Writeable (non-executable segments)
+#define STA_R           0x2         // Readable (executable segments)
+#define STA_A           0x1         // Accessed
+
+/* global descrptor numbers */
+#define GD_KTEXT    ((1) << 3)      // kernel text
+#define GD_KDATA    ((2) << 3)      // kernel data
+#define GD_UTEXT    ((3) << 3)      // user text
+#define GD_UDATA    ((4) << 3)      // user data
+#define GD_TSS      ((5) << 3)        // task segment selector
+#define DPL_KERNEL  (0)
+#define DPL_USER    (3)
+
+//global descriptor selector
+#define KERNEL_CS   (GD_KTEXT|DPL_KERNEL)
+#define KERNEL_DS   (GD_KDATA|DPL_KERNEL)
+#define USER_CS     (GD_UTEXT|DPL_USER)
+#define USER_DS     (GD_UDATA|DPL_USER)
+
+/* System segment type bits */
+#define STS_CG32        0xC         // 32-bit Call Gate
+#define STS_IG32        0xE         // 32-bit Interrupt Gate
+#define STS_TG32        0xF         // 32-bit Trap Gate
+
+#define SEG_NULL                                            \
+    (struct segdesc) {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+#define SEG(type, base, lim, dpl)                           \
+    (struct segdesc) {                                      \
+        ((lim) >> 12) & 0xffff, (base) & 0xffff,            \
+        ((base) >> 16) & 0xff, type, 1, dpl, 1,             \
+        (unsigned)(lim) >> 28, 0, 0, 1, 1,                  \
+        (unsigned) (base) >> 24                             \
+    }
+
+#define SEGTSS(type, base, lim, dpl)                        \
+    (struct segdesc) {                                      \
+        (lim) & 0xffff, (base) & 0xffff,                    \
+        ((base) >> 16) & 0xff, type, 0, dpl, 1,             \
+        (unsigned) (lim) >> 16, 0, 0, 1, 0,                 \
+        (unsigned) (base) >> 24                             \
+    }
+
+#define T_SYSCALL           0x80
+
+/* *
+ * Set up a normal interrupt/trap gate descriptor
+ *   - istrap: 1 for a trap (= exception) gate, 0 for an interrupt gate
+ *   - sel: Code segment selector for interrupt/trap handler
+ *   - off: Offset in code segment for interrupt/trap handler
+ *   - dpl: Descriptor Privilege Level - the privilege level required
+ *          for software to invoke this interrupt/trap gate explicitly
+ *          using an int instruction.
+ * */
+#define SETGATE(gate, istrap, sel, off, dpl) {               \
+        (gate).gd_off_15_0 = (unsigned int)(off) & 0xffff;      \
+        (gate).gd_ss = (sel);                                \
+        (gate).gd_args = 0;                                 \
+        (gate).gd_rsv1 = 0;                                 \
+        (gate).gd_type = (istrap) ? STS_TG32 : STS_IG32;    \
+        (gate).gd_s = 0;                                    \
+        (gate).gd_dpl = (dpl);                              \
+        (gate).gd_p = 1;                                    \
+        (gate).gd_off_31_16 = (unsigned int)(off) >> 16;        \
+    }
+
+/* segment descriptors : bit field */
+struct segdesc{
+    unsigned sd_lim_15_0 : 16;      // low bits of segment limit
+    unsigned sd_base_15_0 : 16;     // low bits of segment base address
+    unsigned sd_base_23_16 : 8;     // middle bits of segment base address
+    unsigned sd_type : 4;           // segment type (see STS_ constants)
+    unsigned sd_s : 1;              // 0 = system, 1 = application
+    unsigned sd_dpl : 2;            // descriptor Privilege Level
+    unsigned sd_p : 1;              // present
+    unsigned sd_lim_19_16 : 4;      // high bits of segment limit
+    unsigned sd_avl : 1;            // unused (available for software use)
+    unsigned sd_rsv1 : 1;           // reserved
+    unsigned sd_db : 1;             // 0 = 16-bit segment, 1 = 32-bit segment
+    unsigned sd_g : 1;              // granularity: limit scaled by 4K when set
+    unsigned sd_base_31_24 : 8;     // high bits of segment base address
+};
+
+/* Gate descriptors for interrupts and traps */
+struct gatedesc {
+    unsigned gd_off_15_0 : 16;      // low 16 bits of offset in segment
+    unsigned gd_ss : 16;            // segment selector
+    unsigned gd_args : 5;           // # args, 0 for interrupt/trap gates
+    unsigned gd_rsv1 : 3;           // reserved(should be zero I guess)
+    unsigned gd_type : 4;           // type(STS_{TG,IG32,TG32})
+    unsigned gd_s : 1;              // must be 0 (system)
+    unsigned gd_dpl : 2;            // descriptor(meaning new) privilege level
+    unsigned gd_p : 1;              // Present
+    unsigned gd_off_31_16 : 16;     // high bits of offset in segment
+};
+
+//describe the gdt/ldt/idt，remember struct's member is first member in low address 
+struct dtdesc{
+    unsigned short dt_size;
+    unsigned int dt_base;
+}__attribute__((packed));
+
+static inline void lgdt(struct dtdesc *dt);
+static inline void lidt(struct dtdesc *dt);
+void lidt(struct dtdesc *dt);
+void gdt_init();
+void idt_init();
+
+#endif
