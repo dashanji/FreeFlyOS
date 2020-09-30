@@ -39,7 +39,7 @@ void serial_init(void) {
     (void) inb(COM1+COM_RX);
 
     if (serial_exists) {
-        print_string("serial exist!\n",black,green);
+        printk("serial exist!\n");
         pic_enable(IRQ_COM1);
     }
 }

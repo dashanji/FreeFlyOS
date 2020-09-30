@@ -143,7 +143,7 @@ int kbd_proc_data(void) {
     // Process special keys
     // Ctrl-Alt-Del: reboot
     if (!(~shift & (CTL | ALT)) && c == KEY_DEL) {
-        print_string("Rebooting!\b",black,green);
+        printk("Rebooting!\b");
         outb(0x92, 0x3); // courtesy of Chris Frost
     }
     return c;

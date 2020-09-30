@@ -32,7 +32,7 @@ static void trap_dispatch(struct trapframe *tf)
             break;
         default:
             // in kernel, it must be a mistake
-            print_string("unexpected trap in kernel!\n",black,green);
+            printk("unexpected trap in kernel!\n");
     }
 }
 

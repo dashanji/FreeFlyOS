@@ -24,8 +24,7 @@ inline void print_cursor(unsigned char x,unsigned char y){
     outb(VGA_data,pos&0xFF);
 }
 /* use 'space' to clear the screen */
-inline void clear()
-{
+inline void clear(){
     unsigned short attribute=((0<<4)&0xf0|(15&0xf))<<8;
     unsigned short space=' '|attribute;
     for(unsigned short i=0;i<25*80;i++){
@@ -86,9 +85,11 @@ inline void print_string(char *str,color_type background,color_type foreground){
 /*                print num                                 
 *  base-represent the displayed type is hex or dec: 
 *      base=10-----hex base=16-----dec
+*       flag-1:display len bits num
+*       flag-0:dislay only num
 */
-inline void print_num(unsigned long long num,char len,
-color_type background,color_type foreground,unsigned char base){
+inline void print_num(unsigned long long num,
+color_type background,color_type foreground,unsigned char base,char len,int flag){
     
     char str[20];
     char i,j,k;
@@ -103,7 +104,151 @@ color_type background,color_type foreground,unsigned char base){
             str[i]=str[i]>9?str[i]-10+'A':str[i]+'0';
         }   
     }
+
+    if(!flag){
+        int x=0;
+        while(str[x++]==0);
+        print_string(&str[x],background,foreground);
+    }
+
     print_string(str,background,foreground);
+}
+
+
+/*
+*    printk(“”,...)-standardized format output
+*         %c-------char
+*         %s-------char *
+*         %d-------dec int
+*      %x,%X-------hex int  
+*        %ud-------unsigned dec int (10)
+*    %ux,%uX-------unsigned hex int (16)
+*         %l-------hex long long
+*        %ul-------unsigned hex long long
+*/
+void printk(char *fmt,...){
+    va_list ap;
+    
+    char c;
+    char *str;
+
+    int dec_num;
+    int hex_num;
+
+    unsigned int unsigned_dec_num;
+    unsigned int unsigned_hex_num;
+
+    long long ll_hex_num;
+
+    unsigned long long ull_hex_num;
+
+    char bits=0;     //record the number's bits
+
+    va_start(ap,fmt);
+
+    while(*fmt){
+        if(*fmt=='%'){
+dis_num:    switch (*(++fmt))
+            {
+                case 'c':
+                    c=va_arg(ap,char);
+                    print_char(c,default_background,default_foreground);
+                    break;
+                case 's':
+                    str=va_arg(ap,char *);
+                    print_string(str,default_background,default_foreground);
+                    break;
+                case 'd':
+                    dec_num=va_arg(ap,int);
+                    if(bits){
+                        print_num(dec_num,default_background,default_foreground,dec,bits,display_bits);
+                    }
+                    else{
+                        print_num(dec_num,default_background,default_foreground,dec,ulonglong_max,display_num);
+                    }
+                    break;
+                case 'X':
+                case 'x':
+                    hex_num=va_arg(ap,int);
+                    if(bits){
+                        print_num(hex_num,default_background,default_foreground,hex,bits,display_bits);
+                    }
+                    else{
+                        print_num(hex_num,default_background,default_foreground,hex,ulonglong_max,display_num);
+                    }
+                    break;
+                case 'l':
+                case 'L':
+                    ll_hex_num=va_arg(ap,long long);
+                    if(bits){
+                        print_num(ll_hex_num,default_background,default_foreground,hex,bits,display_bits);
+                    }
+                    else{
+                        print_num(ll_hex_num,default_background,default_foreground,hex,ulonglong_max,display_num);
+                    }
+                    break;
+                case 'u':
+                    switch (*(++fmt))
+                    {
+                        case 'd':
+                            unsigned_dec_num=va_arg(ap,unsigned int);
+                            if(bits){
+                                print_num(unsigned_dec_num,default_background,default_foreground,dec,bits,display_bits);
+                            }
+                            else{
+                                print_num(unsigned_dec_num,default_background,default_foreground,dec,ulonglong_max,display_num);
+                            }
+                            break;
+                        case 'X':
+                        case 'x':
+                            unsigned_hex_num=va_arg(ap,unsigned int);
+                            if(bits){
+                                print_num(unsigned_hex_num,default_background,default_foreground,hex,bits,display_bits);
+                            }
+                            else{
+                                print_num(unsigned_hex_num,default_background,default_foreground,hex,ulonglong_max,display_num);
+                            }
+                            break;
+                        case 'l':
+                        case 'L':
+                            ull_hex_num=va_arg(ap,unsigned long long);
+                            if(bits){
+                                print_num(ull_hex_num,default_background,default_foreground,hex,bits,display_bits);
+                            }
+                            else{
+                                print_num(ull_hex_num,default_background,default_foreground,hex,ulonglong_max,display_num);
+                                }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                //read the bits of number displayed,the range is 00-99
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    bits=(*fmt-'0')*10+(*(++fmt)-'0');
+                    goto dis_num;
+                    break;
+                default:    
+                    print_string("error format!Please correct it!",default_background,default_foreground);
+                    break;
+            }
+            fmt++;
+        }
+        else{
+            print_char(*fmt,default_background,default_foreground);
+            fmt++;
+        }
+        bits=0;
+    }
 }
 
 /* 
@@ -112,7 +257,7 @@ color_type background,color_type foreground,unsigned char base){
 void cons_putc(int c) {
         lpt_putc(c);
         if(c){
-            print_char(c,black,green);
+            printk("%c",c);
         }
         serial_putc(c);
 }

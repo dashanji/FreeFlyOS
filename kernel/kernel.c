@@ -11,12 +11,12 @@ void main(void)
 {
 	clear();
 	
-    print_string("FreeFlyOS is running\n",black,green);
+    printk("FreeFlyOS is running\n");
 	print_mem();
     print_seg();
     
     gdt_init();
-    print_string("After gdt init\n",black,green);
+    printk("After gdt init\n",black,green);
     print_seg();
 
     pic_init();

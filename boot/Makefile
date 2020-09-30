@@ -14,5 +14,5 @@ bootblock: bootblock.o sign
 	$(TARGET)-strip bootblock.o
 	$(TARGET)-objcopy -S -O binary bootblock.o bootblock.out
 	./sign bootblock.out bootblock
-clean:*.o sign bootblock
+clean:
 	rm *.o *.out sign bootblock

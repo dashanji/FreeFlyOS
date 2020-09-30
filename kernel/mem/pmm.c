@@ -7,16 +7,10 @@
 void print_mem(){
 	int j=0;
 	struct memory_seg *mem=(struct memory_seg *)mem_seg_start;
-	print_string("*****************physical memory info*****************\n",black,green);
-	print_string("           base           size          type          \n",black,green);
+	printk("*****************physical memory info*****************\n");
+	printk("           base           size          type          \n");
 	for(unsigned int i=*(unsigned int *)mem_seg_num;i>0;i--,j++){
-		print_char('\t',black,green);
-		print_num(mem[j].base,10,black,green,16);
-		print_char('\t',black,green);
-		print_num(mem[j].size,10,black,green,16);
-		print_char('\t',black,green);
-		print_num(mem[j].state,5,black,green,16);
-		print_char('\n',black,green);
+		printk("\t%10ul\t%10ul\t%05ud\n",mem[j].base,mem[j].size,mem[j].state);
 	}
-	print_string("******************************************************\n",black,green);
+	printk("******************************************************\n");
 }

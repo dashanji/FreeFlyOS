@@ -12,25 +12,10 @@ void print_seg()
                  "movw %%es, %3;"
                  "movw %%fs, %4;"
                  "movw %%ss, %5;": "=m"(cs),"=m"(ds),"=m"(gs),"=m"(es),"=m"(fs),"=m"(ss)); 
-    print_string("cs=",black,green);
-    print_num(cs,4,black,green,16);
-    print_char('\n',black,green);
-    print_string("ds=",black,green);
-    print_num(ds,4,black,green,16);
-    print_char('\n',black,green);
-    print_string("gs=",black,green);
-    print_num(gs,4,black,green,16);
-    print_char('\n',black,green);
-    print_string("es=",black,green);
-    print_num(es,4,black,green,16);
-    print_char('\n',black,green);
-    print_string("fs=",black,green);
-    print_num(fs,4,black,green,16);
-    print_char('\n',black,green);
-    print_string("ss=",black,green);
-    print_num(ss,4,black,green,16);
-    print_char('\n',black,green);
-    //print_string("esp=",black,green);
-    //print_num(esp,4,black,green,16);
-    //print_char('\n',black,green);
+    printk("cs=%04x\n",cs);
+    printk("ds=%04x\n",ds);
+    printk("gs=%04x\n",gs);
+    printk("es=%04x\n",es);
+    printk("fs=%04x\n",fs);
+    printk("ss=%04x\n",ss);
 }
