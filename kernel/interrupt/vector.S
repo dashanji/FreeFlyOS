@@ -1,5 +1,7 @@
 # handler
-.text
+.code32
+
+.section .text
 .globl __alltraps
 .globl vector0
 vector0:

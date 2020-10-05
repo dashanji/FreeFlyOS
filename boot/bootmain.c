@@ -143,12 +143,12 @@ void bootmain(void) {
     ph = (struct proghdr *)((unsigned int )ELFHDR + ELFHDR->phoff);
     eph = ph + ELFHDR->phnum;
     for (; ph < eph; ph ++) {
-        readseg(ph->p_va & 0xFFFFFF, ph->p_memsz, ph->p_offset);
+        readseg(ph->p_va & 0xFFFFFFF, ph->p_memsz, ph->p_offset);
     }
 
     // call the entry point from the ELF header
     // note: does not return
-    ((void (*)(void))(ELFHDR->entry & 0xFFFFFF))();
+    ((void (*)(void))(ELFHDR->entry & 0xFFFFFFF))();
 
     while (1);
 }

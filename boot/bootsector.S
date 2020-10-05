@@ -123,8 +123,9 @@ call bootmain
 .align 2
 gdt:
 .word 0,0,0,0
-.word 0xFFFF	#第1项CS,基地址为0
-.word 0x0000
+
+.word 0xFFFF	#第1项CS,基地址为0，限长
+.word 0x0000    
 .word 0x9A00
 .word 0x00C0
 

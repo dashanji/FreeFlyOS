@@ -107,8 +107,9 @@ color_type background,color_type foreground,unsigned char base,char len,int flag
 
     if(!flag){
         int x=0;
-        while(str[x++]==0);
+        while(str[x++]=='0');
         print_string(&str[x],background,foreground);
+        return ;
     }
 
     print_string(str,background,foreground);
@@ -270,7 +271,7 @@ int cons_getc(void) {
     // (e.g., when called from the kernel monitor).
     serial_intr();
     kbd_intr();
-
+    
     // grab the next character from the input buffer.
     if (cons.rpos != cons.wpos) {
         c = cons.buf[cons.rpos ++];

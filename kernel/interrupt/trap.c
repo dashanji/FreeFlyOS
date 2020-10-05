@@ -18,8 +18,7 @@ static void trap_dispatch(struct trapframe *tf)
         case IRQ_OFFSET + IRQ_TIMER:
             tick++;
             if (tick % 100 == 0){
-           //     print_num(tick,4,black,green,10);
-           //     print_char('\n',black,green);
+                //printk("%d\n",tick);
             }
             break;
         case IRQ_OFFSET + IRQ_COM1:
@@ -28,6 +27,7 @@ static void trap_dispatch(struct trapframe *tf)
              break;
         case IRQ_OFFSET + IRQ_KBD:
             c = cons_getc();
+            //printk("%c",c);
             cons_putc(c);
             break;
         default:

@@ -1,7 +1,7 @@
 #define GD_KDATA    ((2) << 3)      // kernel data
-
+.code32
 # vectors.S sends all traps here.
-.text
+.section .text
 .globl __alltraps
 __alltraps:
     # push registers to build a trap frame

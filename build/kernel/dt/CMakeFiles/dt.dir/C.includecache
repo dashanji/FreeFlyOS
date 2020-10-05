@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.c
+dt.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+../asm/asm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+

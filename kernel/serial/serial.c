@@ -4,6 +4,8 @@
 #include "../interrupt/trap.h"
 #include "../vga/vga.h"
 
+struct consle cons;
+
 static char serial_exists = 0;
 
 /* stupid I/O delay routine necessitated by historical PC design flaws */

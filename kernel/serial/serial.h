@@ -30,7 +30,7 @@ struct consle{
     unsigned int rpos;
     unsigned int wpos;
 } ;
-struct consle cons;
+extern struct consle cons;
 
 
 void delay(void);

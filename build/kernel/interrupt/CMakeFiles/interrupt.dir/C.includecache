@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.c
+trap.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+../vga/vga.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+../timer/timer.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+

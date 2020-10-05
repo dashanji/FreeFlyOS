@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/main/main.c
+../asm/asm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+../dt/dt.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+../interrupt/trap.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+../timer/timer.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
+../pic/pic.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
+../vga/vga.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+../mem/pmm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.h
+../debug/debug.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+

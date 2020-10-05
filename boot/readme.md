@@ -1,3 +1,7 @@
+## boot.ld
+
+生成bootblock的链接格式，起始地址从0x7c00开始
+
 ## bootsector.S
 
 关中断、内存探测、80x86 CPU从实模式变成保护模式。
@@ -10,7 +14,7 @@
 
 将某文件格式化为合法MBR文件，末尾以0xaa55结束。
 
-## Makefile
+## CMakeLists.txt
 
 1、编译bootsector.S以及bootmain.c文件生成bootsector.o和bootmain.o
 

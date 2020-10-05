@@ -1,4 +1,4 @@
-#ifdef  _PIC_H_
+#ifndef  _PIC_H_
 #define _PIC_H_
 
 void pic_init();
