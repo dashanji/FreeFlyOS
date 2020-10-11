@@ -1,6 +1,7 @@
 #设置项目名
 project (kernel C ASM)
 
+add_subdirectory(init)
 add_subdirectory(asm)
 add_subdirectory(debug)
 add_subdirectory(dt)
@@ -15,6 +16,7 @@ add_subdirectory(vga)
 
 
 add_executable(${PROJECT_NAME}
+        $<TARGET_OBJECTS:init>
         $<TARGET_OBJECTS:asm>
         $<TARGET_OBJECTS:debug>
         $<TARGET_OBJECTS:dt>
@@ -44,7 +46,7 @@ add_custom_command(OUTPUT ${IMG}
     COMMAND
         dd if=kernel of=FreeFlyOS.img seek=1 conv=notrunc	        
     COMMAND    
-        qemu-system-i386 -hda FreeFlyOS.img	
+        qemu-system-i386 -m 2048 -hda FreeFlyOS.img	
 )
 add_custom_target(Test1 ALL DEPENDS ${IMG})
 

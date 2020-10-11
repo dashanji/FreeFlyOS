@@ -90,7 +90,21 @@ kernel/mem/CMakeFiles/mem.dir/pmm.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/mem.dir/pmm.c.s"
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/mem && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.c -o CMakeFiles/mem.dir/pmm.c.s
 
+kernel/mem/CMakeFiles/mem.dir/vmm.c.o: kernel/mem/CMakeFiles/mem.dir/flags.make
+kernel/mem/CMakeFiles/mem.dir/vmm.c.o: ../kernel/mem/vmm.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object kernel/mem/CMakeFiles/mem.dir/vmm.c.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/mem && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/mem.dir/vmm.c.o   -c /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.c
+
+kernel/mem/CMakeFiles/mem.dir/vmm.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/mem.dir/vmm.c.i"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/mem && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.c > CMakeFiles/mem.dir/vmm.c.i
+
+kernel/mem/CMakeFiles/mem.dir/vmm.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/mem.dir/vmm.c.s"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/mem && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.c -o CMakeFiles/mem.dir/vmm.c.s
+
 mem: kernel/mem/CMakeFiles/mem.dir/pmm.c.o
+mem: kernel/mem/CMakeFiles/mem.dir/vmm.c.o
 mem: kernel/mem/CMakeFiles/mem.dir/build.make
 
 .PHONY : mem

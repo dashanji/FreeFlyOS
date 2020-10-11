@@ -5,3 +5,4 @@ kernel/dt/CMakeFiles/dt.dir/dt.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h

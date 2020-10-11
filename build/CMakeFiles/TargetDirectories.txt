@@ -9,6 +9,9 @@
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/CMakeFiles/Test1.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/CMakeFiles/kernel.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/init/CMakeFiles/rebuild_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/init/CMakeFiles/edit_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/init/CMakeFiles/init.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/asm/CMakeFiles/rebuild_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/asm/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/asm/CMakeFiles/asm.dir

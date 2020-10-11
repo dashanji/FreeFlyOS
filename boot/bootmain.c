@@ -142,6 +142,7 @@ void bootmain(void) {
     // load each program segment (ignores ph flags)
     ph = (struct proghdr *)((unsigned int )ELFHDR + ELFHDR->phoff);
     eph = ph + ELFHDR->phnum;
+    //由于内核放在16MB处，至少需要28位对齐（0xFFFFFFF）
     for (; ph < eph; ph ++) {
         readseg(ph->p_va & 0xFFFFFFF, ph->p_memsz, ph->p_offset);
     }

@@ -1,4 +1,3 @@
-!/bin/sh
 #查看当前系统，目前只支持x86架构的类UNIX系统（Linux和MAC OS）
 OS=`uname -s`
 if [ "${OS}" == "Linux" ]; then

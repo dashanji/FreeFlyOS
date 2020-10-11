@@ -82,6 +82,7 @@ kernel_OBJECTS =
 
 # External object files for target kernel
 kernel_EXTERNAL_OBJECTS = \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/init/CMakeFiles/init.dir/init.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/asm/CMakeFiles/asm.dir/asm.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/debug/CMakeFiles/debug.dir/debug.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/dt/CMakeFiles/dt.dir/dt.c.o" \
@@ -91,11 +92,13 @@ kernel_EXTERNAL_OBJECTS = \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/keyboard/CMakeFiles/keyboard.dir/keyboard.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/main/CMakeFiles/main.dir/main.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/mem/CMakeFiles/mem.dir/pmm.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/mem/CMakeFiles/mem.dir/vmm.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/pic/CMakeFiles/pic.dir/pic.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/serial/CMakeFiles/serial.dir/serial.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/timer/CMakeFiles/timer.dir/timer.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/vga/CMakeFiles/vga.dir/vga.c.o"
 
+kernel/kernel: kernel/init/CMakeFiles/init.dir/init.c.o
 kernel/kernel: kernel/asm/CMakeFiles/asm.dir/asm.c.o
 kernel/kernel: kernel/debug/CMakeFiles/debug.dir/debug.c.o
 kernel/kernel: kernel/dt/CMakeFiles/dt.dir/dt.c.o
@@ -105,6 +108,7 @@ kernel/kernel: kernel/interrupt/CMakeFiles/interrupt.dir/vector.S.o
 kernel/kernel: kernel/keyboard/CMakeFiles/keyboard.dir/keyboard.c.o
 kernel/kernel: kernel/main/CMakeFiles/main.dir/main.c.o
 kernel/kernel: kernel/mem/CMakeFiles/mem.dir/pmm.c.o
+kernel/kernel: kernel/mem/CMakeFiles/mem.dir/vmm.c.o
 kernel/kernel: kernel/pic/CMakeFiles/pic.dir/pic.c.o
 kernel/kernel: kernel/serial/CMakeFiles/serial.dir/serial.c.o
 kernel/kernel: kernel/timer/CMakeFiles/timer.dir/timer.c.o

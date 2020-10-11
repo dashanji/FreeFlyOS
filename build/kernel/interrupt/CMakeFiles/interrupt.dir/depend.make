@@ -5,6 +5,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/trapentry.S.o: ../kernel/interrupt/tra
 
 kernel/interrupt/CMakeFiles/interrupt.dir/vector.S.o: ../kernel/interrupt/vector.S
 
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/debug/debug.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/interrupt/trap.c
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/interrupt/trap.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/timer/timer.h

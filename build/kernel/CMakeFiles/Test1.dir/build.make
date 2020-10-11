@@ -82,7 +82,7 @@ kernel/FreeFlyOS.img: kernel/kernel
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=/dev/zero of=FreeFlyOS.img count=10000
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=../boot/bootblock of=FreeFlyOS.img conv=notrunc
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=kernel of=FreeFlyOS.img seek=1 conv=notrunc
-	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && qemu-system-i386 -hda FreeFlyOS.img
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && qemu-system-i386 -m 2048 -hda FreeFlyOS.img
 
 Test1: kernel/CMakeFiles/Test1
 Test1: kernel/FreeFlyOS.img

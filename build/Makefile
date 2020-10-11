@@ -196,6 +196,19 @@ kernel/fast:
 .PHONY : kernel/fast
 
 #=============================================================================
+# Target rules for targets named init
+
+# Build rule for target.
+init: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 init
+.PHONY : init
+
+# fast build rule for target.
+init/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/init/CMakeFiles/init.dir/build.make kernel/init/CMakeFiles/init.dir/build
+.PHONY : init/fast
+
+#=============================================================================
 # Target rules for targets named asm
 
 # Build rule for target.
@@ -353,6 +366,7 @@ help:
 	@echo "... bootsector"
 	@echo "... debug"
 	@echo "... dt"
+	@echo "... init"
 	@echo "... interrupt"
 	@echo "... kernel"
 	@echo "... keyboard"

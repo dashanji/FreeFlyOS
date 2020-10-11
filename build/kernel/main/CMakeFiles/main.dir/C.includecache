@@ -15,6 +15,8 @@
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.c
+main.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
 ../asm/asm.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
 ../dt/dt.h
@@ -29,10 +31,16 @@
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 ../mem/pmm.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.h
+../mem/vmm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 ../debug/debug.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
 

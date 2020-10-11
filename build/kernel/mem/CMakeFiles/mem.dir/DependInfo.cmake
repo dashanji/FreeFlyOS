@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.c" "/Users/caoy/Desktop/FreeFlyOS/build/kernel/mem/CMakeFiles/mem.dir/pmm.c.o"
+  "/Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.c" "/Users/caoy/Desktop/FreeFlyOS/build/kernel/mem/CMakeFiles/mem.dir/vmm.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

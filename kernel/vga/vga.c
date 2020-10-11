@@ -6,8 +6,9 @@
 //the standard window is 80*25, max of cursor_x is 25, max of cursor_y is 80
 static unsigned char cursor_x=0;
 static unsigned char cursor_y=0;
-//the start address of CGA is 0xB8000
-static unsigned short *vga_memory=(unsigned short *)(0xB8000);
+//the start address of CGA is 0xB8000，此时开启了分页，应加上一个线性映射地址
+//避免后面新建页表时，未映射前面一段物理内存而导致BUG
+static unsigned short *vga_memory=(unsigned short *)(0xB8000+0xC0000000);
 /* print cursor */ 
 inline void print_cursor(unsigned char x,unsigned char y){
     unsigned short pos;

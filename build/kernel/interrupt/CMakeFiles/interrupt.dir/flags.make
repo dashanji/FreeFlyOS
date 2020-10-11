@@ -7,11 +7,11 @@ ASM_FLAGS = -Iinclude/ -Os -nostdlib -fno-builtin  -Wall -ggdb -m32 -gstabs -nos
 
 ASM_DEFINES = 
 
-ASM_INCLUDES = -I/kernel/interrupt -I/kernel/timer -I/kernel/vga 
+ASM_INCLUDES = -I/kernel/interrupt -I/kernel/debug -I/kernel/timer -I/kernel/vga 
 
 C_FLAGS = -nostdlib -g -m32 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk  
 
 C_DEFINES = 
 
-C_INCLUDES = -I/kernel/interrupt -I/kernel/timer -I/kernel/vga 
+C_INCLUDES = -I/kernel/interrupt -I/kernel/debug -I/kernel/timer -I/kernel/vga 
 

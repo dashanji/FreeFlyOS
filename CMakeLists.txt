@@ -7,11 +7,10 @@ set(CMAKE_CXX_COMPILER_WORKS TRUE)
 
 #项目信息
 project(FreeFlyOS C ASM)
-#ENABLE_LANGUAGE(ASM)
+
 set(CMAKE_C_FLAGS "-Iinclude/ -Os -nostdlib -fno-builtin  -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector")
 set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS}")
-#-ffreestanding -m32  -Wall  -g   -fno-exceptions 
-#-ffreestanding -Wextra -fno-exceptions -nostartfiles
+
 
 # Set cmake moudle path
 #set(CMAKE_MODULE_PATH "${FreeFlyOS_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})

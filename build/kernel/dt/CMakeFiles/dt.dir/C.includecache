@@ -13,6 +13,10 @@ dt.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
 ../asm/asm.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+../mem/memlayout.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
 

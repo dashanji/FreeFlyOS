@@ -1,6 +1,6 @@
 #include "dt.h"
 #include "../asm/asm.h"
-
+#include "../mem/memlayout.h"
 /* *
  * Global Descriptor Table:
  *
@@ -35,6 +35,8 @@ static struct gatedesc idt[256] = {{0}};
 static struct dtdesc gdtinfo={
     sizeof(gdt)-1,(unsigned int)gdt
 };
+//set tss
+static struct taskstate ts = {0};
 
 //set idt's info
 static struct dtdesc idtinfo = {
@@ -56,9 +58,24 @@ static inline void lgdt(struct dtdesc *dt){
     asm volatile ("ljmp %0, $1f\n 1:\n" :: "i" (KERNEL_CS));
 }
 
+static inline void ltr(unsigned short sel) {
+    asm volatile ("ltr %0" :: "r" (sel) : "memory");
+}
+
 /* 加载全局描述符表 */
 void gdt_init(){
+    // set boot kernel stack and default SS0
+    ts.ts_esp0=(unsigned int)KERNEL_STACK_START;
+    ts.ts_ss0 = KERNEL_DS;
+
+    // initialize the TSS filed of the gdt
+    gdt[SEG_TSS] = SEGTSS(STS_T32A, (unsigned int)&ts, sizeof(ts), DPL_KERNEL);
+
+    // reload all segment registers
     lgdt(&gdtinfo);
+
+    // load the TSS
+    ltr(GD_TSS);
 }
 
 /* 加载中断描述符表 */

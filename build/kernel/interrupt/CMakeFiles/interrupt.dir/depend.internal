@@ -6,6 +6,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/trapentry.S.o
 kernel/interrupt/CMakeFiles/interrupt.dir/vector.S.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/vector.S
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o
+ /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h

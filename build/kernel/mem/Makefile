@@ -172,6 +172,33 @@ pmm.c.s:
 	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/mem/CMakeFiles/mem.dir/build.make kernel/mem/CMakeFiles/mem.dir/pmm.c.s
 .PHONY : pmm.c.s
 
+vmm.o: vmm.c.o
+
+.PHONY : vmm.o
+
+# target to build an object file
+vmm.c.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/mem/CMakeFiles/mem.dir/build.make kernel/mem/CMakeFiles/mem.dir/vmm.c.o
+.PHONY : vmm.c.o
+
+vmm.i: vmm.c.i
+
+.PHONY : vmm.i
+
+# target to preprocess a source file
+vmm.c.i:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/mem/CMakeFiles/mem.dir/build.make kernel/mem/CMakeFiles/mem.dir/vmm.c.i
+.PHONY : vmm.c.i
+
+vmm.s: vmm.c.s
+
+.PHONY : vmm.s
+
+# target to generate assembly for a file
+vmm.c.s:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/mem/CMakeFiles/mem.dir/build.make kernel/mem/CMakeFiles/mem.dir/vmm.c.s
+.PHONY : vmm.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -184,6 +211,9 @@ help:
 	@echo "... pmm.o"
 	@echo "... pmm.i"
 	@echo "... pmm.s"
+	@echo "... vmm.o"
+	@echo "... vmm.i"
+	@echo "... vmm.s"
 .PHONY : help
 
 

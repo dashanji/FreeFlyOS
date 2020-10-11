@@ -13,6 +13,7 @@ set(CMAKE_ASM_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "/kernel/interrupt"
+  "/kernel/debug"
   "/kernel/timer"
   "/kernel/vga"
   )
@@ -24,6 +25,7 @@ set(CMAKE_C_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "/kernel/interrupt"
+  "/kernel/debug"
   "/kernel/timer"
   "/kernel/vga"
   )

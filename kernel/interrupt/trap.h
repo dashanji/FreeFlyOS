@@ -42,6 +42,9 @@
 #define T_SWITCH_TOU                120    // user/kernel switch
 #define T_SWITCH_TOK                121    // user/kernel switch
 
+#define NULL ((void *)0)
+#define FL_IOPL_MASK    0x00003000  // I/O Privilege Level bitmask
+
 /* registers as pushed by pushal */
 struct pushregs {
     unsigned int reg_edi;
@@ -77,6 +80,7 @@ struct trapframe {
     unsigned short tf_padding5;
 } __attribute__((packed));
 
+void print_trapframe(struct trapframe *tf);
 static void trap_dispatch(struct trapframe *tf);
 void trap(struct trapframe *tf);
 void disable_interupt();

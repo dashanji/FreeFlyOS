@@ -4,4 +4,5 @@
 kernel/dt/CMakeFiles/dt.dir/dt.c.o: ../kernel/asm/asm.h
 kernel/dt/CMakeFiles/dt.dir/dt.c.o: ../kernel/dt/dt.c
 kernel/dt/CMakeFiles/dt.dir/dt.c.o: ../kernel/dt/dt.h
+kernel/dt/CMakeFiles/dt.dir/dt.c.o: ../kernel/mem/memlayout.h
 

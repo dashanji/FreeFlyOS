@@ -34,6 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/init/cmake_install.cmake")
   include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/asm/cmake_install.cmake")
   include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/debug/cmake_install.cmake")
   include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/dt/cmake_install.cmake")

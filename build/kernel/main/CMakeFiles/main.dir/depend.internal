@@ -7,7 +7,9 @@ kernel/main/CMakeFiles/main.dir/main.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.c
+ /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/pmm.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h

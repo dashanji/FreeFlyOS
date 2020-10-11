@@ -6,7 +6,9 @@ kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/debug/debug.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/dt/dt.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/interrupt/trap.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/main/main.c
+kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/main/main.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/mem/pmm.h
+kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/mem/vmm.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/pic/pic.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/timer/timer.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/vga/vga.h

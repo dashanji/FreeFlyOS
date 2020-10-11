@@ -145,7 +145,6 @@ int kbd_proc_data(void) {
         printk("Rebooting!\b");
         outb(0x92, 0x3); // courtesy of Chris Frost
     }
-    
     return c;
 }
 
