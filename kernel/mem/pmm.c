@@ -89,7 +89,7 @@ void pmm_init(){
 	,pp[0x7FFFF].addr,pp[0x7FFFF].count);
 	*/
 	//打印管理区信息
-	printk("DMA page all_pages:%08ux\nfree_pages:%08ux\nstart:%08ux\nend:%08ux\n",
+/*	printk("DMA page all_pages:%08ux\nfree_pages:%08ux\nstart:%08ux\nend:%08ux\n",
 	dma_zone.all_pages,
 	dma_zone.free_pages,
 	dma_zone.pmpage[0].addr,
@@ -104,7 +104,7 @@ void pmm_init(){
 	highmem_zone.free_pages,
 	highmem_zone.pmpage[0].addr,
 	highmem_zone.pmpage[highmem_zone.all_pages-1].addr);
-
+*/
 	//设置内核页面被占用
 	for(unsigned int i=LA_PA((unsigned int)KERNEL_START);i<(unsigned int)(((unsigned int)LA_PA((unsigned int)&kernel_end)+PMM_PAGE_SIZE-1)&PMM_PAGE_MASK);i+=PMM_PAGE_SIZE){
 		normal_zone.pmpage[(i-LA_PA((unsigned int)KERNEL_START))/PMM_PAGE_SIZE].count=1;
@@ -117,4 +117,88 @@ void pmm_init(){
 	}
 	printk("DMA free_pages:%08ux\tNORMAL free_pages:%08ux\tHIGHMEM free_pages:%08ux\n",
 	dma_zone.free_pages, normal_zone.free_pages, highmem_zone.free_pages);
+}
+/*
+**		最简单的物理页分配算法：按页分配，不满一页则分配一页
+** 			bytes:申请字节数 zonenum:所属管理区
+*/
+unsigned int pmm_alloc(unsigned int bytes,char zonenum){
+	
+	unsigned int page,addr;
+	unsigned int start,end,num=0;
+	pm_zone *zone_ptr;
+
+	//需要分配的页数
+	page=(bytes+PMM_PAGE_SIZE-1)/PMM_PAGE_SIZE;
+	printk("page:%08ux\n",page);
+
+	//分配管理区
+	if(zonenum==0){
+		zone_ptr=&dma_zone;
+	}
+	else if(zonenum==1){
+		zone_ptr=&normal_zone;
+	}
+	else{
+		zone_ptr=&highmem_zone;
+	}
+
+	//找到连续的page页
+	start=0;
+	for(unsigned int i=0;i<zone_ptr->all_pages;i++){
+		if(zone_ptr->pmpage[i].count==-1){
+			num++;
+			end=i;
+		}
+		else{
+			start=i+1;
+			num=0;
+		}
+		if(num==page){
+			break;
+		}
+	}
+
+	//设置管理区属性
+	for(unsigned int i=start;i<=end;i++){
+		zone_ptr->pmpage[i].count=1;
+		zone_ptr->free_pages--;
+	}
+
+	return zone_ptr->pmpage[start].addr;
+}
+
+/*
+**		物理页释放算法：按页释放，不满一页则释放一页
+** 		addr:起始地址 bytes:释放字节数 
+*/
+void pmm_free(unsigned int addr,unsigned int bytes){
+
+	unsigned int page;
+	pm_zone *zone_ptr;
+	//需要释放的页数
+	page=(bytes+PMM_PAGE_SIZE-1)/PMM_PAGE_SIZE;
+
+	//分配管理区
+	if(addr<NORMAL_START){
+		zone_ptr=&dma_zone;
+	}
+	else if(addr<HIGHMEM_START){
+		addr-=(unsigned int)NORMAL_START;
+		zone_ptr=&normal_zone;
+	}
+	else{
+		addr-=(unsigned int)HIGHMEM_START;
+		zone_ptr=&highmem_zone;
+	}
+
+	//设置管理区属性
+	unsigned int start=addr&PMM_PAGE_MASK;
+	//起始页号
+	unsigned int pgstart=start/(unsigned int)PMM_PAGE_SIZE;
+	for(unsigned int i=0;i<page;i++){
+		zone_ptr->pmpage[pgstart++].count=-1;
+		zone_ptr->free_pages++;
+	}
+	
 }

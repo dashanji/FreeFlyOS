@@ -60,5 +60,7 @@ typedef struct zone{
 }pm_zone;
 
 void pmm_init();
+unsigned int pmm_alloc(unsigned int bytes,char zone);
+void pmm_free(unsigned int addr,unsigned int bytes);
 
 #endif
