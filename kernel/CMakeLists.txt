@@ -9,6 +9,7 @@ add_subdirectory(interrupt)
 add_subdirectory(keyboard)
 add_subdirectory(main)
 add_subdirectory(mem)
+add_subdirectory(task)
 add_subdirectory(pic)
 add_subdirectory(serial)
 add_subdirectory(timer)
@@ -24,6 +25,7 @@ add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:keyboard>
         $<TARGET_OBJECTS:main>
         $<TARGET_OBJECTS:mem>
+        $<TARGET_OBJECTS:task>
         $<TARGET_OBJECTS:pic>
         $<TARGET_OBJECTS:serial>
         $<TARGET_OBJECTS:timer>

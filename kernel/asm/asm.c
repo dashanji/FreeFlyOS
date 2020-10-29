@@ -33,3 +33,32 @@ inline void outw(unsigned short port, unsigned short data) {
 }
 
 
+static inline void *
+__memset(void *s, char c, unsigned int n) {
+    int d0, d1;
+    asm volatile (
+        "rep; stosb;"
+        : "=&c" (d0), "=&D" (d1)
+        : "0" (n), "a" (c), "1" (s)
+        : "memory");
+    return s;
+}
+
+/* *
+ * memset - sets the first @n bytes of the memory area pointed by @s
+ * to the specified value @c.
+ * @s:      pointer the the memory area to fill
+ * @c:      value to set
+ * @n:      number of bytes to be set to the value
+ *
+ * The memset() function returns @s.
+ * */
+void *
+memset(void *s, char c, unsigned int n) {
+    return __memset(s, c, n);
+}
+
+void CPU_INVLPG(unsigned int addr) {
+    __asm__ volatile("invlpg (%0)" : : "r"(addr) : "memory");
+    return;
+}

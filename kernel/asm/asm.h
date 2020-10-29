@@ -27,5 +27,7 @@ unsigned short inw(unsigned short port);
 void outb(unsigned short port,unsigned char data);
 //write a word to port
 void outw(unsigned short port, unsigned short data);
-
+static inline void *__memset(void *s, char c, unsigned int n);
+void *memset(void *s, char c, unsigned int n); 
+void CPU_INVLPG(unsigned int addr);
 #endif

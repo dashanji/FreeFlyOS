@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.c
+debug.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
+../vga/vga.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+

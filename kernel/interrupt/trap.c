@@ -59,7 +59,7 @@ static void trap_dispatch(struct trapframe *tf)
     switch (tf->tf_trapno) {
         case T_PGFLT:
             //print_trapframe(tf);
-            //printk("queye\n");
+            printk("queye\n");
             break;
         case IRQ_OFFSET + IRQ_TIMER:
             tick++;

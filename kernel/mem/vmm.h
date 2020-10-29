@@ -15,13 +15,17 @@
 //bit0代表页或页表存在位，为1时，说明页在物理内存中，指向地址转换
 //              为0时，表示页不在内存中，若访问则出现页故障异常
 #define VMM_PAGE_PRESENT 0x1 
+#define VMM_PAGE_UNPRESENT 0x0
 //bit1代表一个页或一组页的读/写标志，为0时只读，为1时可读可写
 #define VMM_PAGE_RW      0x2 
 //bit2代表一个页或一组页的权限，为0时内核权限，为1时用户权限
 #define VMM_PAGE_KERNEL  0x0
+#define VMM_PAGE_USER    0x4
 
-
-
+//addr开始的虚拟地址在页目录表中的项数
+#define idx(addr) (unsigned int)((unsigned int)addr)/((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)
 
 void setup_vpt();
+unsigned int vmm_malloc(unsigned int bytes,char zonenum);
+void vmm_free(unsigned int addr,unsigned int bytes);
 #endif

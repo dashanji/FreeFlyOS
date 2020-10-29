@@ -1,7 +1,7 @@
 #include  "pmm.h"
 #include  "memlayout.h"
 #include  "../vga/vga.h"
-
+#include  "../asm/asm.h"
 /*
 *   在链接脚本kernel.ld中确定的内核结束地址，该值相当于一个指针
 *	   &kernel_start相当于内核起始地址的VMA
@@ -130,7 +130,7 @@ unsigned int pmm_alloc(unsigned int bytes,char zonenum){
 
 	//需要分配的页数
 	page=(bytes+PMM_PAGE_SIZE-1)/PMM_PAGE_SIZE;
-	printk("page:%08ux\n",page);
+	//printk("page:%08ux\n",page);
 
 	//分配管理区
 	if(zonenum==0){
@@ -197,8 +197,10 @@ void pmm_free(unsigned int addr,unsigned int bytes){
 	//起始页号
 	unsigned int pgstart=start/(unsigned int)PMM_PAGE_SIZE;
 	for(unsigned int i=0;i<page;i++){
-		zone_ptr->pmpage[pgstart++].count=-1;
+		//memset(PA_LA(zone_ptr->pmpage[pgstart].addr),0,PMM_PAGE_SIZE);
+		zone_ptr->pmpage[pgstart].count=-1;
 		zone_ptr->free_pages++;
+		pgstart++;
 	}
 	
 }

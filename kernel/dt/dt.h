@@ -115,13 +115,13 @@ struct taskstate {
     unsigned int ts_link;       // old ts selector
     unsigned int ts_esp0;      // stack pointers and segment selectors
     unsigned short ts_ss0;        // after an increase in privilege level
-    unsigned short ts_padding1;
+    unsigned short ts_padding1;  //Reserved bits.set to 0
     unsigned int ts_esp1;
     unsigned short ts_ss1;
-    unsigned short ts_padding2;
+    unsigned short ts_padding2;  //Reserved bits.set to 0
     unsigned int ts_esp2;
     unsigned short ts_ss2;
-    unsigned short ts_padding3;
+    unsigned short ts_padding3;   //Reserved bits.set to 0
     unsigned int ts_cr3;       // page directory base
     unsigned int ts_eip;       // saved state from last task switch
     unsigned int ts_eflags;
@@ -134,26 +134,26 @@ struct taskstate {
     unsigned int ts_esi;
     unsigned int ts_edi;
     unsigned short ts_es;         // even more saved state (segment selectors)
-    unsigned short ts_padding4;
+    unsigned short ts_padding4;  //Reserved bits.set to 0
     unsigned short ts_cs;
-    unsigned short ts_padding5;
+    unsigned short ts_padding5;  //Reserved bits.set to 0
     unsigned short ts_ss;
-    unsigned short ts_padding6;
+    unsigned short ts_padding6;  //Reserved bits.set to 0
     unsigned short ts_ds;
-    unsigned short ts_padding7;
+    unsigned short ts_padding7;  //Reserved bits.set to 0
     unsigned short ts_fs;
-    unsigned short ts_padding8;
+    unsigned short ts_padding8;  //Reserved bits.set to 0
     unsigned short ts_gs;
-    unsigned short ts_padding9;
+    unsigned short ts_padding9;  //Reserved bits.set to 0
     unsigned short ts_ldt;
-    unsigned short ts_padding10;
+    unsigned short ts_padding10;  //Reserved bits.set to 0
     unsigned short ts_t;          // trap on task switch
     unsigned short ts_iomb;       // i/o map base address
 } __attribute__((packed));
 
 static inline void lgdt(struct dtdesc *dt);
 static inline void lidt(struct dtdesc *dt);
-static inline void ltr(unsigned short sel);
+void ltr(unsigned short sel);
 void lidt(struct dtdesc *dt);
 void gdt_init();
 void idt_init();

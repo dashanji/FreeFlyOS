@@ -12,15 +12,16 @@
  *   - 0x10:  kernel data segment
  *   - 0x18:  user code segment
  *   - 0x20:  user data segment
- *   - 0x28:  defined for tss, initialized in gdt_init
+ *   - 0x28:  defined for tss
  * */
-static struct segdesc gdt[] = {
+struct segdesc gdt[] = {
     SEG_NULL, //null
     SEG(STA_X | STA_R, 0x0, 0xFFFFFFFF, DPL_KERNEL),  //kernel text
     SEG(STA_W, 0x0, 0xFFFFFFFF, DPL_KERNEL),   //kernel data
     SEG(STA_X | STA_R, 0x0, 0xFFFFFFFF, DPL_USER),  //user text
     SEG(STA_W, 0x0, 0xFFFFFFFF, DPL_USER),   //user data
     SEG_NULL,  //tss
+    SEG_NULL   //ldt0
 };
 
 /* *
@@ -36,7 +37,7 @@ static struct dtdesc gdtinfo={
     sizeof(gdt)-1,(unsigned int)gdt
 };
 //set tss
-static struct taskstate ts = {0};
+//static struct taskstate ts = {0};
 
 //set idt's info
 static struct dtdesc idtinfo = {
@@ -58,24 +59,24 @@ static inline void lgdt(struct dtdesc *dt){
     asm volatile ("ljmp %0, $1f\n 1:\n" :: "i" (KERNEL_CS));
 }
 
-static inline void ltr(unsigned short sel) {
+void ltr(unsigned short sel) {
     asm volatile ("ltr %0" :: "r" (sel) : "memory");
 }
 
 /* 加载全局描述符表 */
 void gdt_init(){
     // set boot kernel stack and default SS0
-    ts.ts_esp0=(unsigned int)KERNEL_STACK_START;
-    ts.ts_ss0 = KERNEL_DS;
+    //ts.ts_esp0=(unsigned int)KERNEL_STACK_START;
+    //ts.ts_ss0 = KERNEL_DS;
 
     // initialize the TSS filed of the gdt
-    gdt[SEG_TSS] = SEGTSS(STS_T32A, (unsigned int)&ts, sizeof(ts), DPL_KERNEL);
+    //gdt[SEG_TSS] = SEGTSS(STS_T32A, (unsigned int)&ts, sizeof(ts), DPL_KERNEL);
 
     // reload all segment registers
     lgdt(&gdtinfo);
 
     // load the TSS
-    ltr(GD_TSS);
+    //ltr(GD_TSS);
 }
 
 /* 加载中断描述符表 */
