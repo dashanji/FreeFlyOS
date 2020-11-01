@@ -15,6 +15,7 @@
 #define GD_UTEXT    ((3) << 3)      // user text
 #define GD_UDATA    ((4) << 3)      // user data
 #define GD_TSS      ((5) << 3)        // task segment selector
+#define GD_TSS1     ((6) << 3)        // task1 segment selector
 #define DPL_KERNEL  (0)
 #define DPL_USER    (3)
 
@@ -31,6 +32,7 @@
 
 #define STS_T32A        0x9         // Available 32-bit TSS
 #define SEG_TSS         0x5
+#define SEG_TSS1        0x6
 
 #define SEG_NULL                                            \
     (struct segdesc) {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}

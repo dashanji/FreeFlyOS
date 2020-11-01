@@ -45,7 +45,7 @@ void main(void)
     
     task_init();
     
-    print_seg();
+    //print_seg();
     //printk("successful\n");
     while(1);
 }
