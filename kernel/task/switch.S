@@ -2,6 +2,7 @@
 .globl switch_to
 switch_to:                      # switch_to(from, to)
 
+    # 参数是结构体指针，所以需要进行两次内存寻址
     # save from's registers
     movl 4(%esp), %eax          # eax points to from
     popl 0(%eax)                # save eip !popl
@@ -24,6 +25,7 @@ switch_to:                      # switch_to(from, to)
     movl 8(%eax), %ebx
     movl 4(%eax), %esp
 
+    #  将寄存器恢复为下一个进程的进程上下文，下一步执行to->context.eip
     pushl 0(%eax)               # push eip
 
     ret

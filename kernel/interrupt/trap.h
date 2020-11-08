@@ -55,7 +55,7 @@ struct pushregs {
     unsigned int reg_edx;
     unsigned int reg_ecx;
     unsigned int reg_eax;
-};
+}__attribute__((packed));
 
 struct trapframe {
     struct pushregs tf_regs;

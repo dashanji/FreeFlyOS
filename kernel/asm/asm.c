@@ -58,6 +58,41 @@ memset(void *s, char c, unsigned int n) {
     return __memset(s, c, n);
 }
 
+static inline void *
+__memcpy(void *dst, const void *src, unsigned int n) {
+    int d0, d1, d2;
+    asm volatile (
+        "rep; movsl;"
+        "movl %4, %%ecx;"
+        "andl $3, %%ecx;"
+        "jz 1f;"
+        "rep; movsb;"
+        "1:"
+        : "=&c" (d0), "=&D" (d1), "=&S" (d2)
+        : "0" (n / 4), "g" (n), "1" (dst), "2" (src)
+        : "memory");
+    return dst;
+}
+
+/* *
+ * memcpy - copies the value of @n bytes from the location pointed by @src to
+ * the memory area pointed by @dst.
+ * @dst     pointer to the destination array where the content is to be copied
+ * @src     pointer to the source of data to by copied
+ * @n:      number of bytes to copy
+ *
+ * The memcpy() returns @dst.
+ *
+ * Note that, the function does not check any terminating null character in @src,
+ * it always copies exactly @n bytes. To avoid overflows, the size of arrays pointed
+ * by both @src and @dst, should be at least @n bytes, and should not overlap
+ * (for overlapping memory area, memmove is a safer approach).
+ * */
+void *
+memcpy(void *dst, const void *src, unsigned int n) {
+    return __memcpy(dst, src, n);
+}
+
 void CPU_INVLPG(unsigned int addr) {
     __asm__ volatile("invlpg (%0)" : : "r"(addr) : "memory");
     return;

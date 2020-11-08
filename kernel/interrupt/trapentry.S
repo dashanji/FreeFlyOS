@@ -41,3 +41,9 @@ __trapret:
     # get rid of the trap number and error code
     addl $0x8, %esp
     iret
+
+.globl forkrets
+forkrets:
+    # set stack to this new task's trapframe
+    movl 4(%esp), %esp
+    jmp __trapret
