@@ -4,7 +4,6 @@
 #include "../dt/dt.h"
 #include "../mem/vmm.h"
 #include "../mem/memlayout.h"
-#include "../debug/debug.h"
 #include "../asm/asm.h"
 #include "../interrupt/trap.h"
 #include "../vga/vga.h"
@@ -108,5 +107,9 @@ static void wakeup_task(struct task_struct *task);
 void schedule(); 
 
 static int print_taskinfo(void *arg); 
+static void print_task1();
+static void print_task2();
 void do_exit();
+
+int do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned int size);
 #endif

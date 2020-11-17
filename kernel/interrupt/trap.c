@@ -2,7 +2,7 @@
 #include "../vga/vga.h"
 #include "../timer/timer.h"
 #include "../debug/debug.h"
-
+#include "../dt/dt.h"
 unsigned int tick=0;    //时钟中断次数
 
 static const char *IA32flags[] = {
@@ -61,6 +61,9 @@ static void trap_dispatch(struct trapframe *tf)
             //print_trapframe(tf);
             printk("queye\n");
             break;
+        case T_SYSCALL:
+            syscall();
+            break;
         case IRQ_OFFSET + IRQ_TIMER:
             tick++;
             if (tick % 100 == 0){
@@ -94,4 +97,36 @@ void disable_interupt(){
 void enable_interupt(){
     // 开启中断
     asm volatile ("sti");
+}
+/*
+**   获取当前中断状态
+*/
+enum intr_status get_now_intr_status(){
+    unsigned int eflags=0;
+    get_intr_status(eflags);
+    return (EFLAGS_IF & eflags) ? INTR_ON : INTR_OFF ;
+}
+/*
+**   开中断并获取之前的中断状态
+*/
+enum intr_status intr_enable(){
+    if(get_now_intr_status()==INTR_OFF){
+        enable_interupt();
+        return INTR_OFF;
+    }
+    else{
+        return INTR_ON;
+    }
+}
+/*
+**   关中断并获取之前的中断状态
+*/
+enum intr_status intr_disable(){
+    if(get_now_intr_status()==INTR_ON){
+        disable_interupt();
+        return INTR_ON;
+    }
+    else{
+        return INTR_OFF;
+    }
 }

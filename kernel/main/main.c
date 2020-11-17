@@ -10,6 +10,7 @@
 #include "../debug/debug.h"
 #include "../task/task.h"
 
+
 //三个管理区
 extern pm_zone dma_zone;
 extern pm_zone normal_zone;
@@ -29,12 +30,12 @@ void main(void)
     pic_init();
     idt_init();
     timer_init(200);
-
+    
     enable_interupt();
-
+    
     serial_init();
     kbd_init();
-
+    ASSERT(1==2);
     setup_vpt();
     pmm_init();
 
@@ -42,8 +43,9 @@ void main(void)
 
     test_vmm();
 
-    
+   
     task_init();
+    
     
     //print_seg();
     //printk("successful\n");
@@ -107,7 +109,7 @@ void test_vmm(){
     vmm_free(dma_addr,0x100);
     vmm_free(nor_addr,0x2000);
     vmm_free(high_addr,0x3000);
-        unsigned int dma3_addr=vmm_malloc(0x100,0);
+    unsigned int dma3_addr=vmm_malloc(0x100,0);
     unsigned int nor3_addr=vmm_malloc(0x2000,1);
     unsigned int high3_addr=vmm_malloc(0x3000,2);
     printk("DMA---dma_addr:%08ux\n",dma3_addr);

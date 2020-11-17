@@ -1,6 +1,7 @@
 #ifndef _VMM_H_
 #define _VMM_H_
 
+#include "../stl/list.h"
 //虚拟页大小
 #define VMM_PAGE_SIZE 0x1000
 
@@ -25,7 +26,35 @@
 //addr开始的虚拟地址在页目录表中的项数
 #define idx(addr) (unsigned int)((unsigned int)addr)/((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)
 
+//将链表节点转化为vma_struct起始地址
+#define le2vma(le, member)                  \
+    to_struct((le), struct vma_struct, member)
+
+#define VMA_READ 0x1    //只读
+#define VMA_WRITE 0x2   //只写
+#define VMA_EXEC 0x4    //只执行 
+
+//VMA数据结构，为了分配大量连续的页
+struct vma_struct{
+    //struct mm_struct *vm_mm;
+    unsigned int vm_start; //虚拟内存区域起始地址
+    unsigned int vm_end; //结束地址
+    unsigned int vm_flags; //标志变量
+    //list_entry_t link;
+};
+
+//包含所有VMA的共同属性
+/*struct mm_struct{
+    list_entry_t mmap_link; 
+    struct vma_struct *mmap_cache; //包含的所有VMA区域
+    unsigned int *pgdir; //包含的VMA区域所属页表
+    int map_count;  //包含的VMA区域计数器
+}; */
+
 void setup_vpt();
 unsigned int vmm_malloc(unsigned int bytes,char zonenum);
 void vmm_free(unsigned int addr,unsigned int bytes);
+
+void vmm_map(unsigned int *pdt,unsigned int start,unsigned int end);
+unsigned int setup_pgdir();
 #endif

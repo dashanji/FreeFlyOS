@@ -4,6 +4,7 @@
 #include "../vga/vga.h"
 #include "../interrupt/trap.h"
 #include "../asm/asm.h"
+#include "../stl/defs.h"
 //新页目录表
 unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 //将DMA和NORMAL区域(0xC0000000-0xF8000000)线性映射到0x0-896MB处，刚好224个页表
@@ -12,8 +13,13 @@ unsigned int pt_dma_nomal[(unsigned int)HIGHMEM_START/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
 [PAGE_TABLE_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 
-//HIGHMEM区域动态映射
+//内核HIGHMEM区域动态映射
 unsigned int pt_highmem[((unsigned int)0x40000000-(unsigned int)HIGHMEM_START)/
+((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
+[PAGE_TABLE_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
+
+//用户HIGHMEM区域动态映射
+unsigned int user_pt_highmem[(unsigned int)0xC0000000/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
 [PAGE_TABLE_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 
@@ -116,3 +122,74 @@ void vmm_free(unsigned int addr,unsigned int bytes){
 		pmm_free(LA_PA(addr),bytes);
 	}
 }
+
+/*
+**           vmm_map(pdt,start,end)
+**             pdt为待映射的页表基址
+** 将虚拟地址start-end的区域映射到HIGHMEM区域，建立页表映射关系
+**      （DMA和NORMAL区域已经默认映射内核 ）
+**       
+*/
+void vmm_map(unsigned int *pdt,unsigned int start,unsigned int end){
+    
+    unsigned int page;
+    //需要映射的实际地址
+    unsigned int map_start=start&(unsigned int)VMM_PAGE_MASK;
+    unsigned int map_end=round_up_to(end,VMM_PAGE_MASK);
+    unsigned int pos=map_start;
+    //计算需要分配的页数
+    page=round_up_to(map_end-map_start,PMM_PAGE_MASK);
+    for(unsigned int i=0;i<page;i++){
+            user_pt_highmem[i/PAGE_TABLE_SIZE][i%PAGE_TABLE_SIZE]=
+            pos|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+            pos+=VMM_PAGE_SIZE;
+        }
+        unsigned int pt_num=page/PAGE_TABLE_SIZE;
+        for(unsigned int i=0;i<pt_num;i++){
+            pdt[i+idx(map_start)]=LA_PA((unsigned int)user_pt_highmem[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+        }
+}
+
+// setup_pgdir - alloc one page as PDT
+unsigned int
+setup_pgdir() {
+    unsigned int pdt_start=vmm_malloc(VMM_PAGE_SIZE,1);
+    memcpy(pdt_start, new_pdt, VMM_PAGE_SIZE);
+    //pgdir[PDX(VPT)] = PADDR(pgdir) | PTE_P | PTE_W;
+    //mm->pgdir = pgdir;
+    return pdt_start;
+}
+/*
+**   vma_malloc:分配VMA区域
+**   vm_start:虚拟区域起始地址
+**   vm_end:虚拟区域结束地址   
+**   vm_flags:虚拟区域属性，可读、可写、可执行
+**   zonenum:VMA区域所属管理区
+*/
+/*struct vma_struct *
+vma_create(unsigned int vm_start, unsigned int vm_end, unsigned int vm_flags,char zonenum) {
+    unsigned int size=round_up_to(vm_end-vm_start,VMM_PAGE_SIZE);
+    struct vma_struct *vma = vmm_malloc(size,zonenum);
+
+    if (vma != NULL) {
+        vma->vm_start = vm_start;
+        vma->vm_end = vm_end;
+        vma->vm_flags = vm_flags;
+    }
+    return vma;
+}
+
+struct mm_struct *
+mm_create(char zonenum) {
+    struct mm_struct *mm = vmm_malloc(sizeof(struct mm_struct),zonenum);
+
+    if (mm != NULL) {
+        list_init(&(mm->mmap_link));
+        mm->mmap_cache = NULL;
+        mm->pgdir = NULL;
+        mm->map_count = 0;
+        
+        set_mm_count(mm, 0);
+    }    
+    return mm;
+}*/

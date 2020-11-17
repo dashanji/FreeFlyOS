@@ -1,4 +1,4 @@
-#ifndef  _SERIAL_H_
+#ifndef _SERIAL_H_
 #define _SERIAL_H_
 
 #define COM1            0x3F8

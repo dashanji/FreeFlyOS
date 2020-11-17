@@ -1,4 +1,4 @@
-#ifndef  _VGA_H_
+#ifndef _VGA_H_
 #define _VGA_H_
 
 //the max of unsigned char is 255 in dec(3 character)

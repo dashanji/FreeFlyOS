@@ -14,7 +14,7 @@ add_subdirectory(pic)
 add_subdirectory(serial)
 add_subdirectory(timer)
 add_subdirectory(vga)
-
+#add_subdirectory(user)
 
 add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:init>
@@ -28,12 +28,13 @@ add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:task>
         $<TARGET_OBJECTS:pic>
         $<TARGET_OBJECTS:serial>
-        $<TARGET_OBJECTS:timer>
-        $<TARGET_OBJECTS:vga>      
+        $<TARGET_OBJECTS:timer>    
+        $<TARGET_OBJECTS:vga>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE -T ${FreeFlyOS_SOURCE_DIR}/kernel/kernel.ld)
 target_link_options(${PROJECT_NAME} PRIVATE -Wl,-melf_i386)
+#target_link_options(${PROJECT_NAME} PRIVATE -Wl,--format=binary  $<TARGET_OBJECTS:timer>)
 
 set(IMG "FreeFlyOS.img")
 add_custom_command(OUTPUT ${IMG}
@@ -42,7 +43,7 @@ add_custom_command(OUTPUT ${IMG}
     COMMAND
         echo "Generating FreeFlyOS.img..."
     COMMAND
-        dd if=/dev/zero of=${IMG} count=10000	    
+        dd if=/dev/zero of=${IMG} count=10000	     
     COMMAND    
         dd if=../boot/bootblock of=FreeFlyOS.img conv=notrunc
     COMMAND

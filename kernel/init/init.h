@@ -21,9 +21,10 @@ __attribute__( (section(".init.data") ) ) unsigned int pdt[page_dir_size]__attri
 __attribute__( (section(".init.data") ) ) unsigned int pt_init[page_table_size]__attribute__( (aligned(vmm_page_size) ) );
 //专门为VGA设备映射建立的页表
 __attribute__( (section(".init.data") ) ) unsigned int pt[page_table_size]__attribute__( (aligned(vmm_page_size) ) );
-//目前内核还不大，假定其大小不超过8MB，即两个页表
+//目前内核还不大，假定其大小不超过12MB，即三个页表
 __attribute__( (section(".init.data") ) ) unsigned int pt1[page_table_size]__attribute__( (aligned(vmm_page_size) ) );
 __attribute__( (section(".init.data") ) ) unsigned int pt2[page_table_size]__attribute__( (aligned(vmm_page_size) ) );
+__attribute__( (section(".init.data") ) ) unsigned int pt3[page_table_size]__attribute__( (aligned(vmm_page_size) ) );
 //内核栈大小为8KB,起始地址为0xF8000000，只需一个页表即可
 __attribute__( (section(".init.data") ) ) unsigned int stack_pt[page_table_size]__attribute__( (aligned(vmm_page_size) ) );
 

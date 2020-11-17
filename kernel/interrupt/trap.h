@@ -45,6 +45,16 @@
 #define NULL ((void *)0)
 #define FL_IOPL_MASK    0x00003000  // I/O Privilege Level bitmask
 
+/*
+**   中断状态
+*/
+enum intr_status{
+    INTR_OFF=0,
+    INTR_ON=1,
+};
+#define EFLAGS_IF 0x00000200  //中断标志位
+#define get_intr_status(eflag_val) asm volatile("pushfl ; popl %0":"=g"(eflag_val))
+
 /* registers as pushed by pushal */
 struct pushregs {
     unsigned int reg_edi;
@@ -85,5 +95,7 @@ static void trap_dispatch(struct trapframe *tf);
 void trap(struct trapframe *tf);
 void disable_interupt();
 void enable_interupt();
-
+enum intr_status get_now_intr_status();
+enum intr_status intr_enable();
+enum intr_status intr_disable();
 #endif

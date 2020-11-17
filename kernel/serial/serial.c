@@ -18,6 +18,7 @@ void delay(void)
 }
 
 void serial_init(void) {
+
     // Turn off the FIFO
     outb(COM1 + COM_FCR, 0);
 

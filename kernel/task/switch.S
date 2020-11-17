@@ -14,6 +14,7 @@ switch_to:                      # switch_to(from, to)
     movl %edi, 24(%eax)
     movl %ebp, 28(%eax)
 
+    # eax=0
     # restore to's registers
     movl 4(%esp), %eax          # not 8(%esp): popped return address already
                                 # eax now points to to

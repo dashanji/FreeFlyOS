@@ -39,7 +39,7 @@ SECTIONS
     { 
         *(.text .stub .text.* .gnu.linkonce.t.*)
     }
-    
+    PROVIDE(kernel_rodata = .);
     .rodata :  AT(ADDR(.rodata) - 0xC0000000) 
     {
         *(.rodata .rodata.* .gnu.linkonce.r.*)
@@ -48,11 +48,13 @@ SECTIONS
     /* Adjust the address for the data segment to the next page */
      . = ALIGN(0x1000); 
 
+    PROVIDE(kernel_data = .);
     /* The data segment */
     .data : AT(ADDR(.data) - 0xC0000000) 
     {
         *(.data)
     }
+    PROVIDE(kernel_bss = .);
 
     .bss :  AT(ADDR(.bss) - 0xC0000000) 
     {

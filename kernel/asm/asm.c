@@ -93,7 +93,67 @@ memcpy(void *dst, const void *src, unsigned int n) {
     return __memcpy(dst, src, n);
 }
 
+/* *
+ * strlen - calculate the length of the string @s, not including
+ * the terminating '\0' character.
+ * @s:      the input string
+ *
+ * The strlen() function returns the length of string @s.
+ * */
+unsigned int
+strlen(const char *s) {
+    unsigned int cnt = 0;
+    while (*s ++ != '\0') {
+        cnt ++;
+    }
+    return cnt;
+}
+
+static inline int
+__strcmp(const char *s1, const char *s2) {
+    int d0, d1, ret;
+    asm volatile (
+        "1: lodsb;"
+        "scasb;"
+        "jne 2f;"
+        "testb %%al, %%al;"
+        "jne 1b;"
+        "xorl %%eax, %%eax;"
+        "jmp 3f;"
+        "2: sbbl %%eax, %%eax;"
+        "orb $1, %%al;"
+        "3:"
+        : "=a" (ret), "=&S" (d0), "=&D" (d1)
+        : "1" (s1), "2" (s2)
+        : "memory");
+    return ret;
+}
+
+/* *
+ * strcmp - compares the string @s1 and @s2
+ * @s1:     string to be compared
+ * @s2:     string to be compared
+ *
+ * This function starts comparing the first character of each string. If
+ * they are equal to each other, it continues with the following pairs until
+ * the characters differ or until a terminanting null-character is reached.
+ *
+ * Returns an integral value indicating the relationship between the strings:
+ * - A zero value indicates that both strings are equal;
+ * - A value greater than zero indicates that the first character that does
+ *   not match has a greater value in @s1 than in @s2;
+ * - And a value less than zero indicates the opposite.
+ * */
+int
+strcmp(const char *s1, const char *s2) {
+    return __strcmp(s1, s2);
+}
+
 void CPU_INVLPG(unsigned int addr) {
     __asm__ volatile("invlpg (%0)" : : "r"(addr) : "memory");
     return;
+}
+void
+lcr3(unsigned int cr3) {
+    asm volatile ("mov %0, %%cr3" :: "r" (cr3) : "memory");
 }

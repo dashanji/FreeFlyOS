@@ -160,4 +160,5 @@ void lidt(struct dtdesc *dt);
 void gdt_init();
 void idt_init();
 
+void set_ts_esp0(unsigned int esp);
 #endif

@@ -19,6 +19,8 @@ set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS}")
 #增加boot子目录和kernel子目录
 add_subdirectory(boot)
 
+#add_subdirectory(user)
+#set(${user}.out obj_user.out)
 set(CMAKE_C_FLAGS "-nostdlib -g -m32")
 add_subdirectory(kernel)
 

@@ -3,11 +3,12 @@
 */
 #include "init.h"
 #include "../mem/memlayout.h"
-
+#include "../debug/debug.h"
 /*
 *        具体映射关系已经在kernel.ld中定义即，LMA=VMA-0xC0000000，故
 *               只需将内核所在的地址写入页表，并开启分页即可。
 */
+extern unsigned int kernel_end;
 void init()
 {
     //内核 起始页在页目录表中的第几项
@@ -23,6 +24,7 @@ void init()
     //内核部分对应的页目录表项
     pdt[kernel_pdt_idx]=(unsigned int)pt1|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     pdt[kernel_pdt_idx+1]=(unsigned int)pt2|vmm_page_present|vmm_page_rw|vmm_page_kernel;
+    pdt[kernel_pdt_idx+2]=(unsigned int)pt3|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     //内核栈部分对应的页目录表项
     pdt[stack_pdt_idx]=(unsigned int)stack_pt|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     
@@ -46,7 +48,10 @@ void init()
     for(unsigned int i=0,j=0x1000000+vmm_page_size*page_table_size;i<page_table_size;i++,j+=vmm_page_size){
         pt2[i]=j|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     }
-
+    //将内核开始的8MB-12MB映射到物理地址，即虚拟地址0xC1800000-0xC1B00000映射到物理地址0x01800000-0x01B00000
+    for(unsigned int i=0,j=0x1000000+vmm_page_size*page_table_size*2;i<page_table_size;i++,j+=vmm_page_size){
+        pt3[i]=j|vmm_page_present|vmm_page_rw|vmm_page_kernel;
+    }
     //计算栈底在页表中的第几项，栈是向低地址增长的，实际栈为0xF7FFE000-0xF8000000，映射到0x37FFE000-0x38000000
     unsigned int stack_pt_idx=(((KERNEL_STACK_START-KERNEL_STACK_SIZE)&page_mask)/vmm_page_size)&0x3ff;
     for(unsigned int i=stack_pt_idx,j=0x37FFE000;i<stack_pt_idx+2;i++,j+=vmm_page_size){
@@ -65,6 +70,8 @@ void init()
     __asm__ volatile ("mov %0, %%esp" : : "r" ((unsigned int)KERNEL_STACK_START));
 	__asm__ volatile ("xor %%ebp, %%ebp" : :);
 //__asm__ volatile ("mov %0, %%ebp" : : "r" ((unsigned int)KERNEL_STACK_START-(unsigned int)KERNEL_STACK_SIZE));
+    //判断内核是否映射完全，关键是BSS段
+    ASSERT((unsigned int)(&kernel_end)>(unsigned int)0x01B00000);
     //调用内核入口
     main();
     

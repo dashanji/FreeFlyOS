@@ -2,6 +2,7 @@
 
 .global kernel_thread_entry
 .extern do_exit
+
 kernel_thread_entry: # void kernel_thread(void)
     pushl %edx # push arg
     call *%ebx # call fn

@@ -99,3 +99,7 @@ void idt_init(){
     SETGATE(idt[T_SYSCALL], 1, GD_KTEXT, __vectors[T_SYSCALL], DPL_USER);
     lidt(&idtinfo);
 }
+
+void set_ts_esp0(unsigned int esp){
+    ts.ts_esp0=esp;
+}

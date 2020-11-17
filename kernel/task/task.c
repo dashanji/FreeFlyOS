@@ -1,4 +1,8 @@
 #include "task.h"
+#include "../interrupt/syscall.h"
+#include "../stl/elf.h"
+#include "../mem/vmm.h"
+#include "../mem/memlayout.h"
 
 #define HASH_SHIFT          10
 #define HASH_LIST_SIZE      (1 << HASH_SHIFT)
@@ -7,6 +11,28 @@
 //将list_entry_t转化为sturct task_struct
 #define list_to_task(list_entry_addr,member)         \
     to_struct(list_entry_addr,struct task_struct,member)
+/*
+#define __KERNEL_EXECVE(name, binary, size) ({                          \
+            printk("kernel_execve: pid = %d, name = \"%s\".\n",        \
+                    current->pid, name);                                \
+            kernel_execve(name, binary, (unsigned int)(size));                \
+        })
+//#x 表示字符串操作符，即"x"
+//##x##表示连接符  
+#define KERNEL_EXECVE(x) ({                                             \
+            extern unsigned char _binary_##x##_out_start[],  \
+                _binary_##x##_out_size[];                    \
+            __KERNEL_EXECVE(#x, _binary_##x##_out_start,     \
+                            _binary_##x##_out_size);         \
+        })
+
+#define __KERNEL_EXECVE2(x, xstart, xsize) ({                           \
+            extern unsigned char xstart[], xsize[];                     \
+            __KERNEL_EXECVE(#x, xstart, (unsigned int)xsize);                 \
+        })
+
+#define KERNEL_EXECVE2(x, xstart, xsize)       __KERNEL_EXECVE2(x, xstart, xsize)
+*/
 // 绑定PID的哈希表
 static list_entry_t hash_list[HASH_LIST_SIZE];
 
@@ -20,8 +46,9 @@ struct task_struct *task0;  //祖先进程，即进程0
 //struct task_struct *task1;  //由进程0 do_fork出来的进程1
 struct task_struct *current;  //指向当前进程
 
-
-static unsigned int nr_task; //当前所有进程数量  
+//MACOS下容易出现BUG
+//静态全局变量设置为0值时，在运行的时候容易跑飞，所以为了避免出现BUG，在使用的时候应先定义0值
+static unsigned int nr_task=0; //当前所有进程数量  
 
 void forkrets(struct trapframe *tf);
 
@@ -53,22 +80,27 @@ void task_init(){
     task0->kernel_stack=(unsigned int)task0+VMM_PAGE_SIZE;
     task0->cr3=new_pdt;
     
-    /* 加入进程链表 */
-    add_link(&(task0->link));
+    /* 进程链表指向task0 */
+    //ask_list=task0->link;   //待调试
+    //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
+    //list_init(&task0->link);
+    add_link(&task0->link);
     /* 当前进程指向task0 */
     current=task0;
     
     /* 根据PID加入哈希链表 */
     add_pid_hash(task0);
     
+    //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
     nr_task=1;
     
-    int newtask_pid=kernel_thread(print_taskinfo,"Hello ! I'm a new task",0);
-    struct task_struct *newtask=find_task(newtask_pid);
+    int newtask1_pid=kernel_thread(print_taskinfo,"Hello ! I'm a new task",0);
+    struct task_struct *newtask=find_task(newtask1_pid);
     
     set_task_name(newtask,"task1");
-
+    
     schedule();
+           
 }
 //设置PID位
 static int set_pid_bit(int pid){
@@ -212,15 +244,15 @@ forkret(void) {
 static void
 copy_thread(struct task_struct *task, unsigned int esp, struct trapframe *tf) {
     //在内核栈顶分配一个中断帧大小
-    task->tf = (struct trapframe *)(task->kernel_stack + VMM_PAGE_SIZE) - 1;
+    task->tf = (struct trapframe *)(task->kernel_stack)- 1;
     //将trapframe信息放入内核栈中
     *(task->tf) = *tf;
     task->tf->tf_regs.reg_eax = 0;
     task->tf->tf_esp = esp;
     //task->tf->tf_eflags |= FL_IF;
 
-    task->context.eip = (unsigned int)forkret;
-    task->context.esp = (unsigned int)(task->tf);
+    task->context.eip = (unsigned int)forkret;//print_task1;
+    task->context.esp = (unsigned int)(task->tf);  //task->kernel_stack;
 }
 
 /* do_fork -     parent task for a new child task
@@ -254,7 +286,7 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
     add_link(&(task->link));
     //将新进程的PID加入到哈希表中
     add_pid_hash(task);
-    //nr_task++;
+    nr_task++;
 
     wakeup_task(task);
 
@@ -280,20 +312,23 @@ static void task_run(struct task_struct *task){
     if(task!=current){
         struct task_struct *prev=current;
         current=task;
+        set_ts_esp0(task->kernel_stack);
+        //asm volatile("movl %0,%%esp"::"r"(task->kernel_stack)); 
         switch_to(&(prev->context),&(task->context));
+        //printk("task_schedule!\n");
     }
 }
 /* 调度算法 */
 void schedule(){
     //在进程链表中查找可运行的进程
-    list_entry_t *head=&(current->link);
+    list_entry_t *head=&task_list;
     list_entry_t *ite=head;
     struct  task_struct *task=current;
 
     //在进程链表中查找可用进程
     while((ite=list_next(ite))!=head){
         task=list_to_task(ite,link);
-        if(task->state==RUNNABLE){
+        if(task->state==RUNNABLE&&task!=current){
             break;
         }
     }
@@ -315,9 +350,68 @@ print_taskinfo(void *arg) {
     printk("To U: \"en.., Bye, Bye. :)\"\n");
     return 0;
 }
-
+static void print_task1(){
+    //while(1){
+    printk("task1 ");
+    //schedule();
+    //  }
+}
+static void print_task2(){
+    //while(1){
+    printk("task2 ");
+    //while(1);
+    //schedule();
+    //}
+}
 /* 进程退出 */
 void do_exit(){
     printk("task exit!\n");
+    //schedule();
     while(1);
+}
+// do_execve - call exit_mmap(mm)&put_pgdir(mm) to reclaim memory space of current process
+//           - call load_icode to setup new memory space accroding binary prog.
+int
+do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned int size) { 
+    struct elfhdr *elf = (struct elfhdr *)binary;
+    //(3.2) get the entry of the program section headers of the bianry program (ELF format)
+    struct proghdr *ph = (struct proghdr *)(binary + elf->e_phoff);
+    struct proghdr *ph_end = ph + elf->e_phnum;
+    unsigned int pdt=setup_pgdir();
+    //有多少个程序头
+    for (; ph < ph_end; ph ++){
+        unsigned char *start = binary + ph->p_offset,map_start=round_down_to(start,VMM_PAGE_SIZE);
+        unsigned char *end=ph->p_va + ph->p_filesz,map_end=round_up_to(end,VMM_PAGE_SIZE);
+        vmm_map(pdt,map_start+(unsigned int)0x80000000,map_end+(unsigned int)0x80000000);
+        memcpy(map_start+(unsigned int)0x80000000,map_start,map_end-map_start);
+    }
+    vmm_map(pdt,(unsigned int)0xA0000000,(unsigned int)0xA0002000);
+    unsigned int user_stack=0xA0002000;
+    current->cr3=LA_PA(pdt);
+    lcr3(LA_PA(pdt));
+    // setup trapframe for user environment
+    struct trapframe *tf = current->tf;
+    memset(tf, 0, sizeof(struct trapframe));
+    tf->tf_cs = USER_CS;
+    tf->tf_ds = tf->tf_es = tf->tf_ss = USER_DS;
+    tf->tf_esp = user_stack;
+    tf->tf_eip = elf->e_entry;
+    return 0;
+}
+// kernel_execve - do SYS_exec syscall to exec a user program called by user_main kernel_thread
+static int
+kernel_execve(const char *name, unsigned char *binary, unsigned int size) {
+    int ret, len = strlen(name);
+    asm volatile (
+        "int %1;"
+        : "=a" (ret)
+        : "i" (T_SYSCALL), "0" (SYS_exec), "d" (name), "c" (len), "b" (binary), "D" (size)
+        : "memory");
+    return ret;
+}
+
+// user_main - kernel thread used to exec a user program
+static int
+user_main(void *arg) {
+    //KERNEL_EXECVE(exit);
 }

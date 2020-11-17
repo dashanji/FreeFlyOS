@@ -29,5 +29,8 @@ void outb(unsigned short port,unsigned char data);
 void outw(unsigned short port, unsigned short data);
 void *memset(void *s, char c, unsigned int n); 
 void *memcpy(void *dst, const void *src, unsigned int n);
+unsigned int strlen(const char *s);
+int strcmp(const char *s1, const char *s2);
 void CPU_INVLPG(unsigned int addr);
+void lcr3(unsigned int cr3);
 #endif
