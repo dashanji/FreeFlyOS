@@ -6,6 +6,7 @@ kernel/task/CMakeFiles/task.dir/switch.S.o: ../kernel/task/switch.S
 kernel/task/CMakeFiles/task.dir/thread_entry.S.o: ../kernel/task/thread_entry.S
 
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/asm/asm.h
+kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/debug/debug.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/dt/dt.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/interrupt/syscall.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/interrupt/trap.h

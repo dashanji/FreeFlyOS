@@ -364,6 +364,19 @@ vga/fast:
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/build
 .PHONY : vga/fast
 
+#=============================================================================
+# Target rules for targets named sync
+
+# Build rule for target.
+sync: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sync
+.PHONY : sync
+
+# fast build rule for target.
+sync/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/sync/CMakeFiles/sync.dir/build.make kernel/sync/CMakeFiles/sync.dir/build
+.PHONY : sync/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -387,6 +400,7 @@ help:
 	@echo "... mem"
 	@echo "... pic"
 	@echo "... serial"
+	@echo "... sync"
 	@echo "... task"
 	@echo "... timer"
 	@echo "... vga"

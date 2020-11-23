@@ -15,6 +15,7 @@ kernel/main/CMakeFiles/main.dir/main.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h

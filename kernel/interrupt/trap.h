@@ -55,6 +55,9 @@ enum intr_status{
 #define EFLAGS_IF 0x00000200  //中断标志位
 #define get_intr_status(eflag_val) asm volatile("pushfl ; popl %0":"=g"(eflag_val))
 
+#define local_intr_save(x)      do { x = intr_save(); } while (0)
+#define local_intr_restore(x)       intr_restore(x)
+
 /* registers as pushed by pushal */
 struct pushregs {
     unsigned int reg_edi;
@@ -98,4 +101,7 @@ void enable_interupt();
 enum intr_status get_now_intr_status();
 enum intr_status intr_enable();
 enum intr_status intr_disable();
+enum intr_status intr_save();
+void intr_restore(enum intr_status status);
+
 #endif

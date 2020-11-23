@@ -257,6 +257,7 @@ dis_num:    switch (*(++fmt))
 *  cons_putc - print a single character @c to console devices 
 */
 void cons_putc(int c) {
+
         lpt_putc(c);
         if(c){
             printk("%c",c);
@@ -279,7 +280,7 @@ int cons_getc(void) {
         if (cons.rpos == CONSBUFSIZE) {
             cons.rpos = 0;
         }
-        return c;
+        //return c;
     }
-    return 0;
+    return c;
 }

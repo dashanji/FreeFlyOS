@@ -14,6 +14,7 @@ add_subdirectory(pic)
 add_subdirectory(serial)
 add_subdirectory(timer)
 add_subdirectory(vga)
+add_subdirectory(sync)
 #add_subdirectory(user)
 
 add_executable(${PROJECT_NAME}
@@ -30,6 +31,7 @@ add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:serial>
         $<TARGET_OBJECTS:timer>    
         $<TARGET_OBJECTS:vga>
+        $<TARGET_OBJECTS:sync>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE -T ${FreeFlyOS_SOURCE_DIR}/kernel/kernel.ld)

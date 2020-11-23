@@ -102,7 +102,8 @@ kernel_EXTERNAL_OBJECTS = \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/pic/CMakeFiles/pic.dir/pic.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/serial/CMakeFiles/serial.dir/serial.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/timer/CMakeFiles/timer.dir/timer.c.o" \
-"/Users/caoy/Desktop/FreeFlyOS/build/kernel/vga/CMakeFiles/vga.dir/vga.c.o"
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/vga/CMakeFiles/vga.dir/vga.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/sync/CMakeFiles/sync.dir/sync.c.o"
 
 kernel/kernel: kernel/init/CMakeFiles/init.dir/init.c.o
 kernel/kernel: kernel/asm/CMakeFiles/asm.dir/asm.c.o
@@ -125,6 +126,7 @@ kernel/kernel: kernel/pic/CMakeFiles/pic.dir/pic.c.o
 kernel/kernel: kernel/serial/CMakeFiles/serial.dir/serial.c.o
 kernel/kernel: kernel/timer/CMakeFiles/timer.dir/timer.c.o
 kernel/kernel: kernel/vga/CMakeFiles/vga.dir/vga.c.o
+kernel/kernel: kernel/sync/CMakeFiles/sync.dir/sync.c.o
 kernel/kernel: kernel/CMakeFiles/kernel.dir/build.make
 kernel/kernel: kernel/CMakeFiles/kernel.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Linking C executable kernel"

@@ -1,0 +1,152 @@
+Date : 2020-11-18 10:58:56
+Directory : ./
+Total : 85 files,  5641 codes, 1908 comments, 2096 blanks, all 9645 lines, 25.27% comment rate
+
+Languages
++--------------+------------+------------+------------+------------+------------+--------------+
+| language     | files      | code       | comment    | blank      | total      | comment rate |
++--------------+------------+------------+------------+------------+------------+--------------+
+| C            |         24 |      2,275 |        695 |        410 |      3,380 |       23.40% |
+| Makefile     |         16 |      1,634 |        841 |      1,135 |      3,610 |       33.98% |
+| C++          |         25 |      1,281 |        370 |        265 |      1,916 |       22.41% |
+| Markdown     |         17 |        282 |          0 |        254 |        536 |        0.00% |
+| Log          |          2 |        156 |          0 |         31 |        187 |        0.00% |
+| Shell Script |          1 |         13 |          2 |          1 |         16 |       13.33% |
++--------------+------------+------------+------------+------------+------------+--------------+
+
+Directories
++--------------------------------------------------------------+------------+------------+------------+------------+------------+--------------+
+| path                                                         | files      | code       | comment    | blank      | total      | comment rate |
++--------------------------------------------------------------+------------+------------+------------+------------+------------+--------------+
+| .                                                            |         85 |      5,641 |      1,908 |      2,096 |      9,645 |       25.27% |
+| build                                                        |         20 |      2,793 |        943 |      1,394 |      5,130 |       25.24% |
+| kernel                                                       |         53 |      2,370 |        895 |        458 |      3,723 |       27.41% |
+| build/kernel                                                 |         14 |      1,333 |        674 |        953 |      2,960 |       33.58% |
+| build/CMakeFiles                                             |          4 |      1,159 |        102 |        259 |      1,520 |        8.09% |
+| build/CMakeFiles/3.17.3                                      |          2 |      1,003 |        102 |        228 |      1,333 |        9.23% |
+| build/CMakeFiles/3.17.3/CompilerIdC                          |          1 |        507 |         50 |        115 |        672 |        8.98% |
+| build/CMakeFiles/3.17.3/CompilerIdCXX                        |          1 |        496 |         52 |        113 |        661 |        9.49% |
+| kernel/task                                                  |          3 |        371 |        139 |         91 |        601 |       27.25% |
+| kernel/mem                                                   |          6 |        299 |        280 |         67 |        646 |       48.36% |
+| kernel/interrupt                                             |          5 |        283 |         49 |         38 |        370 |       14.76% |
+| kernel/vga                                                   |          3 |        266 |         56 |         39 |        361 |       17.39% |
+| kernel/keyboard                                              |          3 |        205 |         20 |         35 |        260 |        8.89% |
+| kernel/dt                                                    |          3 |        191 |         56 |         33 |        280 |       22.67% |
+| kernel/debug                                                 |          6 |        161 |         35 |         19 |        215 |       17.86% |
+| user                                                         |          6 |        144 |          3 |         30 |        177 |        2.04% |
+| kernel/serial                                                |          3 |        134 |         16 |         27 |        177 |       10.67% |
+| boot                                                         |          3 |        133 |         65 |         48 |        246 |       32.83% |
+| build/kernel/debug                                           |          1 |        125 |         53 |         83 |        261 |       29.78% |
+| develop log                                                  |          1 |        123 |          0 |        124 |        247 |        0.00% |
+| kernel/asm                                                   |          3 |        120 |         64 |         19 |        203 |       34.78% |
+| kernel/stl                                                   |          5 |        119 |         95 |         29 |        243 |       44.39% |
+| build/kernel/interrupt                                       |          1 |        119 |         52 |         80 |        251 |       30.41% |
+| build/boot                                                   |          1 |        113 |         54 |         76 |        243 |       32.34% |
+| build/kernel/mem                                             |          1 |        107 |         50 |         74 |        231 |       31.85% |
+| build/kernel/task                                            |          1 |        101 |         49 |         71 |        221 |       32.67% |
+| build/kernel/asm                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/init                                            |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/dt                                              |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/timer                                           |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/keyboard                                        |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/serial                                          |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/vga                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/main                                            |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/pic                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| kernel/main                                                  |          3 |         85 |         29 |         16 |        130 |       25.44% |
+| kernel/init                                                  |          3 |         70 |         37 |         20 |        127 |       34.58% |
+| kernel/pic                                                   |          3 |         42 |         17 |         18 |         77 |       28.81% |
+| kernel/timer                                                 |          3 |         19 |          2 |          4 |         25 |        9.52% |
++--------------------------------------------------------------+------------+------------+------------+------------+------------+--------------+
+
+Files
++--------------------------------------------------------------+--------------+------------+------------+------------+------------+--------------+
+| filename                                                     | language     | code       | comment    | blank      | total      | comment rate |
++--------------------------------------------------------------+--------------+------------+------------+------------+------------+--------------+
+| boot/bootmain.c                                              | C            |         80 |         55 |         22 |        157 |       40.74% |
+| boot/readme.md                                               | Markdown     |         13 |          0 |         16 |         29 |        0.00% |
+| boot/sign.c                                                  | C            |         40 |         10 |         10 |         60 |       20.00% |
+| build/CMakeFiles/3.17.3/CompilerIdC/CMakeCCompilerId.c       | C            |        507 |         50 |        115 |        672 |        8.98% |
+| build/CMakeFiles/3.17.3/CompilerIdCXX/CMakeCXXCompilerId.cpp | C++          |        496 |         52 |        113 |        661 |        9.49% |
+| build/CMakeFiles/CMakeError.log                              | Log          |        133 |          0 |         19 |        152 |        0.00% |
+| build/CMakeFiles/CMakeOutput.log                             | Log          |         23 |          0 |         12 |         35 |        0.00% |
+| build/Makefile                                               | Makefile     |        188 |        113 |        106 |        407 |       37.54% |
+| build/boot/Makefile                                          | Makefile     |        113 |         54 |         76 |        243 |       32.34% |
+| build/kernel/Makefile                                        | Makefile     |         80 |         47 |         60 |        187 |       37.01% |
+| build/kernel/asm/Makefile                                    | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/debug/Makefile                                  | Makefile     |        125 |         53 |         83 |        261 |       29.78% |
+| build/kernel/dt/Makefile                                     | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/init/Makefile                                   | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/interrupt/Makefile                              | Makefile     |        119 |         52 |         80 |        251 |       30.41% |
+| build/kernel/keyboard/Makefile                               | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/main/Makefile                                   | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/mem/Makefile                                    | Makefile     |        107 |         50 |         74 |        231 |       31.85% |
+| build/kernel/pic/Makefile                                    | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/serial/Makefile                                 | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/task/Makefile                                   | Makefile     |        101 |         49 |         71 |        221 |       32.67% |
+| build/kernel/timer/Makefile                                  | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/vga/Makefile                                    | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| develop log/进程管理.md                                          | Markdown     |        123 |          0 |        124 |        247 |        0.00% |
+| kernel/asm/asm.c                                             | C            |         89 |         57 |         13 |        159 |       39.04% |
+| kernel/asm/asm.h                                             | C++          |         27 |          7 |          2 |         36 |       20.59% |
+| kernel/asm/readme.md                                         | Markdown     |          4 |          0 |          4 |          8 |        0.00% |
+| kernel/debug/debug.c                                         | C            |         29 |         11 |          6 |         46 |       27.50% |
+| kernel/debug/debug.h                                         | C++          |         12 |          0 |          5 |         17 |        0.00% |
+| kernel/debug/monitor.c                                       | C            |         64 |          4 |          1 |         69 |        5.88% |
+| kernel/debug/monitor.h                                       | C++          |         13 |          1 |          3 |         17 |        7.14% |
+| kernel/debug/readline.c                                      | C            |         38 |         19 |          3 |         60 |       33.33% |
+| kernel/debug/readline.h                                      | C++          |          5 |          0 |          1 |          6 |        0.00% |
+| kernel/dt/dt.c                                               | C            |         54 |         39 |         12 |        105 |       41.94% |
+| kernel/dt/dt.h                                               | C++          |        131 |         17 |         16 |        164 |       11.49% |
+| kernel/dt/readme.md                                          | Markdown     |          6 |          0 |          5 |         11 |        0.00% |
+| kernel/init/init.c                                           | C            |         44 |         30 |          5 |         79 |       40.54% |
+| kernel/init/init.h                                           | C++          |         20 |          7 |          8 |         35 |       25.93% |
+| kernel/init/readme.md                                        | Markdown     |          6 |          0 |          7 |         13 |        0.00% |
+| kernel/interrupt/readme.md                                   | Markdown     |          8 |          0 |          7 |         15 |        0.00% |
+| kernel/interrupt/syscall.c                                   | C            |         80 |          6 |         13 |         99 |        6.98% |
+| kernel/interrupt/syscall.h                                   | C++          |         20 |          1 |          2 |         23 |        4.76% |
+| kernel/interrupt/trap.c                                      | C            |         98 |         27 |          7 |        132 |       21.60% |
+| kernel/interrupt/trap.h                                      | C++          |         77 |         15 |          9 |        101 |       16.30% |
+| kernel/keyboard/keyboard.c                                   | C            |        132 |         16 |         20 |        168 |       10.81% |
+| kernel/keyboard/keyboard.h                                   | C++          |         71 |          4 |         12 |         87 |        5.33% |
+| kernel/keyboard/readme.md                                    | Markdown     |          2 |          0 |          3 |          5 |        0.00% |
+| kernel/main/main.c                                           | C            |         78 |         29 |         14 |        121 |       27.10% |
+| kernel/main/main.h                                           | C++          |          5 |          0 |          1 |          6 |        0.00% |
+| kernel/main/readme.md                                        | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/mem/memlayout.h                                       | C++          |          8 |         96 |          8 |        112 |       92.31% |
+| kernel/mem/pmm.c                                             | C            |        117 |         74 |         15 |        206 |       38.74% |
+| kernel/mem/pmm.h                                             | C++          |         38 |         18 |         10 |         66 |       32.14% |
+| kernel/mem/readme.md                                         | Markdown     |          4 |          0 |          3 |          7 |        0.00% |
+| kernel/mem/vmm.c                                             | C            |        103 |         72 |         20 |        195 |       41.14% |
+| kernel/mem/vmm.h                                             | C++          |         29 |         20 |         11 |         60 |       40.82% |
+| kernel/pic/pic.c                                             | C            |         35 |         17 |         15 |         67 |       32.69% |
+| kernel/pic/pic.h                                             | C++          |          5 |          0 |          2 |          7 |        0.00% |
+| kernel/pic/readme.md                                         | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/readme.md                                             | Markdown     |          5 |          0 |          3 |          8 |        0.00% |
+| kernel/serial/readme.md                                      | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/serial/serial.c                                       | C            |         92 |         16 |         20 |        128 |       14.81% |
+| kernel/serial/serial.h                                       | C++          |         40 |          0 |          6 |         46 |        0.00% |
+| kernel/stl/defs.h                                            | C++          |         10 |         11 |          5 |         26 |       52.38% |
+| kernel/stl/elf.h                                             | C++          |         30 |          2 |          1 |         33 |        6.25% |
+| kernel/stl/hash.h                                            | C++          |          9 |          9 |          3 |         21 |       50.00% |
+| kernel/stl/list.h                                            | C++          |         68 |         73 |         19 |        160 |       51.77% |
+| kernel/stl/readme.md                                         | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/task/task.c                                           | C            |        257 |        116 |         44 |        417 |       31.10% |
+| kernel/task/task.h                                           | C++          |         80 |         23 |         12 |        115 |       22.33% |
+| kernel/task/寄存器.md                                           | Markdown     |         34 |          0 |         35 |         69 |        0.00% |
+| kernel/timer/readme.md                                       | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/timer/timer.c                                         | C            |         13 |          2 |          1 |         16 |       13.33% |
+| kernel/timer/timer.h                                         | C++          |          4 |          0 |          2 |          6 |        0.00% |
+| kernel/vga/readme.md                                         | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/vga/vga.c                                             | C            |        216 |         43 |         27 |        286 |       16.60% |
+| kernel/vga/vga.h                                             | C++          |         48 |         13 |         11 |         72 |       21.31% |
+| readme.md                                                    | Markdown     |         65 |          0 |         41 |        106 |        0.00% |
+| run.sh                                                       | Shell Script |         13 |          2 |          1 |         16 |       13.33% |
+| user/hello.c                                                 | C            |          8 |          0 |          1 |          9 |        0.00% |
+| user/syscall.c                                               | C            |         59 |          0 |         13 |         72 |        0.00% |
+| user/syscall.h                                               | C++          |         27 |          1 |          3 |         31 |        3.57% |
+| user/ulib.c                                                  | C            |         35 |          2 |          9 |         46 |        5.41% |
+| user/ulib.h                                                  | C++          |          8 |          0 |          0 |          8 |        0.00% |
+| user/umain.c                                                 | C            |          7 |          0 |          4 |         11 |        0.00% |
+| Total                                                        |              |      5,641 |      1,908 |      2,096 |      9,645 |       25.27% |
++--------------------------------------------------------------+--------------+------------+------------+------------+------------+--------------+

@@ -37,6 +37,8 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
 ../task/task.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
+../sync/sync.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
 
@@ -55,6 +57,12 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
+../stl/list.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+../task/task.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 ../dt/dt.h

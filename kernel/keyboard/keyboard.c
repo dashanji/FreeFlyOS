@@ -16,6 +16,7 @@
 
 #define E0ESC           (1<<6)
 
+unsigned int shift=0;
 //shiftcode[1D]=CTL,
 static unsigned char shiftcode[256] = {
     [0x1D] CTL,
@@ -106,8 +107,9 @@ static unsigned char *charcode[4] = {
 int kbd_proc_data(void) {
     int c;
     unsigned char data;
-    static unsigned int shift;
+    //static unsigned int shift=0;
 
+   
     if ((inb(KBSTATP) & KBS_DIB) == 0) {
         return -1;
     }

@@ -25,6 +25,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../kernel/mem/CMakeLists.txt"
   "../kernel/pic/CMakeLists.txt"
   "../kernel/serial/CMakeLists.txt"
+  "../kernel/sync/CMakeLists.txt"
   "../kernel/task/CMakeLists.txt"
   "../kernel/timer/CMakeLists.txt"
   "../kernel/vga/CMakeLists.txt"
@@ -149,6 +150,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "kernel/serial/CMakeFiles/CMakeDirectoryInformation.cmake"
   "kernel/timer/CMakeFiles/CMakeDirectoryInformation.cmake"
   "kernel/vga/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "kernel/sync/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -171,4 +173,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "kernel/serial/CMakeFiles/serial.dir/DependInfo.cmake"
   "kernel/timer/CMakeFiles/timer.dir/DependInfo.cmake"
   "kernel/vga/CMakeFiles/vga.dir/DependInfo.cmake"
+  "kernel/sync/CMakeFiles/sync.dir/DependInfo.cmake"
   )

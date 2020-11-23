@@ -3,8 +3,11 @@
 #include "../timer/timer.h"
 #include "../debug/debug.h"
 #include "../dt/dt.h"
-unsigned int tick=0;    //时钟中断次数
+#include "../task/task.h"
+extern unsigned int volatile jiffies; //记录当前系统开机的时钟节拍数
+extern unsigned int volatile second; //记录秒数
 
+extern struct task_struct *current;  //指向当前进程
 static const char *IA32flags[] = {
     "CF", NULL, "PF", NULL, "AF", NULL, "ZF", "SF",
     "TF", "IF", "DF", "OF", NULL, NULL, "NT", NULL,
@@ -65,9 +68,16 @@ static void trap_dispatch(struct trapframe *tf)
             syscall();
             break;
         case IRQ_OFFSET + IRQ_TIMER:
-            tick++;
-            if (tick % 100 == 0){
-                //printk("%d\n",tick);
+            jiffies++;
+            //1秒触发一次
+            if (jiffies % 100 == 0){
+                current->counter--;
+                second++;
+                printk("current->counter:%08d\n",current->counter);
+            }
+            if(current->counter==0){
+                //printk("Start Schedule\n",current->counter);
+                schedule();
             }
             break;
         case IRQ_OFFSET + IRQ_COM1:
@@ -129,4 +139,22 @@ enum intr_status intr_disable(){
     else{
         return INTR_OFF;
     }
+}
+
+/*
+**      临界区访问,保存中断状态后
+**           <关闭中断>
+*/
+enum intr_status intr_save(){
+    enum intr_status status;
+    status=intr_disable();
+    return status;
+}
+/*
+**      临界区访问,保存中断状态后
+**           <关闭中断>
+*/
+void intr_restore(enum intr_status status){
+    if(status==INTR_ON)
+        enable_interupt();
 }

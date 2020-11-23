@@ -3,6 +3,7 @@
 #include "../vga/vga.h"
 #include "../interrupt/trap.h"
 #include "../asm/asm.h"
+extern unsigned int shift;
 /* 初始化指令数组 */
 struct instr instr_list[]={
     {"hello","The instruction is to welcome you!",instr_hello},
@@ -13,6 +14,7 @@ struct instr instr_list[]={
 /* 监视器：用于监控用户输入字符 */
 void monitor(){
     char *buf;
+    shift=0;
     while(1){
         if((buf=(readline("K<")))!=NULL){
             run(buf);

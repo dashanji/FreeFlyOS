@@ -48,3 +48,6 @@
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/vga/CMakeFiles/rebuild_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/vga/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/vga/CMakeFiles/vga.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/sync/CMakeFiles/rebuild_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/sync/CMakeFiles/edit_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/sync/CMakeFiles/sync.dir

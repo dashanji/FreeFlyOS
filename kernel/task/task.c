@@ -3,14 +3,12 @@
 #include "../stl/elf.h"
 #include "../mem/vmm.h"
 #include "../mem/memlayout.h"
-
+#include "../debug/debug.h"
 #define HASH_SHIFT          10
 #define HASH_LIST_SIZE      (1 << HASH_SHIFT)
 #define pid_hashfn(x)       (hash32(x, HASH_SHIFT))
 
-//将list_entry_t转化为sturct task_struct
-#define list_to_task(list_entry_addr,member)         \
-    to_struct(list_entry_addr,struct task_struct,member)
+
 /*
 #define __KERNEL_EXECVE(name, binary, size) ({                          \
             printk("kernel_execve: pid = %d, name = \"%s\".\n",        \
@@ -38,17 +36,17 @@ static list_entry_t hash_list[HASH_LIST_SIZE];
 
 //PID 位图初始化
 pidmap_t task_pidmap={pid_max,{0}}; 
-static unsigned int last_pid;
+static unsigned int volatile last_pid=0;
 
-//进程链表
-static list_entry_t task_list;
+//就绪进程链表
+static list_entry_t ready_task_list;
 struct task_struct *task0;  //祖先进程，即进程0
 //struct task_struct *task1;  //由进程0 do_fork出来的进程1
 struct task_struct *current;  //指向当前进程
 
 //MACOS下容易出现BUG
 //静态全局变量设置为0值时，在运行的时候容易跑飞，所以为了避免出现BUG，在使用的时候应先定义0值
-static unsigned int nr_task=0; //当前所有进程数量  
+static unsigned int volatile nr_task=0; //当前所有进程数量  
 
 void forkrets(struct trapframe *tf);
 
@@ -61,7 +59,7 @@ struct task_struct *task0,*task1;
 void task_init(){
 
     /*进程链表初始化*/
-    list_init(&task_list);
+    list_init(&ready_task_list);
     /*哈希链表初始化*/
     for(int i=0;i<HASH_LIST_SIZE;i++){
         list_init(&hash_list[i]);
@@ -73,7 +71,7 @@ void task_init(){
     
     /* 设置task0属性 */
     task0->state=RUNNABLE;   
-    task0->counter=0;
+    task0->counter=5;
     task0->priority=1; 
     last_pid=task0->pid=0;  //初始化task0的PID和last_pid
     set_task_name(task0,"task0");
@@ -84,23 +82,20 @@ void task_init(){
     //ask_list=task0->link;   //待调试
     //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
     //list_init(&task0->link);
-    add_link(&task0->link);
+    list_init(&task0->link);
     /* 当前进程指向task0 */
     current=task0;
     
+    clear();
+    //printk("task0->counter:%08d!\n",task0->counter);
+    //printk("current:%08X!\n",current);
+    //printk("In task_init,current->counter=%08d\n",current->counter);
     /* 根据PID加入哈希链表 */
     add_pid_hash(task0);
     
     //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
+    //nr_task++;
     nr_task=1;
-    
-    int newtask1_pid=kernel_thread(print_taskinfo,"Hello ! I'm a new task",0);
-    struct task_struct *newtask=find_task(newtask1_pid);
-    
-    set_task_name(newtask,"task1");
-    
-    schedule();
-           
 }
 //设置PID位
 static int set_pid_bit(int pid){
@@ -173,9 +168,9 @@ char *get_task_name(struct task_struct *task) {
     return memcpy(name, task->name, task_name_max);
 }
 
-//将新进程插入进程链表中
+//将新进程插入就绪进程链表队尾
 static void add_link(list_entry_t *new){
-    list_add(&task_list,new);
+    list_add_before(&ready_task_list,new);
 }
 
 //在进程链表中删除某个进程
@@ -220,7 +215,7 @@ static struct task_struct* alloc_task(){
     struct task_struct *task=vmm_malloc(sizeof(struct task_struct),1);
     if(task!=NULL){
         task->state=UNRUNNABLE;
-        task->counter=0;
+        task->counter=5;
         task->priority=0;
         task->pid=-1;
         memset(&(task->name),0,sizeof(task->name));
@@ -228,9 +223,18 @@ static struct task_struct* alloc_task(){
         task->cr3=new_pdt;
         task->tf=NULL;
         memset(&(task->context),0,sizeof(task->context));
+        task->magic=TASK_MAGIC;
     }
     return task;
 }
+
+/* 由kernel_thread去执行function(func_arg) */
+//static void kernel_thread(thread_func* function, void* func_arg) {
+/* 执行function前要开中断,避免后面的时钟中断被屏蔽,而无法调度其它线程 */
+//   intr_enable();
+//  function(func_arg); 
+//}
+
 // forkret -- the first kernel entry point of a new thread/task
 // NOTE: the addr of forkret is setted in copy_thread function
 //       after switch_to, the current proc will execute here.
@@ -245,13 +249,19 @@ static void
 copy_thread(struct task_struct *task, unsigned int esp, struct trapframe *tf) {
     //在内核栈顶分配一个中断帧大小
     task->tf = (struct trapframe *)(task->kernel_stack)- 1;
+    task->kernel_stack-=sizeof(struct trapframe);
+    //接着分配一个上下文大小
+    //task.context= (struct context *)(task->kernel_stack)- 1;
     //将trapframe信息放入内核栈中
     *(task->tf) = *tf;
     task->tf->tf_regs.reg_eax = 0;
     task->tf->tf_esp = esp;
     //task->tf->tf_eflags |= FL_IF;
 
-    task->context.eip = (unsigned int)forkret;//print_task1;
+    task->context.eip=tf->tf_eip;
+    task->context.ebx=tf->tf_regs.reg_ebx;
+    task->context.edx=tf->tf_regs.reg_edx;
+    //task->context.eip = (unsigned int)forkret;//print_task1;
     task->context.esp = (unsigned int)(task->tf);  //task->kernel_stack;
 }
 
@@ -282,7 +292,8 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
     if((task->pid=alloc_pid())<0){
         return -1;
     }
-    //将新进程加入进程链表中
+    list_init(&task->link);
+    //将新进程加入进程链表中,加入到队尾中
     add_link(&(task->link));
     //将新进程的PID加入到哈希表中
     add_pid_hash(task);
@@ -305,6 +316,7 @@ int kernel_thread(int (*fun)(void *), void *args, unsigned int flags) {
     tf.tf_regs.reg_ebx = (unsigned int)fun;
     tf.tf_regs.reg_edx = (unsigned int)args;
     tf.tf_eip = (unsigned int)kernel_thread_entry;
+
     return do_fork(flags ,0, &tf);
 }
 
@@ -321,25 +333,67 @@ static void task_run(struct task_struct *task){
 /* 调度算法 */
 void schedule(){
     //在进程链表中查找可运行的进程
-    list_entry_t *head=&task_list;
+    list_entry_t *head=&ready_task_list;
     list_entry_t *ite=head;
-    struct  task_struct *task=current;
+    struct  task_struct *task;
 
-    //在进程链表中查找可用进程
+    //首先判断当前进程是不是时间片用完了
+    if(current->state==RUNNABLE&&current->counter==0){
+        //若该线程只是时间片用完了，重新分配时间片，并将其放入就绪进程链表队尾
+        current->counter=5;
+        add_link(&current->link);
+    }
+    //在就绪进程链表中查找时间片不为0的可用进程
     while((ite=list_next(ite))!=head){
         task=list_to_task(ite,link);
-        if(task->state==RUNNABLE&&task!=current){
+        //找到一个可运行进程，则弹出就绪链表
+        if(task->state==RUNNABLE&&task->counter!=0){
+            remove_link(ite);
             break;
         }
     }
 
     //若无可调度进程，则运行进程0
-    if(task==current||task->state==UNRUNNABLE){
-        task=task0;
-    }
+    //if(task==current||task->state==UNRUNNABLE){
+    //    task=task0;
+    //}
 
     //运行进程
     task_run(task);
+}
+/* 当前线程将自己阻塞,标志其状态为stat. */
+void thread_block(enum task_state stat) {
+/* stat取值为TASK_BLOCKED,TASK_WAITING,TASK_HANGING,也就是只有这三种状态才不会被调度*/
+   ASSERT(stat == STOPPED);
+   enum intr_status flag;
+   local_intr_save(flag);
+   {
+       current->state=stat;
+       schedule();
+   }
+   /* 待当前线程被解除阻塞后才继续运行下面的intr_set_status */
+   local_intr_restore(flag);
+}
+/* 解除线程的阻塞状态 */
+void thread_unblock(struct task_struct* task) {
+    list_entry_t *head=&ready_task_list;
+    list_entry_t *ite=head;
+    enum intr_status flag;
+    local_intr_save(flag);
+    {
+        ASSERT(task->state == STOPPED);
+        if (task->state != STOPPED) {
+            //若已堵塞的线程已经在就绪队列中
+            while((ite=list_next(ite))!=head){
+                if(task==list_to_task(ite,link))
+                     PANIC("thread_unblock: blocked thread in ready_task_list\n");
+            }
+            task->state = RUNNABLE;
+            add_link(&task->link);   //插入到就绪队列表尾部   
+        }
+    }
+    local_intr_restore(flag);
+
 }
 
 /* 打印进程信息 */
@@ -350,19 +404,7 @@ print_taskinfo(void *arg) {
     printk("To U: \"en.., Bye, Bye. :)\"\n");
     return 0;
 }
-static void print_task1(){
-    //while(1){
-    printk("task1 ");
-    //schedule();
-    //  }
-}
-static void print_task2(){
-    //while(1){
-    printk("task2 ");
-    //while(1);
-    //schedule();
-    //}
-}
+
 /* 进程退出 */
 void do_exit(){
     printk("task exit!\n");

@@ -37,7 +37,7 @@ readline(const char *prompt) {
     }
     int i = 0, c;
     while (1) {
-        c = cons_getc();//getchar();
+        c = getchar(); //cons_getc();
         if (c < 0) {
             return NULL;
         }

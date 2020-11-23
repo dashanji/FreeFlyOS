@@ -14,6 +14,7 @@ kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/pic/pic.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/stl/defs.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/stl/hash.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/stl/list.h
+kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/sync/sync.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/task/task.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/timer/timer.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/vga/vga.h

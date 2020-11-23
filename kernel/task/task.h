@@ -11,10 +11,20 @@
 #include "../stl/hash.h"
 #include "../stl/defs.h"
 
+//进程魔数
+#define TASK_MAGIC 0x19971211
 //最大进程数量  pid号从0-32767 
 #define pid_max 32768
 //进程名最大值
 #define task_name_max 20
+
+//将list_entry_t转化为sturct task_struct
+#define list_to_task(list_entry_addr,member)         \
+    to_struct(list_entry_addr,struct task_struct,member)
+
+/* 自定义通用函数类型,它将在很多线程函数中做为形参类型 */
+typedef void thread_func(void*);
+
 // Saved registers for kernel context switches.
 // Don't need to save all the %fs etc. segment registers,
 // because they are constant across kernel contexts.
@@ -52,6 +62,7 @@ struct task_struct{
     //struct trapframe *tf;
     list_entry_t link;                //进程链表
     list_entry_t hash_link;           //哈希链表
+    unsigned int magic;
 };
 union task_union
 {
@@ -105,6 +116,7 @@ int kernel_thread(int (*fun)(void *), void *args, unsigned int flags);
 static void task_run(struct task_struct *task);
 static void wakeup_task(struct task_struct *task);
 void schedule(); 
+void thread_block(enum task_state stat);
 
 static int print_taskinfo(void *arg); 
 static void print_task1();

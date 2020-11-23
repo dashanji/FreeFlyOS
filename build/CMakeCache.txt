@@ -328,6 +328,12 @@ serial_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/serial
 serial_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/serial
 
 //Value Computed by CMake
+sync_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/sync
+
+//Value Computed by CMake
+sync_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/sync
+
+//Value Computed by CMake
 task_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/task
 
 //Value Computed by CMake
@@ -467,7 +473,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=16
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=17
 //ADVANCED property for variable: CMAKE_OBJDUMP
 CMAKE_OBJDUMP-ADVANCED:INTERNAL=1
 //Platform information initialized

@@ -11,4 +11,5 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/vga
     ${FreeFlyOS_SOURCE_DIR}/kernel/task
     ${FreeFlyOS_SOURCE_DIR}/kernel/stl
+    ${FreeFlyOS_SOURCE_DIR}/kernel/debug
 )

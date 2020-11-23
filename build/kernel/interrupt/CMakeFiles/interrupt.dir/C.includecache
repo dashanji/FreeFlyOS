@@ -33,6 +33,8 @@ trap.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
 ../dt/dt.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+../task/task.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 

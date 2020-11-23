@@ -8,6 +8,8 @@
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
@@ -39,6 +41,8 @@ task.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 ../mem/memlayout.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
+../debug/debug.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 ../dt/dt.h

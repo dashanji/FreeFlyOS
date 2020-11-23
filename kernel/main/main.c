@@ -9,13 +9,18 @@
 #include "../mem/vmm.h"
 #include "../debug/debug.h"
 #include "../task/task.h"
+#include "../sync/sync.h"
 
-
+#define TIME_FREQUENCY 100
 //三个管理区
 extern pm_zone dma_zone;
 extern pm_zone normal_zone;
 extern pm_zone highmem_zone;
+extern struct task_struct *current;
+extern unsigned int volatile jiffies;
 
+static struct lock test_lock;
+static void delay(unsigned int xms);
 void main(void)
 {
 	clear();
@@ -29,13 +34,13 @@ void main(void)
 
     pic_init();
     idt_init();
-    timer_init(200);
+    
     
     enable_interupt();
     
     serial_init();
     kbd_init();
-    ASSERT(1==2);
+   // ASSERT(1==2);
     setup_vpt();
     pmm_init();
 
@@ -43,10 +48,15 @@ void main(void)
 
     test_vmm();
 
-   
     task_init();
+   // clear();
+
+    printk("Now current->counter:%08d\n",current->counter);
+    timer_init(TIME_FREQUENCY); //100HZ
     
-    
+    lock_init(&test_lock);
+    test_schedule();
+    //test_schedule();
     //print_seg();
     //printk("successful\n");
     while(1);
@@ -118,4 +128,60 @@ void test_vmm(){
     unsigned char *st4=(unsigned char *)high3_addr;
     *st4=0xFF;
     printk("str4:%08ux\n",*st4);
+}
+void test_schedule(){
+    int newtask1_pid=kernel_thread(print_task1,"task1 ",0);
+    //struct task_struct *newtask1=find_task(newtask1_pid);
+    
+    //set_task_name(newtask1,"task1");
+    
+    int newtask2_pid=kernel_thread(print_task2,"task2 ",0);
+   // struct task_struct *newtask2=find_task(newtask2_pid);
+    printk("Hello ");
+   // set_task_name(newtask2,"task2");
+    intr_enable();
+    printk("Hello ");
+    while(1){
+        //if(!(jiffies%100))
+        printk("Main ");
+        delay(1000000);
+    }     
+}
+static void print_task1(void *arg){
+    /* 用void*来通用表示参数,被调用的函数知道自己需要什么类型的参数,自己转换再用 */
+    char* para = arg;
+    while(1){
+        lock_acquire(&test_lock);
+        //if(!(jiffies%100))
+        printk("%s",para);
+        delay(1000000);
+        //lock_release(&test_lock);
+    }
+    
+    //schedule();
+    //  }
+}
+static void print_task2(void *arg){
+    
+    /* 用void*来通用表示参数,被调用的函数知道自己需要什么类型的参数,自己转换再用 */
+    char* para = arg;
+    while(1){
+        //if(!(jiffies%100))
+        lock_acquire(&test_lock);
+        //lock_release(&test_lock);
+        printk("%s",para);
+        delay(1000000);
+        
+    }
+    
+    //while(1);
+    //schedule();
+    //}
+}
+// 定义一个延时xms毫秒的延时函数
+static void delay(unsigned int xms) // xms代表需要延时的毫秒数
+{
+    unsigned int x,y;
+    for(x=xms;x>0;x--)
+        for(y=110;y>0;y--);
 }
