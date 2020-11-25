@@ -538,7 +538,6 @@ kernel/CMakeFiles/Test1.dir/clean:
 # Target rules for target kernel/CMakeFiles/kernel.dir
 
 # All Build rule for target.
-kernel/CMakeFiles/kernel.dir/all: kernel/init/CMakeFiles/init.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/asm/CMakeFiles/asm.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/debug/CMakeFiles/debug.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/dt/CMakeFiles/dt.dir/all
@@ -548,6 +547,7 @@ kernel/CMakeFiles/kernel.dir/all: kernel/main/CMakeFiles/main.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/mem/CMakeFiles/mem.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/task/CMakeFiles/task.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/pic/CMakeFiles/pic.dir/all
+kernel/CMakeFiles/kernel.dir/all: kernel/init/CMakeFiles/init.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/serial/CMakeFiles/serial.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/timer/CMakeFiles/timer.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/vga/CMakeFiles/vga.dir/all

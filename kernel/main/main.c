@@ -21,6 +21,8 @@ extern unsigned int volatile jiffies;
 
 static struct lock test_lock;
 static void delay(unsigned int xms);
+void user_task_print();
+int test_user_task=0;
 void main(void)
 {
 	clear();
@@ -36,6 +38,7 @@ void main(void)
     idt_init();
     
     
+
     enable_interupt();
     
     serial_init();
@@ -51,11 +54,12 @@ void main(void)
     task_init();
    // clear();
 
-    printk("Now current->counter:%08d\n",current->counter);
+    //必须放在task_init后，不然访问current会出现缺页
     timer_init(TIME_FREQUENCY); //100HZ
     
-    lock_init(&test_lock);
-    test_schedule();
+    test_user();
+    //lock_init(&test_lock);
+    //test_schedule();
     //test_schedule();
     //print_seg();
     //printk("successful\n");
@@ -184,4 +188,13 @@ static void delay(unsigned int xms) // xms代表需要延时的毫秒数
     unsigned int x,y;
     for(x=xms;x>0;x--)
         for(y=110;y>0;y--);
+}
+void test_user(){
+    user_task_init(user_task_print);
+}
+void user_task_print(){
+    while(1){
+       
+        test_user_task++;
+    }
 }

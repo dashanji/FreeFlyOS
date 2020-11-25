@@ -1,6 +1,7 @@
 #include "task.h"
 #include "../interrupt/syscall.h"
 #include "../stl/elf.h"
+#include "../mem/pmm.h"
 #include "../mem/vmm.h"
 #include "../mem/memlayout.h"
 #include "../debug/debug.h"
@@ -41,6 +42,7 @@ static unsigned int volatile last_pid=0;
 //就绪进程链表
 static list_entry_t ready_task_list;
 struct task_struct *task0;  //祖先进程，即进程0
+struct task_struct *user_task; //第一个用户进程
 //struct task_struct *task1;  //由进程0 do_fork出来的进程1
 struct task_struct *current;  //指向当前进程
 
@@ -65,7 +67,7 @@ void task_init(){
         list_init(&hash_list[i]);
     }
     //分配task_struct结构体
-    if((task0=alloc_task())==NULL){
+    if((task0=alloc_task(KERNEL_TASK))==NULL){
         printk("alloc task error!\n");
     }
     
@@ -86,7 +88,7 @@ void task_init(){
     /* 当前进程指向task0 */
     current=task0;
     
-    clear();
+    //clear();
     //printk("task0->counter:%08d!\n",task0->counter);
     //printk("current:%08X!\n",current);
     //printk("In task_init,current->counter=%08d\n",current->counter);
@@ -210,9 +212,14 @@ static struct task_struct* find_task(int pid){
     return NULL;
 }
 
-//给进程分配task_struct结构体
-static struct task_struct* alloc_task(){
-    struct task_struct *task=vmm_malloc(sizeof(struct task_struct),1);
+//给进程分配task_struct结构体,判断是用户进程还是内核进程
+static struct task_struct* alloc_task(enum task_kind kind){
+    struct task_struct *task;
+    if(kind==KERNEL_TASK)
+        task=vmm_malloc(sizeof(struct task_struct),1);
+    else
+        task=vmm_malloc(sizeof(struct task_struct),2);
+    
     if(task!=NULL){
         task->state=UNRUNNABLE;
         task->counter=5;
@@ -280,7 +287,7 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
     }
     
     //分配task_struct结构体
-    if((task=alloc_task()) == NULL){
+    if((task=alloc_task(KERNEL_TASK)) == NULL){
         return -1;
     }
     task->kernel_stack=(unsigned int)task+VMM_PAGE_SIZE;
@@ -456,4 +463,83 @@ kernel_execve(const char *name, unsigned char *binary, unsigned int size) {
 static int
 user_main(void *arg) {
     //KERNEL_EXECVE(exit);
+}
+//设置用户页表
+unsigned int set_user_cr3(){
+    unsigned int cr3_addr=vmm_malloc(VMM_PAGE_SIZE,1);
+   // printk("cr3_addr:%08x",cr3_addr);
+   // printk("new_pdt[0]:%08x",new_pdt[0]);
+    memcpy(cr3_addr,new_pdt,VMM_PAGE_SIZE);
+   // printk("new_pdt[0]:%08x",new_pdt[0]);
+    unsigned int *pdt=(unsigned int *)cr3_addr;
+    //printk("idx(PA_LA(DMA_START)):%08x",idx(PA_LA(DMA_START)));
+    printk("new_pdt[0x300]:%08x",new_pdt[0x300]);
+    printk("pdt[0x300]:%08x",pdt[0x300]);
+    unsigned int pt_len=(unsigned int)HIGHMEM_START/
+((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
+
+    for(unsigned int i=0;i<pt_len;i++){
+            pdt[i+idx(PA_LA(DMA_START))]|=VMM_PAGE_USER;
+        }
+    
+    unsigned int *pt=(unsigned int *)PA_LA((new_pdt[idx(PA_LA(DMA_START))]&VMM_PAGE_MASK));
+    printk("pt[0]:%08x",pt[0]);
+    for(unsigned int i=0,k=0,n=0;n<pt_len*(unsigned int)PAGE_TABLE_SIZE;i+=(unsigned int)VMM_PAGE_SIZE,n++){
+        pt[k++]|=VMM_PAGE_USER;
+        //printk("i:%08ux\nj:%08ux\nk:%08ux\n",i,j,k);
+    }
+   
+    return cr3_addr;
+}
+/*用户进程初始化*/
+void user_task_init(void *function){
+    
+    //分配task_struct结构体
+    if((user_task=alloc_task(USER_TASK))==NULL){
+        printk("alloc task error!\n");
+    }
+    
+    /* 设置task0属性 */
+    user_task->state=RUNNABLE;   
+    user_task->counter=5;
+    user_task->priority=1; 
+    user_task->pid=alloc_pid();  //初始化task0的PID和last_pid
+    set_task_name(user_task,"user_task");
+    user_task->kernel_stack=(unsigned int)user_task+VMM_PAGE_SIZE;
+    user_task->cr3=LA_PA(set_user_cr3());
+    
+    lcr3(user_task->cr3);
+    user_task->tf = (struct trapframe *)(user_task->kernel_stack)- 1;
+    user_task->tf->tf_regs.reg_eax=0;
+    user_task->tf->tf_regs.reg_ebp=0;
+    user_task->tf->tf_regs.reg_ebx=0;
+    user_task->tf->tf_regs.reg_ecx=0;
+    user_task->tf->tf_regs.reg_edi=0;
+    user_task->tf->tf_regs.reg_edx=0;
+    user_task->tf->tf_regs.reg_esi=0;
+    user_task->tf->tf_regs.reg_oesp=0;
+
+    user_task->tf->tf_cs=USER_CS;
+    user_task->tf->tf_ds=user_task->tf->tf_es=user_task->tf->tf_fs=user_task->tf->tf_ss=USER_DS;
+    user_task->tf->tf_gs=0;
+    user_task->tf->tf_eip=function;
+    user_task->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
+
+    user_task->tf->tf_esp=user_task->kernel_stack-sizeof(struct trapframe);
+    /* 进程链表指向task0 */
+    //ask_list=task0->link;   //待调试
+    //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
+    //list_init(&task0->link);
+    list_init(&user_task->link);
+    
+    //printk("task0->counter:%08d!\n",task0->counter);
+    //printk("current:%08X!\n",current);
+    //printk("In task_init,current->counter=%08d\n",current->counter);
+    /* 根据PID加入哈希链表 */
+    add_pid_hash(user_task);
+    
+    //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
+    //nr_task++;
+    nr_task++;
+    asm volatile ("movl %0, %%esp; jmp __trapret" : : "g" (user_task->tf) : "memory");
 }

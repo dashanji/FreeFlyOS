@@ -22,6 +22,13 @@
 #define list_to_task(list_entry_addr,member)         \
     to_struct(list_entry_addr,struct task_struct,member)
 
+#define EFLAGS_MBS (1<<1)
+#define EFLAGS_IF_1  (1<<9)
+#define EFLAGS_IF_0 0
+#define EFLAGS_IOPL_3 (3<<12) 
+#define EFLGAS_IOPL_0 (0<<12)
+
+
 /* 自定义通用函数类型,它将在很多线程函数中做为形参类型 */
 typedef void thread_func(void*);
 
@@ -46,6 +53,10 @@ enum task_state{
     UNRUNNABLE=-1,
     RUNNABLE=0,
     STOPPED=1,
+};
+enum task_kind{
+    USER_TASK=0,
+    KERNEL_TASK=1,
 };
 struct task_struct{
     enum task_state state;  //-1 unrunnable , 0 runnable, 1 stopped
@@ -104,7 +115,7 @@ static struct task_struct* find_task(int pid);
 char *set_task_name(struct task_struct *task, const char *name);
 char *get_task_name(struct task_struct *task);
 /* 分配task_struct结构体 */
-static struct task_struct* alloc_task();
+static struct task_struct* alloc_task(enum task_kind kind);
 
 /* fork产生新进程 */
 static void forkret(void);
@@ -124,4 +135,6 @@ static void print_task2();
 void do_exit();
 
 int do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned int size);
+unsigned int set_user_cr3();
+void user_task_init(void *function);
 #endif

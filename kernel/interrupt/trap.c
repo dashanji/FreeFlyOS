@@ -73,7 +73,7 @@ static void trap_dispatch(struct trapframe *tf)
             if (jiffies % 100 == 0){
                 current->counter--;
                 second++;
-                printk("current->counter:%08d\n",current->counter);
+                //printk("current->counter:%08d\n",current->counter);
             }
             if(current->counter==0){
                 //printk("Start Schedule\n",current->counter);

@@ -11,6 +11,7 @@ kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/dt/dt.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/interrupt/syscall.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/interrupt/trap.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/mem/memlayout.h
+kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/mem/pmm.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/mem/vmm.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/stl/defs.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/stl/elf.h

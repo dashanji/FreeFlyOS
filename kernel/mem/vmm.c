@@ -74,7 +74,7 @@ unsigned int vmm_malloc(unsigned int bytes,char zonenum){
 		for(unsigned int i=0;i<page;i++){
             pt_highmem[(highmem_end-highmem_start)/
             ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
-            [(highmem_end-highmem_start)/VMM_PAGE_SIZE]=addr|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
+            [(highmem_end-highmem_start)/VMM_PAGE_SIZE]=addr|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
             highmem_end+=VMM_PAGE_SIZE;
             addr+=PMM_PAGE_SIZE;
         }
@@ -82,7 +82,7 @@ unsigned int vmm_malloc(unsigned int bytes,char zonenum){
         (unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE-1)/
         ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
         for(unsigned int i=0;i<pt_num;i++){
-            new_pdt[i+idx(highmem_start)]=LA_PA((unsigned int)pt_highmem[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
+            new_pdt[i+idx(highmem_start)]=LA_PA((unsigned int)pt_highmem[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
         }
         addr=highmem_ptr;
 	}
@@ -114,7 +114,7 @@ void vmm_free(unsigned int addr,unsigned int bytes){
 		for(unsigned int i=0;i<page;i++){
             pt_highmem[(addr-highmem_start)/
             ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
-            [(addr-highmem_start)/VMM_PAGE_SIZE]=addr|VMM_PAGE_UNPRESENT|VMM_PAGE_RW|VMM_PAGE_USER;;
+            [(addr-highmem_start)/VMM_PAGE_SIZE]=addr|VMM_PAGE_UNPRESENT|VMM_PAGE_RW|VMM_PAGE_USER;//VMM_PAGE_KERNEL;
             addr+=VMM_PAGE_SIZE;
         }
 	}
