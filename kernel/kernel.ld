@@ -29,7 +29,7 @@ SECTIONS
         *(.init.data)
         *(.init.bss)
     }
-
+    PROVIDE(init_end = .);
 
     /* 指定内核从虚拟地址0xC0000000+0x01000000(16MB)处开始 */
     /* 物理地址从0x01000000(16MB)处开始，通过AT命令指定 */

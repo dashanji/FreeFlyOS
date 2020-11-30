@@ -1,6 +1,6 @@
 #ifndef _SYSCALL_H_
 #define _SYSCALL_H_
-
+#include "trap.h"
 /* syscall number */
 #define SYS_exit            1
 #define SYS_fork            2
@@ -16,8 +16,17 @@
 #define SYS_mmap            20
 #define SYS_munmap          21
 #define SYS_shmem           22
-#define SYS_putc            30
 #define SYS_pgdir           31
 
-void syscall(void);
+#define SYS_print_char      36
+#define SYS_print_string    37
+#define SYS_print_num       38
+
+#define T_SYSCALL           0x80
+
+void syscall_trap(struct trapframe *tf);
+int user_sys_getpid(void);
+void user_print_char(char c); 
+void user_print_string(char *str);
+void user_print_num(int num,unsigned char base,char len,int flag);
 #endif

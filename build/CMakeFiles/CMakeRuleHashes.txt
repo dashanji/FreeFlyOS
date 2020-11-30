@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-95d20a5dc32615dfe4651115de140bdb kernel/CMakeFiles/Test1
-3ea6e41ebddc3d92671c388455076e64 kernel/FreeFlyOS.img

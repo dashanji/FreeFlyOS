@@ -1,13 +1,17 @@
 #include "trap.h"
+#include "../asm/asm.h"
 #include "../vga/vga.h"
 #include "../timer/timer.h"
 #include "../debug/debug.h"
 #include "../dt/dt.h"
 #include "../task/task.h"
+#include "../sync/sync.h"
+#include "../file/ide.h"
 extern unsigned int volatile jiffies; //记录当前系统开机的时钟节拍数
 extern unsigned int volatile second; //记录秒数
 
 extern struct task_struct *current;  //指向当前进程
+extern struct ide_channel channels[2];
 static const char *IA32flags[] = {
     "CF", NULL, "PF", NULL, "AF", NULL, "ZF", "SF",
     "TF", "IF", "DF", "OF", NULL, NULL, "NT", NULL,
@@ -60,12 +64,15 @@ static void trap_dispatch(struct trapframe *tf)
 {
     char c;
     switch (tf->tf_trapno) {
+        case IRQ_TEST:
+            printk("test user trap\n");
+            break;
         case T_PGFLT:
             //print_trapframe(tf);
             printk("queye\n");
             break;
         case T_SYSCALL:
-            syscall();
+            syscall_trap(tf);
             break;
         case IRQ_OFFSET + IRQ_TIMER:
             jiffies++;
@@ -88,6 +95,24 @@ static void trap_dispatch(struct trapframe *tf)
             c = cons_getc();
             //printk("%c",c);
             cons_putc(c);
+            break;
+        case IRQ_OFFSET+IRQ_IDE1:
+           /* struct ide_channel* channel = &channels[0];
+            if (channel->expecting_intr) {
+                channel->expecting_intr = 0;
+                sema_up(&channel->disk_done);
+                // 读取状态寄存器使硬盘控制器认为此次的中断已被处理,从而硬盘可以继续执行新的读写 
+                inb(reg_status(channel));
+            } */
+            break;
+        case IRQ_OFFSET+IRQ_IDE2:
+            /*struct ide_channel* channel = &channels[1];
+            if (channel->expecting_intr) {
+                channel->expecting_intr = 0;
+                sema_up(&channel->disk_done);
+                 读取状态寄存器使硬盘控制器认为此次的中断已被处理,从而硬盘可以继续执行新的读写 
+                inb(reg_status(channel));
+            }  */
             break;
         default:
             // in kernel, it must be a mistake

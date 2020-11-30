@@ -97,6 +97,8 @@ void idt_init(){
         SETGATE(idt[i], 0, GD_KTEXT, __vectors[i], DPL_KERNEL);
     }
     SETGATE(idt[T_SYSCALL], 1, GD_KTEXT, __vectors[T_SYSCALL], DPL_USER);
+    //测试专用
+    SETGATE(idt[0x60], 1, GD_KTEXT, __vectors[0x60], DPL_USER);
     lidt(&idtinfo);
 }
 

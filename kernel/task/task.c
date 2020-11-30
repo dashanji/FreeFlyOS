@@ -451,11 +451,11 @@ do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned in
 static int
 kernel_execve(const char *name, unsigned char *binary, unsigned int size) {
     int ret, len = strlen(name);
-    asm volatile (
+    /*asm volatile (
         "int %1;"
         : "=a" (ret)
         : "i" (T_SYSCALL), "0" (SYS_exec), "d" (name), "c" (len), "b" (binary), "D" (size)
-        : "memory");
+        : "memory");*/
     return ret;
 }
 
