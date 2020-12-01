@@ -54,6 +54,7 @@ SECTIONS
     {
         *(.data)
     }
+
     PROVIDE(kernel_bss = .);
 
     .bss :  AT(ADDR(.bss) - 0xC0000000) 
@@ -61,9 +62,11 @@ SECTIONS
         *(.bss)
     }
 
+
     PROVIDE(kernel_end = .);
 
     /DISCARD/ : {
         *(.eh_frame .note.GNU-stack)
     }
+    
 }

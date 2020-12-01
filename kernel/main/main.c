@@ -54,7 +54,7 @@ void main(void)
 
     test_vmm();
 
-    //task_init();
+   // task_init();
    // clear();
     //必须放在task_init后，不然访问current会出现缺页
     //timer_init(TIME_FREQUENCY); //100HZ

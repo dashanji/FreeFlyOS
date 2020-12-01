@@ -97,7 +97,7 @@ void task_init(){
     
     //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
     //nr_task++;
-    nr_task=1;
+    nr_task++;
 }
 //设置PID位
 static int set_pid_bit(int pid){

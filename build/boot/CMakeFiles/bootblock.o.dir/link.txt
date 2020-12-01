@@ -1,0 +1,1 @@
+/usr/local/bin/x86_64-elf-gcc -Iinclude/ -Os -nostdlib -fno-builtin  -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-headerpad_max_install_names -T /Users/caoy/Desktop/FreeFlyOS/boot/boot.ld -Wl,-melf_i386 CMakeFiles/bootsector.dir/bootsector.S.o CMakeFiles/bootmain.dir/bootmain.c.o  -o bootblock.o 
