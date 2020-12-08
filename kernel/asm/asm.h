@@ -31,6 +31,9 @@ void *memset(void *s, char c, unsigned int n);
 void *memcpy(void *dst, const void *src, unsigned int n);
 unsigned int strlen(const char *s);
 int strcmp(const char *s1, const char *s2);
+char* strrchr(const char* str, const unsigned char ch);
+char* strcat(char* dst_, const char* src_);
+char* strcpy(char* dst_, const char* src_);
 void CPU_INVLPG(unsigned int addr);
 void lcr3(unsigned int cr3);
 #endif

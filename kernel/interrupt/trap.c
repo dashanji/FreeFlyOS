@@ -6,12 +6,10 @@
 #include "../dt/dt.h"
 #include "../task/task.h"
 #include "../sync/sync.h"
-#include "../file/ide.h"
 extern unsigned int volatile jiffies; //记录当前系统开机的时钟节拍数
 extern unsigned int volatile second; //记录秒数
 
 extern struct task_struct *current;  //指向当前进程
-extern struct ide_channel channels[2];
 static const char *IA32flags[] = {
     "CF", NULL, "PF", NULL, "AF", NULL, "ZF", "SF",
     "TF", "IF", "DF", "OF", NULL, NULL, "NT", NULL,

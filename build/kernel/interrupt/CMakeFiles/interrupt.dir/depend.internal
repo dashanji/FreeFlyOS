@@ -8,6 +8,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/vector.S.o
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
@@ -22,7 +23,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
- /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h

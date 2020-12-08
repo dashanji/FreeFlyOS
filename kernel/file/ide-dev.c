@@ -43,7 +43,7 @@ static inline void outsl(unsigned int port, void *addr, int cnt) {
 /*
 *   ide_read_sect(dst,secno):读取扇区号secno所在的扇区进入dst地址中
 */
-static inline void ide_read_sect(void *dst, unsigned int secno) {
+static void ide_read_sect(void *dst, unsigned int secno) {
     
     // 等待硬盘准备好
     waitdisk();
@@ -61,9 +61,9 @@ static inline void ide_read_sect(void *dst, unsigned int secno) {
     insl(0x1F0, dst, SECTSIZE / 4);
 }
 /*
-*   ide_write_sect(src,secno):读取扇区号secno所在的扇区进入dst地址中
+*   ide_write_sect(src,secno):将src的数据写入到secno扇区中
 */
-static inline void ide_write_sect(void *src, unsigned int secno) {
+static void ide_write_sect(void *src, unsigned int secno) {
     
     // 等待硬盘准备好
     waitdisk();
@@ -79,6 +79,26 @@ static inline void ide_write_sect(void *src, unsigned int secno) {
     waitdisk();
     // 读取一个扇区
     outsl(0x1F0, src, SECTSIZE / 4);
+} 
+/*
+**    ide_read(dst,secno,size):将secno开始的um个扇区读入dst起始的size大小的字节中
+*/
+void ide_read(void *dst,unsigned int secno,unsigned int num){
+   // unsigned int num=(size+SECTSIZE-1)/SECTSIZE;
+    for(int i=0;i<num;i++){
+        ide_read_sect(dst,secno+i);
+        dst+=SECTSIZE;
+    }
+}
+/*
+**    ide_write(src,secno,size):将src起始的num个扇区写入secno开始的扇区中
+*/
+void ide_write(void *src,unsigned int secno,unsigned int num){
+    //unsigned int num=(size+SECTSIZE-1)/SECTSIZE;
+    for(int i=0;i<num;i++){
+        ide_write_sect(src,secno+i);
+        src+=SECTSIZE;
+    }
 }
 // 定义一个延时xus毫秒的延时函数
 static void delay(unsigned int xus) // xus代表需要延时的微秒数
@@ -88,16 +108,17 @@ static void delay(unsigned int xus) // xus代表需要延时的微秒数
         for(y=110;y>0;y--);
 }
 //硬盘默认只有一个主分区
-static struct partition *read_main_partition(){
+struct partition *read_main_partition(){
     struct partition *main_partition;
     //申请内存存储主分区信息
-    unsigned int main_part=vmm_malloc(512,1);
+    unsigned int main_part=vmm_malloc(SECTSIZE,1);
     //主分区位于0号扇区
-    ide_read_sect((unsigned int *)main_part,0);
+    ide_read_sect((unsigned char *)main_part,0);
     //分区表位于引导扇区（0号扇区）的0x1BE - 0x1FD中
     //由于只有一个主分区，所以读取0x1BE开始的16个字节数据
-    main_partition=(struct partition *)((unsigned int *)main_part+0x1BE);
-
+    main_partition=(struct partition *)((unsigned char *)main_part+0x1BE);
+    
+    clear();
     printk("active_flag:%08ux\n",main_partition->active_flag);
     printk("start_magnetic:%08ux\n",main_partition->start_magnetic);
     printk("start_sector:%08ux\n",main_partition->start_sector);
@@ -108,6 +129,9 @@ static struct partition *read_main_partition(){
     printk("end_cylinder:%08ux\n",main_partition->end_cylinder);
     printk("start_offset:%08ux\n",main_partition->start_offset);
     printk("sector_size:%08ux\n",main_partition->sector_size);
+
+   // printk("the last 2 bytes:%08ux,%08ux\n",*((unsigned char *)main_part+0x1FE)
+   // ,*((unsigned char *)main_part+0x1FF)); 
     return main_partition;
 
 }

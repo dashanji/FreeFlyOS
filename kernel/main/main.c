@@ -12,6 +12,7 @@
 #include "../sync/sync.h"
 #include "../interrupt/syscall.h"
 #include "../file/ide-dev.h"
+#include "../file/fs.h"
 #define TIME_FREQUENCY 100
 
 //三个管理区
@@ -54,7 +55,7 @@ void main(void)
 
     test_vmm();
 
-   // task_init();
+    task_init();
    // clear();
     //必须放在task_init后，不然访问current会出现缺页
     //timer_init(TIME_FREQUENCY); //100HZ
@@ -65,7 +66,8 @@ void main(void)
     //test_schedule();
     //print_seg();
     //printk("successful\n");
-    test_ide_io();
+    //test_ide_io();
+    test_fs();
     while(1);
 }
 void test_pmm(){

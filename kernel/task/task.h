@@ -10,7 +10,7 @@
 #include "../stl/list.h"
 #include "../stl/hash.h"
 #include "../stl/defs.h"
-
+#include "../file/fs.h"
 //进程魔数
 #define TASK_MAGIC 0x19971211
 //最大进程数量  pid号从0-32767 
@@ -73,7 +73,9 @@ struct task_struct{
     //struct trapframe *tf;
     list_entry_t link;                //进程链表
     list_entry_t hash_link;           //哈希链表
+    unsigned int fd_table[MAX_FILE]; //文件描述符数组
     unsigned int magic;
+    unsigned int cwd_inode_nr;
 };
 union task_union
 {

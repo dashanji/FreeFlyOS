@@ -1,5 +1,7 @@
 #ifndef _IDE_DEV_H_
 #define _IDE_DEV_H_
+#include "bitmap.h"
+#include "super_block.h"
 #define SECTSIZE        512
 
 /* 分区表项结构 */
@@ -15,7 +17,14 @@ struct partition
     unsigned char end_cylinder; //分区结束柱面号
     unsigned int  start_offset; //分区起始偏移扇区
     unsigned int  sector_size; //分区扇区总数
-};
+    struct super_block *sb;  //该分区超级块
+    struct bitmap block_bitmap; //空闲块位图
+    struct bitmap inode_bitmap; //inode节点位图
+}__attribute__((packed));
 
+void ide_read(void *dst,unsigned int secno,unsigned int num);
+void ide_write(void *src,unsigned int secno,unsigned int num);
 void test_ide_io();
+struct partition *read_main_partition();
+
 #endif

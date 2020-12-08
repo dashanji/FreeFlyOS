@@ -12,7 +12,17 @@
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+bitmap.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+super_block.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
 trap.h
@@ -49,6 +59,8 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
 ../file/ide-dev.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+../file/fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
 
@@ -93,6 +105,8 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
 ../stl/defs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
+../file/fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
 

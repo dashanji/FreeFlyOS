@@ -5,6 +5,7 @@ kernel/sync/CMakeFiles/sync.dir/sync.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h

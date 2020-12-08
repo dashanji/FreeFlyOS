@@ -79,12 +79,15 @@ void task_init(){
     set_task_name(task0,"task0");
     task0->kernel_stack=(unsigned int)task0+VMM_PAGE_SIZE;
     task0->cr3=new_pdt;
-    
+    task0->cwd_inode_nr=0;
     /* 进程链表指向task0 */
     //ask_list=task0->link;   //待调试
     //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
     //list_init(&task0->link);
     list_init(&task0->link);
+    for(int i=0;i<MAX_FILE;i++){
+        task0->fd_table[i]=-1;
+    }
     /* 当前进程指向task0 */
     current=task0;
     
@@ -231,6 +234,7 @@ static struct task_struct* alloc_task(enum task_kind kind){
         task->tf=NULL;
         memset(&(task->context),0,sizeof(task->context));
         task->magic=TASK_MAGIC;
+        task->cwd_inode_nr=0;
     }
     return task;
 }

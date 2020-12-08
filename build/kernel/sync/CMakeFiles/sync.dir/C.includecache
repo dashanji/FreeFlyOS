@@ -12,6 +12,8 @@
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
@@ -63,6 +65,8 @@ sync.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
 ../stl/defs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
+../file/fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 

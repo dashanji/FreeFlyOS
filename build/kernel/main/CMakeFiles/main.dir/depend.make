@@ -4,7 +4,10 @@
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/asm/asm.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/debug/debug.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/dt/dt.h
+kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/file/bitmap.h
+kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/file/fs.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/file/ide-dev.h
+kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/file/super_block.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/interrupt/syscall.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/interrupt/trap.h
 kernel/main/CMakeFiles/main.dir/main.c.o: ../kernel/main/main.c

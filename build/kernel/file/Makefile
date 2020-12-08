@@ -145,6 +145,87 @@ file/fast:
 	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/build
 .PHONY : file/fast
 
+dir.o: dir.c.o
+
+.PHONY : dir.o
+
+# target to build an object file
+dir.c.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/dir.c.o
+.PHONY : dir.c.o
+
+dir.i: dir.c.i
+
+.PHONY : dir.i
+
+# target to preprocess a source file
+dir.c.i:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/dir.c.i
+.PHONY : dir.c.i
+
+dir.s: dir.c.s
+
+.PHONY : dir.s
+
+# target to generate assembly for a file
+dir.c.s:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/dir.c.s
+.PHONY : dir.c.s
+
+file.o: file.c.o
+
+.PHONY : file.o
+
+# target to build an object file
+file.c.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/file.c.o
+.PHONY : file.c.o
+
+file.i: file.c.i
+
+.PHONY : file.i
+
+# target to preprocess a source file
+file.c.i:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/file.c.i
+.PHONY : file.c.i
+
+file.s: file.c.s
+
+.PHONY : file.s
+
+# target to generate assembly for a file
+file.c.s:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/file.c.s
+.PHONY : file.c.s
+
+fs.o: fs.c.o
+
+.PHONY : fs.o
+
+# target to build an object file
+fs.c.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/fs.c.o
+.PHONY : fs.c.o
+
+fs.i: fs.c.i
+
+.PHONY : fs.i
+
+# target to preprocess a source file
+fs.c.i:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/fs.c.i
+.PHONY : fs.c.i
+
+fs.s: fs.c.s
+
+.PHONY : fs.s
+
+# target to generate assembly for a file
+fs.c.s:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/fs.c.s
+.PHONY : fs.c.s
+
 ide-dev.o: ide-dev.c.o
 
 .PHONY : ide-dev.o
@@ -172,6 +253,33 @@ ide-dev.c.s:
 	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/ide-dev.c.s
 .PHONY : ide-dev.c.s
 
+inode.o: inode.c.o
+
+.PHONY : inode.o
+
+# target to build an object file
+inode.c.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/inode.c.o
+.PHONY : inode.c.o
+
+inode.i: inode.c.i
+
+.PHONY : inode.i
+
+# target to preprocess a source file
+inode.c.i:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/inode.c.i
+.PHONY : inode.c.i
+
+inode.s: inode.c.s
+
+.PHONY : inode.s
+
+# target to generate assembly for a file
+inode.c.s:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/inode.c.s
+.PHONY : inode.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -181,9 +289,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... file"
+	@echo "... dir.o"
+	@echo "... dir.i"
+	@echo "... dir.s"
+	@echo "... file.o"
+	@echo "... file.i"
+	@echo "... file.s"
+	@echo "... fs.o"
+	@echo "... fs.i"
+	@echo "... fs.s"
 	@echo "... ide-dev.o"
 	@echo "... ide-dev.i"
 	@echo "... ide-dev.s"
+	@echo "... inode.o"
+	@echo "... inode.i"
+	@echo "... inode.s"
 .PHONY : help
 
 

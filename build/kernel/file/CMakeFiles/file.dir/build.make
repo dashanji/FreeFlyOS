@@ -90,7 +90,63 @@ kernel/file/CMakeFiles/file.dir/ide-dev.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/file.dir/ide-dev.c.s"
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.c -o CMakeFiles/file.dir/ide-dev.c.s
 
+kernel/file/CMakeFiles/file.dir/fs.c.o: kernel/file/CMakeFiles/file.dir/flags.make
+kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/file/fs.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object kernel/file/CMakeFiles/file.dir/fs.c.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/file.dir/fs.c.o   -c /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.c
+
+kernel/file/CMakeFiles/file.dir/fs.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/file.dir/fs.c.i"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.c > CMakeFiles/file.dir/fs.c.i
+
+kernel/file/CMakeFiles/file.dir/fs.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/file.dir/fs.c.s"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.c -o CMakeFiles/file.dir/fs.c.s
+
+kernel/file/CMakeFiles/file.dir/dir.c.o: kernel/file/CMakeFiles/file.dir/flags.make
+kernel/file/CMakeFiles/file.dir/dir.c.o: ../kernel/file/dir.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object kernel/file/CMakeFiles/file.dir/dir.c.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/file.dir/dir.c.o   -c /Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.c
+
+kernel/file/CMakeFiles/file.dir/dir.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/file.dir/dir.c.i"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.c > CMakeFiles/file.dir/dir.c.i
+
+kernel/file/CMakeFiles/file.dir/dir.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/file.dir/dir.c.s"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.c -o CMakeFiles/file.dir/dir.c.s
+
+kernel/file/CMakeFiles/file.dir/file.c.o: kernel/file/CMakeFiles/file.dir/flags.make
+kernel/file/CMakeFiles/file.dir/file.c.o: ../kernel/file/file.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object kernel/file/CMakeFiles/file.dir/file.c.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/file.dir/file.c.o   -c /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.c
+
+kernel/file/CMakeFiles/file.dir/file.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/file.dir/file.c.i"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.c > CMakeFiles/file.dir/file.c.i
+
+kernel/file/CMakeFiles/file.dir/file.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/file.dir/file.c.s"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.c -o CMakeFiles/file.dir/file.c.s
+
+kernel/file/CMakeFiles/file.dir/inode.c.o: kernel/file/CMakeFiles/file.dir/flags.make
+kernel/file/CMakeFiles/file.dir/inode.c.o: ../kernel/file/inode.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object kernel/file/CMakeFiles/file.dir/inode.c.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/file.dir/inode.c.o   -c /Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.c
+
+kernel/file/CMakeFiles/file.dir/inode.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/file.dir/inode.c.i"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.c > CMakeFiles/file.dir/inode.c.i
+
+kernel/file/CMakeFiles/file.dir/inode.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/file.dir/inode.c.s"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/file && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.c -o CMakeFiles/file.dir/inode.c.s
+
 file: kernel/file/CMakeFiles/file.dir/ide-dev.c.o
+file: kernel/file/CMakeFiles/file.dir/fs.c.o
+file: kernel/file/CMakeFiles/file.dir/dir.c.o
+file: kernel/file/CMakeFiles/file.dir/file.c.o
+file: kernel/file/CMakeFiles/file.dir/inode.c.o
 file: kernel/file/CMakeFiles/file.dir/build.make
 
 .PHONY : file
