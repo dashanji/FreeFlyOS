@@ -23,6 +23,8 @@ unsigned int user_pt_highmem[(unsigned int)0xC0000000/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
 [PAGE_TABLE_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 
+//用户HIGHMEM区域申请页面对应的物理地址，用户新建页表时需要绑定新页表的实际物理地址
+//struct highmem_va_pa high_va_pa[];
 unsigned int highmem_start=0xF8000000;
 unsigned int highmem_end=0xF8000000;
 //HIGHMEM区域当前映射地址记录器
@@ -83,6 +85,7 @@ unsigned int vmm_malloc(unsigned int bytes,char zonenum){
         ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
         for(unsigned int i=0;i<pt_num;i++){
             new_pdt[i+idx(highmem_start)]=LA_PA((unsigned int)pt_highmem[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+            //printk("i+idx(highmem_start) : %08d",i+idx(highmem_start));
         }
         addr=highmem_ptr;
 	}
@@ -92,6 +95,8 @@ unsigned int vmm_malloc(unsigned int bytes,char zonenum){
     //CPU_INVLPG(highmem_ptr);
     return addr;
 }
+
+
 
 /*
 **           vmm_malloc:释放虚拟页

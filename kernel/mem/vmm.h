@@ -43,6 +43,13 @@ struct vma_struct{
     //list_entry_t link;
 };
 
+//highmem区域虚拟地址转换为物理地址
+struct highmem_va_pa
+{
+    unsigned int va; //页表虚拟地址
+    unsigned int pa; //页表物理地址
+};
+
 //包含所有VMA的共同属性
 /*struct mm_struct{
     list_entry_t mmap_link; 

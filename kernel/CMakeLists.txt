@@ -45,6 +45,8 @@ add_custom_command(OUTPUT ${IMG}
     DEPENDS
         ${PROJECT_NAME}
     COMMAND
+        x86_64-elf-objdump -d kernel > ../../disassembly/kernel_disass.md
+    COMMAND
         echo "Generating FreeFlyOS.img..."
     #COMMAND
     #    dd if=/dev/zero of=${IMG} count=10000	     
@@ -53,7 +55,7 @@ add_custom_command(OUTPUT ${IMG}
     COMMAND
         dd if=kernel of=../../FreeFlyOS.img seek=1 conv=notrunc	        
     COMMAND    
-        qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img	
+        qemu-system-i386 -S -s -m 2048 -hda ../../FreeFlyOS.img	
 )
 add_custom_target(Test1 ALL DEPENDS ${IMG})
 

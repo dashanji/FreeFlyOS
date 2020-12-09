@@ -78,10 +78,11 @@ kernel/CMakeFiles/Test1: kernel/FreeFlyOS.img
 
 kernel/FreeFlyOS.img: kernel/kernel
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating FreeFlyOS.img"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && x86_64-elf-objdump -d kernel > ../../disassembly/kernel_disass.md
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && echo Generating\ FreeFlyOS.img...
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=../boot/bootblock of=../../FreeFlyOS.img bs=446 count=1 conv=notrunc
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=kernel of=../../FreeFlyOS.img seek=1 conv=notrunc
-	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && qemu-system-i386 -S -s -m 2048 -hda ../../FreeFlyOS.img
 
 Test1: kernel/CMakeFiles/Test1
 Test1: kernel/FreeFlyOS.img

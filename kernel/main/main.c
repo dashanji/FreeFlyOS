@@ -56,18 +56,18 @@ void main(void)
     test_vmm();
 
     task_init();
-   // clear();
+    clear();
     //必须放在task_init后，不然访问current会出现缺页
-    //timer_init(TIME_FREQUENCY); //100HZ
+    timer_init(TIME_FREQUENCY); //100HZ
     
-    //test_user();
+    test_user();
     //lock_init(&test_lock);
     //test_schedule();
     //test_schedule();
     //print_seg();
     //printk("successful\n");
     //test_ide_io();
-    test_fs();
+    //test_fs();
     while(1);
 }
 void test_pmm(){
@@ -203,11 +203,12 @@ void user_task_print(){
     //    test_user_task++;
     //}
     //printk("int $0x60;");
-    test_user_task=user_sys_getpid();
+    //test_user_task=user_sys_getpid();
     //asm volatile("int $0x60");
     //int num=10;
     //_syscall6(num);
-    printf("user sys getpid return %08d",test_user_task);
+    //printf("user sys getpid return %08d",test_user_task);
+    user_print_string("hello,I'm User!\n");
     while(1);
 }
 void printf(char *fmt,...){

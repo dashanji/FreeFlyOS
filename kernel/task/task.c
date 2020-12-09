@@ -470,7 +470,7 @@ user_main(void *arg) {
 }
 //设置用户页表
 unsigned int set_user_cr3(){
-    unsigned int cr3_addr=vmm_malloc(VMM_PAGE_SIZE,1);
+    unsigned int cr3_addr=vmm_malloc(VMM_PAGE_SIZE,2);
    // printk("cr3_addr:%08x",cr3_addr);
    // printk("new_pdt[0]:%08x",new_pdt[0]);
     memcpy(cr3_addr,new_pdt,VMM_PAGE_SIZE);
@@ -483,26 +483,35 @@ unsigned int set_user_cr3(){
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
 
     for(unsigned int i=0;i<pt_len;i++){
-            pdt[i+idx(PA_LA(DMA_START))]|=VMM_PAGE_USER;
+            pdt[i+idx(PA_LA(DMA_START))]|=VMM_PAGE_KERNEL;//VMM_PAGE_USER
         }
-    
+    //user_task_print c10021b4 user_print_string c1001aa9 user_syscall c1001a20
+    pdt[idx(PA_LA(DMA_START))+4]|=VMM_PAGE_USER;
     unsigned int *pt=(unsigned int *)PA_LA((new_pdt[idx(PA_LA(DMA_START))]&VMM_PAGE_MASK));
     printk("pt[0]:%08x",pt[0]);
     for(unsigned int i=0,k=0,n=0;n<pt_len*(unsigned int)PAGE_TABLE_SIZE;i+=(unsigned int)VMM_PAGE_SIZE,n++){
-        pt[k++]|=VMM_PAGE_USER;
+        pt[k++]|=VMM_PAGE_KERNEL;//VMM_PAGE_USER
         //printk("i:%08ux\nj:%08ux\nk:%08ux\n",i,j,k);
     }
-   
-    return cr3_addr;
+    unsigned int *cr3_ph_addr=(unsigned int *)cr3_addr;
+    unsigned int *zh1=PA_LA((cr3_ph_addr[(unsigned int)((cr3_addr>>22)&0x3FF)]&VMM_PAGE_MASK));
+    unsigned int phaddr=zh1[((cr3_addr&0x003FF000)>>12)]&VMM_PAGE_MASK;
+    //unsigned int ph_addr=(unsigned int)(*cr3_ph_addr[((cr3_addr>>22)&0x3FF)/4]&VMM_PAGE_MASK)[((cr3_addr&0x003FF000)>>12)/4]&VMM_PAGE_MASK;
+    printk("phaddr:%08ux\n",phaddr);
+    pt[0x1001]|=VMM_PAGE_USER;
+    pt[0x1002]|=VMM_PAGE_USER;
+    return phaddr;//cr3_addr;
 }
 /*用户进程初始化*/
-void user_task_init(void *function){
+void  user_task_init(void *function){
     
     //分配task_struct结构体
     if((user_task=alloc_task(USER_TASK))==NULL){
         printk("alloc task error!\n");
     }
-    
+    /* 复制父进程的程序代码 */
+    unsigned int *user_space1=(unsigned int *)vmm_malloc(VMM_PAGE_SIZE,2);
+    memcpy(user_space1,(unsigned int *)function,VMM_PAGE_SIZE);
     /* 设置task0属性 */
     user_task->state=RUNNABLE;   
     user_task->counter=5;
@@ -510,7 +519,7 @@ void user_task_init(void *function){
     user_task->pid=alloc_pid();  //初始化task0的PID和last_pid
     set_task_name(user_task,"user_task");
     user_task->kernel_stack=(unsigned int)user_task+VMM_PAGE_SIZE;
-    user_task->cr3=LA_PA(set_user_cr3());
+    user_task->cr3=set_user_cr3();//LA_PA(set_user_cr3());
     
     lcr3(user_task->cr3);
     user_task->tf = (struct trapframe *)(user_task->kernel_stack)- 1;
@@ -526,7 +535,7 @@ void user_task_init(void *function){
     user_task->tf->tf_cs=USER_CS;
     user_task->tf->tf_ds=user_task->tf->tf_es=user_task->tf->tf_fs=user_task->tf->tf_ss=USER_DS;
     user_task->tf->tf_gs=0;
-    user_task->tf->tf_eip=function;
+    user_task->tf->tf_eip=function; //user_space1
     user_task->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
 
     user_task->tf->tf_esp=user_task->kernel_stack-sizeof(struct trapframe);
