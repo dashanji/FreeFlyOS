@@ -7,22 +7,23 @@
 #define NULL (void *)0
 #define BITMAP_MASK 1
 
-struct dir root_dir;             // 根目录
+struct dir *root_dir;             // 根目录
 extern struct partition *cur_part;
 
 /* 打开根目录 */
 void 
 open_root_dir(struct partition* part) {
+   root_dir=(struct dir *)vmm_malloc(sizeof(struct dir),2);
    printk("root_inode_no:%08x\n",part->sb->root_inode_no);
-   root_dir.inode = inode_open(part, part->sb->root_inode_no);
-   printk("root_dir.inode:%08x\n",root_dir.inode);
-   root_dir.dir_pos = 0;
+   root_dir->inode = inode_open(part, part->sb->root_inode_no);
+   printk("root_dir.inode:%08x\n",root_dir->inode);
+   root_dir->dir_pos = 0;
 }
 
 /* 在分区part上打开i结点为inode_no的目录并返回目录指针 */
 struct dir* 
 dir_open(struct partition* part, unsigned int inode_no) {
-   struct dir* pdir = (struct dir*)vmm_malloc(sizeof(struct dir),1);
+   struct dir* pdir = (struct dir*)vmm_malloc(sizeof(struct dir),2);
    pdir->inode = inode_open(part, inode_no);
    pdir->dir_pos = 0;
    return pdir;
@@ -36,7 +37,7 @@ const char* name, struct dir_entry* dir_e) {
    unsigned int block_cnt = 140;	 // 12个直接块+128个一级间接块=140块
 
    /* 12个直接块大小+128个间接块,共560字节 */
-   unsigned int* all_blocks = (unsigned int*)vmm_malloc(48 + 512,1);
+   unsigned int* all_blocks = (unsigned int*)vmm_malloc(48 + 512,2);
    if (all_blocks == NULL) {
       printk("search_dir_entry: sys_malloc for all_blocks failed");
       return 0;
@@ -56,7 +57,7 @@ const char* name, struct dir_entry* dir_e) {
 
    /* 写目录项的时候已保证目录项不跨扇区,
     * 这样读目录项时容易处理, 只申请容纳1个扇区的内存 */
-   unsigned char* buf = (unsigned char*)vmm_malloc(SECTSIZE,1);
+   unsigned char* buf = (unsigned char*)vmm_malloc(SECTSIZE,2);
    struct dir_entry* p_de = (struct dir_entry*)buf;	    // p_de为指向目录项的指针,值为buf起始地址
    unsigned int dir_entry_size = part->sb->dir_entry_size;
    unsigned int dir_entry_cnt = SECTSIZE / dir_entry_size;   // 1扇区内可容纳的目录项个数
@@ -98,7 +99,7 @@ dir_close(struct dir* dir) {
 /*************      根目录不能关闭     ***************
  *1 根目录自打开后就不应该关闭,否则还需要再次open_root_dir();
  *2 root_dir所在的内存是低端1M之内,并非在堆中,free会出问题 */
-   if (dir == &root_dir) {
+   if (dir == root_dir) {
    /* 不做任何处理直接返回*/
       return;
    }
@@ -405,7 +406,7 @@ int dir_remove(struct dir* parent_dir, struct dir* child_dir) {
       ASSERT(child_dir_inode->i_sectors[block_idx] == 0);
       block_idx++;
    }
-   void* io_buf = vmm_malloc(SEC_SIZE * 2,1);
+   void* io_buf = vmm_malloc(SEC_SIZE * 2,2);
    if (io_buf == NULL) {
       printk("dir_remove: malloc for io_buf failed\n");
       return -1;

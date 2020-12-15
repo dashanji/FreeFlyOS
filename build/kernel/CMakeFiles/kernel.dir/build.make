@@ -108,7 +108,13 @@ kernel_EXTERNAL_OBJECTS = \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/file.dir/fs.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/file.dir/dir.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/file.dir/file.c.o" \
-"/Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/file.dir/inode.c.o"
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/file.dir/inode.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/user_main.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/user_syscall.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/stdio.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/shell.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/string.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/buildin_cmd.c.o"
 
 kernel/kernel: kernel/init/CMakeFiles/init.dir/init.c.o
 kernel/kernel: kernel/asm/CMakeFiles/asm.dir/asm.c.o
@@ -137,6 +143,12 @@ kernel/kernel: kernel/file/CMakeFiles/file.dir/fs.c.o
 kernel/kernel: kernel/file/CMakeFiles/file.dir/dir.c.o
 kernel/kernel: kernel/file/CMakeFiles/file.dir/file.c.o
 kernel/kernel: kernel/file/CMakeFiles/file.dir/inode.c.o
+kernel/kernel: kernel/user/CMakeFiles/user.dir/user_main.c.o
+kernel/kernel: kernel/user/CMakeFiles/user.dir/user_syscall.c.o
+kernel/kernel: kernel/user/CMakeFiles/user.dir/stdio.c.o
+kernel/kernel: kernel/user/CMakeFiles/user.dir/shell.c.o
+kernel/kernel: kernel/user/CMakeFiles/user.dir/string.c.o
+kernel/kernel: kernel/user/CMakeFiles/user.dir/buildin_cmd.c.o
 kernel/kernel: kernel/CMakeFiles/kernel.dir/build.make
 kernel/kernel: kernel/CMakeFiles/kernel.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Linking C executable kernel"

@@ -9,4 +9,5 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/pic
     ${FreeFlyOS_SOURCE_DIR}/kernel/serial
     ${FreeFlyOS_SOURCE_DIR}/kernel/vga
+    ${FreeFlyOS_SOURCE_DIR}/kernel/keyboard
 )

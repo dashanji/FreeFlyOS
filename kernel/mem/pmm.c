@@ -16,6 +16,7 @@ pm_zone normal_zone;
 pm_zone highmem_zone;	
 
 extern unsigned int kernel_end;
+extern unsigned int user_end;
 /*
 *       物理内存初始化
 */
@@ -105,6 +106,11 @@ void pmm_init(){
 	highmem_zone.pmpage[0].addr,
 	highmem_zone.pmpage[highmem_zone.all_pages-1].addr);
 */
+	//设置用户页面被占用
+	for(unsigned int i=USER_START;i<USER_START+(&user_end+PMM_PAGE_SIZE-1)&PMM_PAGE_MASK;i+=PMM_PAGE_SIZE){
+		highmem_zone.pmpage[(i-(unsigned int)HIGHMEM_START)/PMM_PAGE_SIZE].count=1;
+		highmem_zone.free_pages--;
+	}
 	//设置内核页面被占用
 	for(unsigned int i=LA_PA((unsigned int)KERNEL_START);i<(unsigned int)(((unsigned int)LA_PA((unsigned int)&kernel_end)+PMM_PAGE_SIZE-1)&PMM_PAGE_MASK);i+=PMM_PAGE_SIZE){
 		normal_zone.pmpage[(i-LA_PA((unsigned int)KERNEL_START))/PMM_PAGE_SIZE].count=1;

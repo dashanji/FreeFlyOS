@@ -6,7 +6,7 @@
 //the max of unsigned short is 65535 in dec(5 character)
 #define ushort_max 5
 //the max of unsigned int is 4294967295 in dec(10 character)
-#define uint_max 10
+#define int_max 10
 //the max of unsigned long long is 18446744073709551615 in dec(20 character)
 #define ulonglong_max 20
 

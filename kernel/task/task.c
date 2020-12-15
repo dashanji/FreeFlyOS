@@ -5,6 +5,7 @@
 #include "../mem/vmm.h"
 #include "../mem/memlayout.h"
 #include "../debug/debug.h"
+#include "../sync/sync.h"
 #define HASH_SHIFT          10
 #define HASH_LIST_SIZE      (1 << HASH_SHIFT)
 #define pid_hashfn(x)       (hash32(x, HASH_SHIFT))
@@ -46,6 +47,7 @@ struct task_struct *user_task; //第一个用户进程
 //struct task_struct *task1;  //由进程0 do_fork出来的进程1
 struct task_struct *current;  //指向当前进程
 
+extern struct semaphore user_sema;
 //MACOS下容易出现BUG
 //静态全局变量设置为0值时，在运行的时候容易跑飞，所以为了避免出现BUG，在使用的时候应先定义0值
 static unsigned int volatile nr_task=0; //当前所有进程数量  
@@ -56,9 +58,9 @@ extern struct segdesc gdt[];
 extern unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 struct task_struct *task0,*task1;
 /*
-*   task_init:创建第一个内核进程
+*   kernel_task_init:创建第一个内核进程
 */
-void task_init(){
+void kernel_task_init(void *function){
 
     /*进程链表初始化*/
     list_init(&ready_task_list);
@@ -72,20 +74,47 @@ void task_init(){
     }
     
     /* 设置task0属性 */
-    task0->state=RUNNABLE;   
+    task0->state=STOPPED;   
     task0->counter=5;
     task0->priority=1; 
     last_pid=task0->pid=0;  //初始化task0的PID和last_pid
     set_task_name(task0,"task0");
     task0->kernel_stack=(unsigned int)task0+VMM_PAGE_SIZE;
-    task0->cr3=new_pdt;
+    task0->cr3=LA_PA((unsigned int)new_pdt);
     task0->cwd_inode_nr=0;
+
+        
+    task0->tf = (struct trapframe *)(task0->kernel_stack)- 1;
+    task0->tf->tf_regs.reg_eax=0;
+    task0->tf->tf_regs.reg_ebp=0;
+    task0->tf->tf_regs.reg_ebx=0;
+    task0->tf->tf_regs.reg_ecx=0;
+    task0->tf->tf_regs.reg_edi=0;
+    task0->tf->tf_regs.reg_edx=0;
+    task0->tf->tf_regs.reg_esi=0;
+    task0->tf->tf_regs.reg_oesp=0;
+
+    task0->tf->tf_cs=KERNEL_CS;
+    task0->tf->tf_ds=task0->tf->tf_es=task0->tf->tf_fs=task0->tf->tf_ss=KERNEL_DS;
+    task0->tf->tf_gs=0;
+    task0->tf->tf_eip=function; //user_space1
+    task0->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
+
+    task0->tf->tf_esp=task0->kernel_stack-sizeof(struct trapframe);
+    
+    /*设置用户的上下文*/
+    task0->context.eip=task0->tf->tf_eip;
+    task0->context.esp= (unsigned int)(task0->tf); 
+    task0->context.ebx=task0->tf->tf_regs.reg_ebx;
+    task0->context.edx=task0->tf->tf_regs.reg_edx;
+
     /* 进程链表指向task0 */
     //ask_list=task0->link;   //待调试
     //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
     //list_init(&task0->link);
     list_init(&task0->link);
-    for(int i=0;i<MAX_FILE;i++){
+    add_link(&task0->link);
+    for(int i=0;i<MAX_FILE_OPEN;i++){
         task0->fd_table[i]=-1;
     }
     /* 当前进程指向task0 */
@@ -98,9 +127,10 @@ void task_init(){
     /* 根据PID加入哈希链表 */
     add_pid_hash(task0);
     
+    wakeup_task(task0);
     //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
     //nr_task++;
-    nr_task++;
+    nr_task=1;
 }
 //设置PID位
 static int set_pid_bit(int pid){
@@ -332,13 +362,23 @@ int kernel_thread(int (*fun)(void *), void *args, unsigned int flags) {
 }
 
 static void task_run(struct task_struct *task){
+    //enum intr_status flag;
     if(task!=current){
         struct task_struct *prev=current;
         current=task;
+        
+        if(task==task0)
+            intr_enable();
+        else
+            intr_disable();
+        //local_intr_save(flag);
+        //{
         set_ts_esp0(task->kernel_stack);
-        //asm volatile("movl %0,%%esp"::"r"(task->kernel_stack)); 
+        lcr3(task->cr3);
         switch_to(&(prev->context),&(task->context));
         //printk("task_schedule!\n");
+       // }
+        //local_intr_restore(flag);
     }
 }
 /* 调度算法 */
@@ -348,12 +388,14 @@ void schedule(){
     list_entry_t *ite=head;
     struct  task_struct *task;
 
-    //首先判断当前进程是不是时间片用完了
-    if(current->state==RUNNABLE&&current->counter==0){
+    //首先判断当前进程是不是时间片用完了或者是不是有用户进程响应
+    if(current->state==RUNNABLE&&current->counter==0||user_sema.value==1){
         //若该线程只是时间片用完了，重新分配时间片，并将其放入就绪进程链表队尾
         current->counter=5;
         add_link(&current->link);
     }
+    
+
     //在就绪进程链表中查找时间片不为0的可用进程
     while((ite=list_next(ite))!=head){
         task=list_to_task(ite,link);
@@ -393,7 +435,7 @@ void thread_unblock(struct task_struct* task) {
     local_intr_save(flag);
     {
         ASSERT(task->state == STOPPED);
-        if (task->state != STOPPED) {
+        if (task->state != RUNNABLE) {
             //若已堵塞的线程已经在就绪队列中
             while((ite=list_next(ite))!=head){
                 if(task==list_to_task(ite,link))
@@ -426,7 +468,7 @@ void do_exit(){
 //           - call load_icode to setup new memory space accroding binary prog.
 int
 do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned int size) { 
-    struct elfhdr *elf = (struct elfhdr *)binary;
+  /*  struct elfhdr *elf = (struct elfhdr *)binary;
     //(3.2) get the entry of the program section headers of the bianry program (ELF format)
     struct proghdr *ph = (struct proghdr *)(binary + elf->e_phoff);
     struct proghdr *ph_end = ph + elf->e_phnum;
@@ -448,7 +490,7 @@ do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned in
     tf->tf_cs = USER_CS;
     tf->tf_ds = tf->tf_es = tf->tf_ss = USER_DS;
     tf->tf_esp = user_stack;
-    tf->tf_eip = elf->e_entry;
+    tf->tf_eip = elf->e_entry;*/
     return 0;
 }
 // kernel_execve - do SYS_exec syscall to exec a user program called by user_main kernel_thread
@@ -479,27 +521,27 @@ unsigned int set_user_cr3(){
     //printk("idx(PA_LA(DMA_START)):%08x",idx(PA_LA(DMA_START)));
     printk("new_pdt[0x300]:%08x",new_pdt[0x300]);
     printk("pdt[0x300]:%08x",pdt[0x300]);
-    unsigned int pt_len=(unsigned int)HIGHMEM_START/
+   /* unsigned int pt_len=(unsigned int)HIGHMEM_START/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
 
     for(unsigned int i=0;i<pt_len;i++){
             pdt[i+idx(PA_LA(DMA_START))]|=VMM_PAGE_KERNEL;//VMM_PAGE_USER
         }
     //user_task_print c10021b4 user_print_string c1001aa9 user_syscall c1001a20
-    pdt[idx(PA_LA(DMA_START))+4]|=VMM_PAGE_USER;
+    //pdt[idx(PA_LA(DMA_START))+4]|=VMM_PAGE_USER;
     unsigned int *pt=(unsigned int *)PA_LA((new_pdt[idx(PA_LA(DMA_START))]&VMM_PAGE_MASK));
     printk("pt[0]:%08x",pt[0]);
     for(unsigned int i=0,k=0,n=0;n<pt_len*(unsigned int)PAGE_TABLE_SIZE;i+=(unsigned int)VMM_PAGE_SIZE,n++){
         pt[k++]|=VMM_PAGE_KERNEL;//VMM_PAGE_USER
         //printk("i:%08ux\nj:%08ux\nk:%08ux\n",i,j,k);
-    }
+    }*/
     unsigned int *cr3_ph_addr=(unsigned int *)cr3_addr;
     unsigned int *zh1=PA_LA((cr3_ph_addr[(unsigned int)((cr3_addr>>22)&0x3FF)]&VMM_PAGE_MASK));
     unsigned int phaddr=zh1[((cr3_addr&0x003FF000)>>12)]&VMM_PAGE_MASK;
     //unsigned int ph_addr=(unsigned int)(*cr3_ph_addr[((cr3_addr>>22)&0x3FF)/4]&VMM_PAGE_MASK)[((cr3_addr&0x003FF000)>>12)/4]&VMM_PAGE_MASK;
     printk("phaddr:%08ux\n",phaddr);
-    pt[0x1001]|=VMM_PAGE_USER;
-    pt[0x1002]|=VMM_PAGE_USER;
+   // pt[0x1001]|=VMM_PAGE_USER;
+   // pt[0x1002]|=VMM_PAGE_USER;
     return phaddr;//cr3_addr;
 }
 /*用户进程初始化*/
@@ -509,20 +551,17 @@ void  user_task_init(void *function){
     if((user_task=alloc_task(USER_TASK))==NULL){
         printk("alloc task error!\n");
     }
-    /* 复制父进程的程序代码 */
-    unsigned int *user_space1=(unsigned int *)vmm_malloc(VMM_PAGE_SIZE,2);
-    memcpy(user_space1,(unsigned int *)function,VMM_PAGE_SIZE);
     /* 设置task0属性 */
-    user_task->state=RUNNABLE;   
+    user_task->state=STOPPED;   
     user_task->counter=5;
     user_task->priority=1; 
     user_task->pid=alloc_pid();  //初始化task0的PID和last_pid
     set_task_name(user_task,"user_task");
-    user_task->kernel_stack=(unsigned int)user_task+VMM_PAGE_SIZE;
+    user_task->kernel_stack=KERNEL_STACK_START;
+
     user_task->cr3=set_user_cr3();//LA_PA(set_user_cr3());
     
-    lcr3(user_task->cr3);
-    user_task->tf = (struct trapframe *)(user_task->kernel_stack)- 1;
+    user_task->tf = (struct trapframe *)((unsigned int)user_task+VMM_PAGE_SIZE)- 1;
     user_task->tf->tf_regs.reg_eax=0;
     user_task->tf->tf_regs.reg_ebp=0;
     user_task->tf->tf_regs.reg_ebx=0;
@@ -538,21 +577,39 @@ void  user_task_init(void *function){
     user_task->tf->tf_eip=function; //user_space1
     user_task->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
 
-    user_task->tf->tf_esp=user_task->kernel_stack-sizeof(struct trapframe);
+    user_task->tf->tf_esp=(unsigned int)user_task+VMM_PAGE_SIZE-sizeof(struct trapframe);
+    
+    /*设置用户的上下文*/
+    user_task->context.eip=user_task->tf->tf_eip;
+    user_task->context.esp= (unsigned int)(user_task->tf); 
+    user_task->context.ebx=user_task->tf->tf_regs.reg_ebx;
+    user_task->context.edx=user_task->tf->tf_regs.reg_edx;
+
+    for(int i=0;i<MAX_FILE_OPEN;i++){
+        user_task->fd_table[i]=-1;
+    }
     /* 进程链表指向task0 */
     //ask_list=task0->link;   //待调试
     //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
     //list_init(&task0->link);
     list_init(&user_task->link);
     
+    
+    //add_link(&user_task->link);
     //printk("task0->counter:%08d!\n",task0->counter);
     //printk("current:%08X!\n",current);
     //printk("In task_init,current->counter=%08d\n",current->counter);
     /* 根据PID加入哈希链表 */
     add_pid_hash(user_task);
+
+    wakeup_task(user_task);
+
+    
+    nr_task++;
     
     //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
     //nr_task++;
-    nr_task++;
+    current=user_task;
     asm volatile ("movl %0, %%esp; jmp __trapret" : : "g" (user_task->tf) : "memory");
+    
 }

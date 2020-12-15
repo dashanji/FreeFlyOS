@@ -21,6 +21,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/timer"
   "../kernel/vga"
   "../kernel/task"
+  "../kernel/file"
+  "../kernel/user"
   )
 
 # Targets to which this target links.

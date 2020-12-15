@@ -17,6 +17,9 @@
 #define E0ESC           (1<<6)
 
 unsigned int shift=0;
+char shell_input=0; //shell输入字符，每次读取一个
+//int shell_rpos=0;      //shell输入缓冲区读偏移
+//int shell_wpos=0;      //shell输入缓冲区写偏移
 //shiftcode[1D]=CTL,
 static unsigned char shiftcode[256] = {
     [0x1D] CTL,
@@ -162,6 +165,8 @@ void kbd_init(void) {
     {
         cons.buf[i]=0;
     }
+
+    shell_input=0;
     // drain the kbd buffer
     kbd_intr();
     pic_enable(IRQ_KBD);

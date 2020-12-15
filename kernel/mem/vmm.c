@@ -30,6 +30,7 @@ unsigned int highmem_end=0xF8000000;
 //HIGHMEM区域当前映射地址记录器
 unsigned int highmem_ptr;
 
+extern unsigned int user_end;
 //建立新页表，记住每个表项存的都是物理地址，此时线性地址需进行转换
 void setup_vpt()
 {
@@ -49,7 +50,9 @@ void setup_vpt()
         }
         //printk("i:%08ux\nj:%08ux\nk:%08ux\n",i,j,k);
     }
-   
+    /* 对user部分进行映射,0x40000000至user_end 映射到 0x40000000起始的一段区域 */
+    vmm_map(new_pdt,0x40000000,&user_end,0x40000000);
+    //&user_end
     //更换新页表
     __asm__ volatile ("mov %0, %%cr3" : : "r" (LA_PA((unsigned int)new_pdt)) );
     //在该函数结束的时候，由于特权级未发生变化，属于平级调用，所以在返回的时候需要记录栈指针
@@ -76,7 +79,7 @@ unsigned int vmm_malloc(unsigned int bytes,char zonenum){
 		for(unsigned int i=0;i<page;i++){
             pt_highmem[(highmem_end-highmem_start)/
             ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
-            [(highmem_end-highmem_start)/VMM_PAGE_SIZE]=addr|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+            [((highmem_end-highmem_start)/VMM_PAGE_SIZE)%PAGE_TABLE_SIZE]=addr|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
             highmem_end+=VMM_PAGE_SIZE;
             addr+=PMM_PAGE_SIZE;
         }
@@ -114,12 +117,12 @@ void vmm_free(unsigned int addr,unsigned int bytes){
 	if(pmaddr>=(unsigned int)HIGHMEM_START){
         pmm_free(pt_highmem[((addr&VMM_PAGE_MASK)-highmem_start)/
             ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
-            [((addr&VMM_PAGE_MASK)-highmem_start)/VMM_PAGE_SIZE]&VMM_PAGE_MASK,bytes);
+            [(((addr&VMM_PAGE_MASK)-highmem_start)/VMM_PAGE_SIZE)%PAGE_TABLE_SIZE]&VMM_PAGE_MASK,bytes);
 
 		for(unsigned int i=0;i<page;i++){
             pt_highmem[(addr-highmem_start)/
             ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
-            [(addr-highmem_start)/VMM_PAGE_SIZE]=addr|VMM_PAGE_UNPRESENT|VMM_PAGE_RW|VMM_PAGE_USER;//VMM_PAGE_KERNEL;
+            [((addr-highmem_start)/VMM_PAGE_SIZE)%PAGE_TABLE_SIZE]=addr|VMM_PAGE_UNPRESENT|VMM_PAGE_RW|VMM_PAGE_USER;//VMM_PAGE_KERNEL;
             addr+=VMM_PAGE_SIZE;
         }
 	}
@@ -131,25 +134,29 @@ void vmm_free(unsigned int addr,unsigned int bytes){
 /*
 **           vmm_map(pdt,start,end)
 **             pdt为待映射的页表基址
-** 将虚拟地址start-end的区域映射到HIGHMEM区域，建立页表映射关系
+** 将虚拟地址va_start-va_end的区域映射到HIGHMEM区域pa_start，建立页表映射关系
 **      （DMA和NORMAL区域已经默认映射内核 ）
 **       
 */
-void vmm_map(unsigned int *pdt,unsigned int start,unsigned int end){
+void vmm_map(unsigned int *pdt,unsigned int va_start,unsigned int va_end,
+unsigned int pa_start){
     
     unsigned int page;
     //需要映射的实际地址
-    unsigned int map_start=start&(unsigned int)VMM_PAGE_MASK;
-    unsigned int map_end=round_up_to(end,VMM_PAGE_MASK);
+    unsigned int map_start=va_start&(unsigned int)VMM_PAGE_MASK;
+    unsigned int map_end=(va_end+VMM_PAGE_SIZE-1)&VMM_PAGE_MASK;
     unsigned int pos=map_start;
+    pa_start&=VMM_PAGE_MASK;
     //计算需要分配的页数
-    page=round_up_to(map_end-map_start,PMM_PAGE_MASK);
+    page=(map_end-map_start)/VMM_PAGE_SIZE;
     for(unsigned int i=0;i<page;i++){
-            user_pt_highmem[i/PAGE_TABLE_SIZE][i%PAGE_TABLE_SIZE]=
-            pos|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+            user_pt_highmem[(pos-map_start)/((unsigned int)PAGE_TABLE_SIZE*
+            (unsigned int)VMM_PAGE_SIZE)][((pos-map_start)/VMM_PAGE_SIZE)%PAGE_TABLE_SIZE]=
+            pa_start|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+            pa_start+=VMM_PAGE_SIZE;
             pos+=VMM_PAGE_SIZE;
         }
-        unsigned int pt_num=page/PAGE_TABLE_SIZE;
+        unsigned int pt_num=(page+PAGE_TABLE_SIZE-1)/PAGE_TABLE_SIZE;
         for(unsigned int i=0;i<pt_num;i++){
             pdt[i+idx(map_start)]=LA_PA((unsigned int)user_pt_highmem[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
         }

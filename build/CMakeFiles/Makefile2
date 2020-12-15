@@ -133,6 +133,7 @@ kernel/all: kernel/timer/all
 kernel/all: kernel/vga/all
 kernel/all: kernel/sync/all
 kernel/all: kernel/file/all
+kernel/all: kernel/user/all
 
 .PHONY : kernel/all
 
@@ -152,6 +153,7 @@ kernel/preinstall: kernel/timer/preinstall
 kernel/preinstall: kernel/vga/preinstall
 kernel/preinstall: kernel/sync/preinstall
 kernel/preinstall: kernel/file/preinstall
+kernel/preinstall: kernel/user/preinstall
 
 .PHONY : kernel/preinstall
 
@@ -173,6 +175,7 @@ kernel/clean: kernel/timer/clean
 kernel/clean: kernel/vga/clean
 kernel/clean: kernel/sync/clean
 kernel/clean: kernel/file/clean
+kernel/clean: kernel/user/clean
 
 .PHONY : kernel/clean
 
@@ -429,6 +432,24 @@ kernel/timer/clean: kernel/timer/CMakeFiles/timer.dir/clean
 .PHONY : kernel/timer/clean
 
 #=============================================================================
+# Directory level rules for directory kernel/user
+
+# Recursive "all" directory target.
+kernel/user/all: kernel/user/CMakeFiles/user.dir/all
+
+.PHONY : kernel/user/all
+
+# Recursive "preinstall" directory target.
+kernel/user/preinstall:
+
+.PHONY : kernel/user/preinstall
+
+# Recursive "clean" directory target.
+kernel/user/clean: kernel/user/CMakeFiles/user.dir/clean
+
+.PHONY : kernel/user/clean
+
+#=============================================================================
 # Directory level rules for directory kernel/vga
 
 # Recursive "all" directory target.
@@ -540,7 +561,7 @@ kernel/CMakeFiles/Test1.dir/all: kernel/CMakeFiles/kernel.dir/all
 
 # Build rule for subdir invocation for target.
 kernel/CMakeFiles/Test1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 35
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/CMakeFiles/Test1.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
 .PHONY : kernel/CMakeFiles/Test1.dir/rule
@@ -559,7 +580,12 @@ kernel/CMakeFiles/Test1.dir/clean:
 # Target rules for target kernel/CMakeFiles/kernel.dir
 
 # All Build rule for target.
+kernel/CMakeFiles/kernel.dir/all: kernel/asm/CMakeFiles/asm.dir/all
+kernel/CMakeFiles/kernel.dir/all: kernel/debug/CMakeFiles/debug.dir/all
+kernel/CMakeFiles/kernel.dir/all: kernel/dt/CMakeFiles/dt.dir/all
+kernel/CMakeFiles/kernel.dir/all: kernel/interrupt/CMakeFiles/interrupt.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/keyboard/CMakeFiles/keyboard.dir/all
+kernel/CMakeFiles/kernel.dir/all: kernel/init/CMakeFiles/init.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/main/CMakeFiles/main.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/mem/CMakeFiles/mem.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/task/CMakeFiles/task.dir/all
@@ -569,11 +595,7 @@ kernel/CMakeFiles/kernel.dir/all: kernel/timer/CMakeFiles/timer.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/vga/CMakeFiles/vga.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/sync/CMakeFiles/sync.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/file/CMakeFiles/file.dir/all
-kernel/CMakeFiles/kernel.dir/all: kernel/init/CMakeFiles/init.dir/all
-kernel/CMakeFiles/kernel.dir/all: kernel/asm/CMakeFiles/asm.dir/all
-kernel/CMakeFiles/kernel.dir/all: kernel/debug/CMakeFiles/debug.dir/all
-kernel/CMakeFiles/kernel.dir/all: kernel/dt/CMakeFiles/dt.dir/all
-kernel/CMakeFiles/kernel.dir/all: kernel/interrupt/CMakeFiles/interrupt.dir/all
+kernel/CMakeFiles/kernel.dir/all: kernel/user/CMakeFiles/user.dir/all
 	$(MAKE) $(MAKESILENT) -f kernel/CMakeFiles/kernel.dir/build.make kernel/CMakeFiles/kernel.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/CMakeFiles/kernel.dir/build.make kernel/CMakeFiles/kernel.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=20 "Built target kernel"
@@ -581,7 +603,7 @@ kernel/CMakeFiles/kernel.dir/all: kernel/interrupt/CMakeFiles/interrupt.dir/all
 
 # Build rule for subdir invocation for target.
 kernel/CMakeFiles/kernel.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 28
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 34
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/CMakeFiles/kernel.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
 .PHONY : kernel/CMakeFiles/kernel.dir/rule
@@ -927,7 +949,7 @@ kernel/timer/CMakeFiles/timer.dir/clean:
 kernel/vga/CMakeFiles/vga.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=32 "Built target vga"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=38 "Built target vga"
 .PHONY : kernel/vga/CMakeFiles/vga.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1000,6 +1022,33 @@ file: kernel/file/CMakeFiles/file.dir/rule
 kernel/file/CMakeFiles/file.dir/clean:
 	$(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/clean
 .PHONY : kernel/file/CMakeFiles/file.dir/clean
+
+#=============================================================================
+# Target rules for target kernel/user/CMakeFiles/user.dir
+
+# All Build rule for target.
+kernel/user/CMakeFiles/user.dir/all:
+	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/depend
+	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=32,33,34,35,36,37 "Built target user"
+.PHONY : kernel/user/CMakeFiles/user.dir/all
+
+# Build rule for subdir invocation for target.
+kernel/user/CMakeFiles/user.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/user/CMakeFiles/user.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
+.PHONY : kernel/user/CMakeFiles/user.dir/rule
+
+# Convenience name for target.
+user: kernel/user/CMakeFiles/user.dir/rule
+
+.PHONY : user
+
+# clean rule for target.
+kernel/user/CMakeFiles/user.dir/clean:
+	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/clean
+.PHONY : kernel/user/CMakeFiles/user.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

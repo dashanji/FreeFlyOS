@@ -11,6 +11,7 @@
 #include "../stl/hash.h"
 #include "../stl/defs.h"
 #include "../file/fs.h"
+#include "../file/file.h"
 //进程魔数
 #define TASK_MAGIC 0x19971211
 //最大进程数量  pid号从0-32767 
@@ -73,7 +74,7 @@ struct task_struct{
     //struct trapframe *tf;
     list_entry_t link;                //进程链表
     list_entry_t hash_link;           //哈希链表
-    unsigned int fd_table[MAX_FILE]; //文件描述符数组
+    unsigned int fd_table[MAX_FILE_OPEN]; //文件描述符数组
     unsigned int magic;
     unsigned int cwd_inode_nr;
 };
@@ -92,7 +93,7 @@ typedef struct pidmap
 
 // 内核线程入口函数 thread_entry.S
 extern int kernel_thread_entry(void *args);
-void task_init();
+void kernel_task_init(void *function);
 //void print1();
 //void print2();
 int kernel_thread(int (*fun)(void *), void *args, unsigned int flags); 
@@ -130,6 +131,7 @@ static void task_run(struct task_struct *task);
 static void wakeup_task(struct task_struct *task);
 void schedule(); 
 void thread_block(enum task_state stat);
+void thread_unblock(struct task_struct* task);
 
 static int print_taskinfo(void *arg); 
 static void print_task1();

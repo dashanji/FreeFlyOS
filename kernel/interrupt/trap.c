@@ -6,9 +6,12 @@
 #include "../dt/dt.h"
 #include "../task/task.h"
 #include "../sync/sync.h"
+#include "../serial/serial.h"
+extern struct semaphore user_sema;
+
 extern unsigned int volatile jiffies; //记录当前系统开机的时钟节拍数
 extern unsigned int volatile second; //记录秒数
-
+//int test_test=0;
 extern struct task_struct *current;  //指向当前进程
 static const char *IA32flags[] = {
     "CF", NULL, "PF", NULL, "AF", NULL, "ZF", "SF",
@@ -87,12 +90,25 @@ static void trap_dispatch(struct trapframe *tf)
             break;
         case IRQ_OFFSET + IRQ_COM1:
              c = cons_getc();
-             cons_putc(c);
+             //cons_putc(c);
              break;
         case IRQ_OFFSET + IRQ_KBD:
             c = cons_getc();
             //printk("%c",c);
-            cons_putc(c);
+            //cons_putc(c);
+            //printk("anle\n");
+            //test_test++;
+            //printk("test_test:%02d\n",test_test);
+            //printk("user_sema.value:%08d\n",user_sema.value);
+            if(user_sema.value==0){
+                 sema_up(&user_sema);
+                 schedule();
+                //printk("user_sema.value:%08d\n",user_sema.value);
+            }
+               
+            //printk("rpos:%08x",cons.rpos);
+            //printk("wpos:%08x",cons.wpos);
+            //printk("cons.buf:%c",cons.buf[cons.wpos-1]);
             break;
         case IRQ_OFFSET+IRQ_IDE1:
            /* struct ide_channel* channel = &channels[0];

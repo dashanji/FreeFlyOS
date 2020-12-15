@@ -110,7 +110,7 @@ void bitmap_sync(struct partition *part,unsigned int bit_idx,unsigned char btmp)
 /* 创建文件,若成功则返回文件描述符,否则返回-1 */
 int file_create(struct dir* parent_dir, char* filename, unsigned char flag) {
    /* 后续操作的公共缓冲区 */
-   void* io_buf = vmm_malloc(1024,1);
+   void* io_buf = vmm_malloc(1024,2);
    if (io_buf == NULL) {
       printk("in file_creat: sys_malloc for io_buf failed\n");
       return -1;
@@ -127,7 +127,7 @@ int file_create(struct dir* parent_dir, char* filename, unsigned char flag) {
 
 /* 此inode要从堆中申请内存,不可生成局部变量(函数退出时会释放)
  * 因为file_table数组中的文件描述符的inode指针要指向它.*/
-   struct inode* new_file_inode = (struct inode*)vmm_malloc(sizeof(struct inode),1); 
+   struct inode* new_file_inode = (struct inode*)vmm_malloc(sizeof(struct inode),2); 
    if (new_file_inode == NULL) {
       printk("file_create: sys_malloc for inode failded\n");
       rollback_step = 1;
@@ -248,12 +248,12 @@ int file_write(struct file* file, const void* buf, unsigned int count) {
       printk("exceed max file_size 71680 bytes, write file failed\n");
       return -1;
    }
-   unsigned char* io_buf = (unsigned char *)vmm_malloc(SEC_SIZE,1);
+   unsigned char* io_buf = (unsigned char *)vmm_malloc(SEC_SIZE,2);
    if (io_buf == NULL) {
       printk("file_write: sys_malloc for io_buf failed\n");
       return -1;
    }
-   unsigned int* all_blocks =(unsigned int *)vmm_malloc(SEC_SIZE + 48,1);	  // 用来记录文件所有的块地址
+   unsigned int* all_blocks =(unsigned int *)vmm_malloc(SEC_SIZE + 48,2);	  // 用来记录文件所有的块地址
    if (all_blocks == NULL) {
       printk("file_write: sys_malloc for all_blocks failed\n");
       return -1;
@@ -449,11 +449,11 @@ int file_read(struct file* file, void* buf, unsigned int count) {
       }
    }
    printk("file read size %02d\n",size);
-   unsigned char* io_buf = (unsigned char *)vmm_malloc(SEC_SIZE,1);
+   unsigned char* io_buf = (unsigned char *)vmm_malloc(SEC_SIZE,2);
    if (io_buf == NULL) {
       printk("file_read: sys_malloc for io_buf failed\n");
    }
-   unsigned int* all_blocks = (unsigned int *)vmm_malloc(SEC_SIZE + 48,1);	  // 用来记录文件所有的块地址
+   unsigned int* all_blocks = (unsigned int *)vmm_malloc(SEC_SIZE + 48,2);	  // 用来记录文件所有的块地址
    if (all_blocks == NULL) {
       printk("file_read: sys_malloc for all_blocks failed\n");
       return -1;

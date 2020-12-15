@@ -12,7 +12,29 @@
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+fs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+ide-dev.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
+dir.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+ide-dev.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+bitmap.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+super_block.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.c
 syscall.h
@@ -21,6 +43,8 @@ syscall.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 ../vga/vga.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+../file/fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
 trap.h
@@ -43,6 +67,8 @@ trap.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 ../sync/sync.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
+../serial/serial.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 
@@ -51,6 +77,8 @@ trap.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 ../stl/list.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
 
@@ -85,6 +113,8 @@ trap.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
 ../file/fs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+../file/file.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
 

@@ -62,6 +62,6 @@ void setup_vpt();
 unsigned int vmm_malloc(unsigned int bytes,char zonenum);
 void vmm_free(unsigned int addr,unsigned int bytes);
 
-void vmm_map(unsigned int *pdt,unsigned int start,unsigned int end);
+void vmm_map(unsigned int *pdt,unsigned int va_start,unsigned int va_end,unsigned int pa_start);
 unsigned int setup_pgdir();
 #endif

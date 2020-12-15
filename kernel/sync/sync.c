@@ -50,7 +50,7 @@ void sema_down(struct semaphore* psema) {
       }
       /* 若value为1或被唤醒后,会执行下面的代码,也就是获得了锁。*/
       psema->value--;
-      ASSERT(psema->value == 0);	 
+      //ASSERT(psema->value == 0);	 
       //printk("check 8");
    }    
    /* 恢复之前的中断状态 */
@@ -63,16 +63,18 @@ void sema_up(struct semaphore* psema) {
    enum intr_status flag;
    list_entry_t *head=&psema->waiters;
    list_entry_t *ite=head;
+   //printk("sema_up \n");
    local_intr_save(flag);
    {
-      ASSERT(psema->value == 0);	    
+      //ASSERT(psema->value == 0);	    
       //释放所有等待该信号量的进程
-      while((ite=list_next(ite))!=head){
+      if((ite=list_next(ite))!=head){
+         list_del(ite);
          struct task_struct* task =list_to_task(ite,link);
          thread_unblock(task);
       }
       psema->value++;
-      ASSERT(psema->value == 1);	
+      //ASSERT(psema->value == 1);	
    } 
    /* 恢复之前的中断状态 */
    local_intr_restore(flag);
@@ -86,7 +88,7 @@ void lock_acquire(struct lock* plock) {
       //printk("check 2");
       sema_down(&plock->semaphore);    // 对信号量P操作,原子操作
       plock->holder = current;
-      ASSERT(plock->holder_repeat_nr == 0);
+      //ASSERT(plock->holder_repeat_nr == 0);
       plock->holder_repeat_nr = 1;
    } else {
       plock->holder_repeat_nr++;
@@ -95,12 +97,12 @@ void lock_acquire(struct lock* plock) {
 
 /* 释放锁plock */
 void lock_release(struct lock* plock) {
-   ASSERT(plock->holder == current);
+   //ASSERT(plock->holder == current);
    if (plock->holder_repeat_nr > 1) {
       plock->holder_repeat_nr--;
       return;
    }
-   ASSERT(plock->holder_repeat_nr == 1);
+   //ASSERT(plock->holder_repeat_nr == 1);
 
    plock->holder = NULL;	   // 把锁的持有者置空放在V操作之前
    plock->holder_repeat_nr = 0;

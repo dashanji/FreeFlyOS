@@ -46,11 +46,13 @@ kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/file/ide-dev.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/file/inode.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/file/super_block.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/interrupt/trap.h
+kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/keyboard/keyboard.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/mem/memlayout.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/mem/vmm.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/stl/defs.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/stl/hash.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/stl/list.h
+kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/sync/sync.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/task/task.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/vga/vga.h
 

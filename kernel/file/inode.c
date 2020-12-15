@@ -77,15 +77,15 @@ struct inode* inode_open(struct partition *part,unsigned int inode_no){
     /* 将inode位置信息存入inode_pos */
     inode_locate(part,inode_no,&inode_pos);
     /* 创建新节点 */
-    struct inode *inode_found=(struct inode *)vmm_malloc(sizeof(struct inode),1);
+    struct inode *inode_found=(struct inode *)vmm_malloc(sizeof(struct inode),2);
     char *inode_buf;
     //如果节点号在硬盘中是跨扇区的
     if(inode_pos.two_sec){
-        inode_buf = (char *)vmm_malloc(SECTSIZE*2,1);
+        inode_buf = (char *)vmm_malloc(SECTSIZE*2,2);
         ide_read(inode_buf,inode_pos.sec_lba,2);
     }
     else{
-        inode_buf = (char *)vmm_malloc(SECTSIZE,1);
+        inode_buf = (char *)vmm_malloc(SECTSIZE,2);
         ide_read(inode_buf,inode_pos.sec_lba,1);       
     }
     memcpy(inode_found,inode_buf+inode_pos.off_size,sizeof(struct inode));
@@ -186,7 +186,7 @@ void inode_release(struct partition* part, unsigned int inode_no) {
    * 此函数会在inode_table中将此inode清0,
    * 但实际上是不需要的,inode分配是由inode位图控制的,
    * 硬盘上的数据不需要清0,可以直接覆盖*/
-   void* io_buf = vmm_malloc(1024,1);
+   void* io_buf = vmm_malloc(1024,2);
    inode_delete(part, inode_no, io_buf);
    vmm_free(io_buf,1024);
    /***********************************************/

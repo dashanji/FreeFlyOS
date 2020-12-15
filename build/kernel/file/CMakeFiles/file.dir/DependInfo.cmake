@@ -20,6 +20,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/mem"
   "../kernel/debug"
   "../kernel/task"
+  "../kernel/keyboard"
   )
 
 # Targets to which this target links.

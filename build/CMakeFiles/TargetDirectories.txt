@@ -54,3 +54,6 @@
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/rebuild_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/file/CMakeFiles/file.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/rebuild_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/edit_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir

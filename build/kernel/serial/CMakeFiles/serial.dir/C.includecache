@@ -10,6 +10,8 @@
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.c
@@ -23,6 +25,8 @@ serial.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 ../vga/vga.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
+../keyboard/keyboard.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.h
 

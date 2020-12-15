@@ -2,7 +2,7 @@
 #include "../asm/asm.h"
 #include "../serial/serial.h"
 #include "../keyboard/keyboard.h"
-
+#define NULL ((void *)0)
 //the standard window is 80*25, max of cursor_x is 25, max of cursor_y is 80
 static unsigned char cursor_x=0;
 static unsigned char cursor_y=0;
@@ -109,7 +109,12 @@ color_type background,color_type foreground,unsigned char base,char len,int flag
     if(!flag){
         int x=0;
         while(str[x++]=='0');
-        print_string(&str[x],background,foreground);
+        x--;
+        if(str[x]!=NULL)
+            print_string(&str[x],background,foreground);
+        else
+            print_char('0',background,foreground);
+    
         return ;
     }
 

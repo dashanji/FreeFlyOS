@@ -7,7 +7,12 @@ kernel/interrupt/CMakeFiles/interrupt.dir/vector.S.o: ../kernel/interrupt/vector
 
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/asm/asm.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/dt/dt.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/file/bitmap.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/file/dir.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/file/file.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/file/fs.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/file/ide-dev.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/file/super_block.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/interrupt/syscall.c
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/interrupt/syscall.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/interrupt/trap.h
@@ -22,11 +27,17 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/vga/vga.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/asm/asm.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/debug/debug.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/dt/dt.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/bitmap.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/dir.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/file.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/fs.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/ide-dev.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/super_block.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/interrupt/trap.c
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/interrupt/trap.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/mem/memlayout.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/mem/vmm.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/serial/serial.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/stl/defs.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/stl/hash.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/stl/list.h

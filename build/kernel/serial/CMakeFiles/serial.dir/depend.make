@@ -3,6 +3,7 @@
 
 kernel/serial/CMakeFiles/serial.dir/serial.c.o: ../kernel/asm/asm.h
 kernel/serial/CMakeFiles/serial.dir/serial.c.o: ../kernel/interrupt/trap.h
+kernel/serial/CMakeFiles/serial.dir/serial.c.o: ../kernel/keyboard/keyboard.h
 kernel/serial/CMakeFiles/serial.dir/serial.c.o: ../kernel/pic/pic.h
 kernel/serial/CMakeFiles/serial.dir/serial.c.o: ../kernel/serial/serial.c
 kernel/serial/CMakeFiles/serial.dir/serial.c.o: ../kernel/serial/serial.h

@@ -15,6 +15,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/pic"
   "../kernel/serial"
   "../kernel/vga"
+  "../kernel/keyboard"
   )
 
 # Targets to which this target links.

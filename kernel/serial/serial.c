@@ -3,11 +3,12 @@
 #include "../asm/asm.h"
 #include "../interrupt/trap.h"
 #include "../vga/vga.h"
+#include "../keyboard/keyboard.h"
 
 struct consle cons;
 
 static char serial_exists = 0;
-
+extern char shell_input; //shell输入字符
 /* stupid I/O delay routine necessitated by historical PC design flaws */
 void delay(void) 
 {
@@ -78,6 +79,7 @@ void cons_intr(int (*proc)(void)) {
     while ((c = (*proc)()) != -1) {
         if (c != 0) {
             cons.buf[cons.wpos ++] = c;
+            shell_input= c;
             if (cons.wpos == CONSBUFSIZE) {
                 cons.wpos = 0;
             }

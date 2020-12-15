@@ -9,7 +9,12 @@ kernel/task/CMakeFiles/task.dir/task.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
@@ -19,6 +24,7 @@ kernel/task/CMakeFiles/task.dir/task.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/elf.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h

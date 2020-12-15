@@ -12,4 +12,6 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/task
     ${FreeFlyOS_SOURCE_DIR}/kernel/stl
     ${FreeFlyOS_SOURCE_DIR}/kernel/debug
+    ${FreeFlyOS_SOURCE_DIR}/kernel/sync
+    ${FreeFlyOS_SOURCE_DIR}/kernel/file
 )

@@ -14,6 +14,18 @@
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+ide-dev.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
+dir.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+ide-dev.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
@@ -29,6 +41,8 @@ trap.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.c
 main.h
@@ -61,6 +75,10 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
 ../file/fs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+../user/user_main.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/user_main.h
+../keyboard/keyboard.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
 
@@ -107,8 +125,12 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
 ../file/fs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+../file/file.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/user_main.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 

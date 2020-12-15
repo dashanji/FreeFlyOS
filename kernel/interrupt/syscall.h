@@ -16,13 +16,29 @@
 #define SYS_mmap            20
 #define SYS_munmap          21
 #define SYS_shmem           22
+
+#define SYS_fdread            24
+
 #define SYS_pgdir           31
 
 #define SYS_print_char      36
 #define SYS_print_string    37
 #define SYS_print_num       38
 
-#define T_SYSCALL           0x80
+#define SYS_open  40
+#define SYS_close 41
+#define SYS_write 42
+#define SYS_lseek 43
+#define SYS_unlink 44
+#define SYS_mkdir 45
+#define SYS_rmdir 46
+#define SYS_rewinddir 47
+#define SYS_getcwd 48
+#define SYS_chdir 49
+#define SYS_stat 50
+#define SYS_opendir 51
+#define SYS_closedir 52
+#define SYS_readdir 53
 
 void syscall_trap(struct trapframe *tf);
 int user_sys_getpid(void);

@@ -47,11 +47,13 @@ kernel/file/CMakeFiles/file.dir/fs.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 kernel/file/CMakeFiles/file.dir/ide-dev.c.o

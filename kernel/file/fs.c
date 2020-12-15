@@ -10,11 +10,15 @@
 #include "../asm/asm.h"
 #include "../debug/debug.h"
 #include "../task/task.h"
+#include "../keyboard/keyboard.h"
+#include "../sync/sync.h"
 #define NULL (void *)0
 struct partition *cur_part;
 extern struct task_struct *current;
-extern struct dir root_dir;             // 根目录
+extern struct dir *root_dir;             // 根目录
 extern struct file file_table[MAX_FILE_OPEN];
+extern char shell_input; //shell输入缓冲区
+extern struct semaphore user_sema;
 /* 格式化分区，创建文件系统 */
 static void partition_format(){
     //2048-9999扇区是主分区起始扇区和终止扇区
@@ -72,7 +76,7 @@ static void partition_format(){
     unsigned int buf_size=sb.block_bitmap_sects>sb.inode_bitmap_sects?
         sb.block_bitmap_sects:sb.inode_bitmap_sects;
     buf_size=(buf_size>sb.inode_table_sects?buf_size:sb.inode_table_sects)*SEC_SIZE;
-    unsigned char *buf=(unsigned char *)vmm_malloc(buf_size,1);
+    unsigned char *buf=(unsigned char *)vmm_malloc(buf_size,2);
 
     /* 初始化空闲块位图并写入空闲块位图起始扇区中 */
     buf[0] |= 0x01; //先给根目录占位
@@ -134,7 +138,7 @@ static void partition_format(){
 */
 void mount_partition(){
     cur_part=read_main_partition();
-    struct super_block *sb_buf=(struct super_block *)vmm_malloc(SEC_SIZE,1);
+    struct super_block *sb_buf=(struct super_block *)vmm_malloc(SEC_SIZE,2);
     memset(sb_buf,0,sizeof(struct super_block));
     ide_read((unsigned char *)sb_buf,2048,1);
 
@@ -143,13 +147,13 @@ void mount_partition(){
 
     /* 读取硬盘上的块位图信息 */
     cur_part->block_bitmap.bits=
-    (unsigned char *)vmm_malloc(sb_buf->block_bitmap_sects*SEC_SIZE,1);
+    (unsigned char *)vmm_malloc(sb_buf->block_bitmap_sects*SEC_SIZE,2);
     cur_part->block_bitmap.btmp_bytes_len=sb_buf->block_bitmap_sects*SEC_SIZE;
     ide_read(cur_part->block_bitmap.bits,sb_buf->block_bitmap_lba,sb_buf->block_bitmap_sects);
     
     /* 读取硬盘上的inode位图信息 */
     cur_part->inode_bitmap.bits=
-    (unsigned char *)vmm_malloc(sb_buf->inode_bitmap_sects*SEC_SIZE,1);
+    (unsigned char *)vmm_malloc(sb_buf->inode_bitmap_sects*SEC_SIZE,2);
     cur_part->inode_bitmap.btmp_bytes_len=sb_buf->inode_bitmap_sects*SEC_SIZE;
     ide_read(cur_part->inode_bitmap.bits,sb_buf->inode_bitmap_lba,sb_buf->inode_bitmap_sects);
 
@@ -223,7 +227,7 @@ int path_depth_cnt(char* pathname) {
 static int search_file(const char* pathname, struct path_search_record* searched_record) {
    /* 如果待查找的是根目录,为避免下面无用的查找,直接返回已知根目录信息 */
    if (!strcmp(pathname, "/") || !strcmp(pathname, "/.") || !strcmp(pathname, "/..")) {
-      searched_record->parent_dir = &root_dir;
+      searched_record->parent_dir = root_dir;
       searched_record->file_type = FT_DIRECTORY;
       searched_record->searched_path[0] = 0;	   // 搜索路径置空
       return 0;
@@ -233,7 +237,7 @@ static int search_file(const char* pathname, struct path_search_record* searched
    /* 保证pathname至少是这样的路径/x且小于最大长度 */
    ASSERT(pathname[0] == '/' && path_len > 1 && path_len < MAX_PATH_LEN);
    char* sub_path = (char*)pathname;
-   struct dir* parent_dir = &root_dir;	
+   struct dir* parent_dir = root_dir;	
    struct dir_entry dir_e;
 
    /* 记录路径解析出来的各级名称,如路径"/a/b/c",
@@ -245,7 +249,7 @@ static int search_file(const char* pathname, struct path_search_record* searched
    unsigned int parent_inode_no = 0;  // 父目录的inode号
    
    sub_path = path_parse(sub_path, name);
-   printk("name[0]:%s\n",name);
+   
    while (name[0]) {	   // 若第一个字符就是结束符,结束循环
       /* 记录查找过的路径,但不能超过searched_path的长度512字节 */
       ASSERT(strlen(searched_record->searched_path) < 512);
@@ -395,14 +399,30 @@ int sys_write(int fd, const void* buf, unsigned int count) {
 }
 /* 从文件描述符fd指向的文件中读取count个字节到buf,若成功则返回读出的字节数,到文件尾则返回-1 */
 int sys_read(int fd, void* buf, unsigned int count) {
-   if (fd < 0) {
-      printk("sys_read: fd error\n");
-      return -1;
-   }
    ASSERT(buf != NULL);
-   unsigned int _fd = fd_local2global(fd);
-   printk("read fd is %02d\n",_fd);
-   return file_read(&file_table[_fd], buf, count);   
+   int ret = -1;
+   if (fd < 0 || fd == stdout_no || fd == stderr_no) {
+      printk("sys_read: fd error\n");
+   } else if (fd == stdin_no) {
+      char* buffer = buf;
+      unsigned int bytes_read = 0;
+      if(shell_input==0){
+         sema_down(&user_sema);
+      }
+         
+      while (bytes_read < count) {
+         *buffer = shell_input;//
+         shell_input=0;
+         bytes_read++;
+         buffer++;
+      }
+      ret = (bytes_read == 0 ? -1 : (int)bytes_read);
+   } else {
+      unsigned int _fd = fd_local2global(fd);
+      ret = file_read(&file_table[_fd], buf, count);   
+   }
+   //printk("ret=%08x\n",ret);
+   return ret; 
 }
 
 /* 重置用于文件读写操作的偏移指针,成功时返回新的偏移量,出错时返回-1 */
@@ -471,7 +491,7 @@ int sys_unlink(const char* pathname) {
    ASSERT(file_idx == MAX_FILE_OPEN);
    
    /* 为delete_dir_entry申请缓冲区 */
-   void* io_buf = vmm_malloc(SEC_SIZE*2,1);
+   void* io_buf = vmm_malloc(SEC_SIZE*2,2);
    if (io_buf == NULL) {
       dir_close(searched_record.parent_dir);
       printk("sys_unlink: malloc for io_buf failed\n");
@@ -489,7 +509,7 @@ int sys_unlink(const char* pathname) {
 int sys_mkdir(const char* pathname) {
    unsigned char rollback_step = 0;	       // 用于操作失败时回滚各资源状态
    unsigned int byte_idx,bit_odd;
-   void* io_buf = vmm_malloc(SEC_SIZE * 2,1);
+   void* io_buf = vmm_malloc(SEC_SIZE * 2,2);
    if (io_buf == NULL) {
       printk("sys_mkdir: sys_malloc for io_buf failed\n");
       return -1;
@@ -609,7 +629,7 @@ struct dir* sys_opendir(const char* name) {
    ASSERT(strlen(name) < MAX_PATH_LEN);
    /* 如果是根目录'/',直接返回&root_dir */
    if (name[0] == '/' && (name[1] == 0 || name[0] == '.')) {
-      return &root_dir;
+      return root_dir;
    }
 
    /* 先检查待打开的目录是否存在 */
@@ -739,7 +759,7 @@ char* sys_getcwd(char* buf, unsigned int size) {
    /* 确保buf不为空,若用户进程提供的buf为NULL,
    系统调用getcwd中要为用户进程通过malloc分配内存 */
    ASSERT(buf != NULL);
-   void* io_buf = vmm_malloc(SEC_SIZE,1);
+   void* io_buf = vmm_malloc(SEC_SIZE,2);
    if (io_buf == NULL) {
       return NULL;
    }
@@ -788,7 +808,7 @@ int sys_stat(const char* path, struct stat* buf) {
    if (!strcmp(path, "/") || !strcmp(path, "/.") || !strcmp(path, "/..")) {
       buf->st_filetype = FT_DIRECTORY;
       buf->st_ino = 0;
-      buf->st_size = root_dir.inode->i_size;
+      buf->st_size = root_dir->inode->i_size;
       return 0;
    }
 
@@ -827,7 +847,7 @@ int sys_chdir(const char* path) {
    dir_close(searched_record.parent_dir); 
    return ret;
 }
-void test_fs(){
+void fs_init(){
     //partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
     mount_partition();
     //unsigned int fd=sys_open("/file",O_CREAT);
@@ -955,13 +975,14 @@ void test_fs(){
    sys_getcwd(cwd_buf, 32);
    printk("cwd:%s\n", cwd_buf);*/
    //获得文件属性
-      struct stat obj_stat;
+   struct stat obj_stat;
+   clear();
    sys_stat("/", &obj_stat);
-   printk("/`s info\n   i_no:%02d\n   size:%02d\n   filetype:%s\n", \
+   printk("/`s info\n   i_no:%02x\n   size:%02x\n   filetype:%s\n", \
 	 obj_stat.st_ino, obj_stat.st_size, \
 	 obj_stat.st_filetype == 2 ? "directory" : "regular");
    sys_stat("/dir1", &obj_stat);
-   printk("/dir1`s info\n   i_no:%02d\n   size:%02d\n   filetype:%s\n", \
+   printk("/dir1`s info\n   i_no:%02x\n   size:%02x\n   filetype:%s\n", \
 	 obj_stat.st_ino, obj_stat.st_size, \
 	 obj_stat.st_filetype == 2 ? "directory" : "regular");
 }

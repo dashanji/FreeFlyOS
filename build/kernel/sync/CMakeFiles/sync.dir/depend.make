@@ -4,7 +4,12 @@
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/asm/asm.h
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/debug/debug.h
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/dt/dt.h
+kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/file/bitmap.h
+kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/file/dir.h
+kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/file/file.h
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/file/fs.h
+kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/file/ide-dev.h
+kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/file/super_block.h
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/interrupt/trap.h
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/mem/memlayout.h
 kernel/sync/CMakeFiles/sync.dir/sync.c.o: ../kernel/mem/vmm.h

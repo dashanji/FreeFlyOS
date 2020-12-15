@@ -137,19 +137,28 @@ void bootmain(void) {
     // read the 1st page off disk
     readseg((unsigned int )ELFHDR, SECTSIZE * 2, 0);
 
+    *(unsigned int *)0x80000000=0xFFFFFFFF;
     struct proghdr *ph, *eph;
 
     // load each program segment (ignores ph flags)
     ph = (struct proghdr *)((unsigned int )ELFHDR + ELFHDR->phoff);
     eph = ph + ELFHDR->phnum;
+    unsigned int mask;
     //由于内核放在16MB处，至少需要28位对齐（0xFFFFFFF）
     for (; ph < eph; ph ++) {
-        readseg(ph->p_va & 0xFFFFFFF, ph->p_memsz, ph->p_offset);
+        //qemu特性决定
+        if(ph->p_va > (unsigned int )0xC0000000){
+            mask=0xFFFFFFF;
+        }
+        else{
+            mask=0xFFFFFFFF;
+        }
+        readseg(ph->p_va & mask, ph->p_memsz, ph->p_offset);
     }
 
     // call the entry point from the ELF header
     // note: does not return
-    ((void (*)(void))(ELFHDR->entry & 0xFFFFFFF))();
+    ((void (*)(void))(ELFHDR->entry & 0xFFFFFFFF))();
 
     while (1);
 }

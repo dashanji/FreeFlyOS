@@ -1,8 +1,8 @@
 #include "syscall.h"
 #include "../task/task.h"
 #include "../vga/vga.h"
+#include "../file/fs.h"
 
-#define MAX_ARGS            5
 extern struct task_struct *current;  //指向当前进程
 
 static int
@@ -78,6 +78,91 @@ sys_pgdir(unsigned int arg[]) {
     //print_pgdir();
     return 0;
 }
+static int
+sys_fdread(unsigned int arg[]) {
+    int fd=arg[0];
+    void *buf=(void *)arg[1];
+    unsigned int count=(unsigned int)arg[2];
+    return sys_read(fd,buf,count);
+}
+static int
+syscall_open(unsigned int arg[]) {
+    const char* pathname=(const char*)arg[0];
+    unsigned char flags=(unsigned char)arg[1];
+    return sys_open(pathname,flags);
+}
+static int
+syscall_close(unsigned int arg[]) {
+    int fd=(int)arg[0];
+    return sys_close(fd);
+}
+static int
+syscall_write(unsigned int arg[]) {
+    int fd=(int)arg[0];
+    const void* buf=(const void*)arg[1];
+    unsigned int count=(unsigned int)arg[2];
+    return sys_write(fd,buf,count);
+}
+static int
+syscall_lseek(unsigned int arg[]) {
+    int fd=(int)arg[0];
+    int offset=(int)arg[1];
+    unsigned char whence=(unsigned char)arg[2];
+    return sys_lseek(fd,offset,whence);
+}
+static int
+syscall_unlink(unsigned int arg[]) {
+    const char* pathname=(const char*)arg[0];
+    return sys_unlink(pathname);
+}
+static int
+syscall_mkdir(unsigned int arg[]) {
+    const char* pathname=(const char*)arg[0];
+    return sys_mkdir(pathname);
+}
+static int
+syscall_rmdir(unsigned int arg[]) {
+    const char* pathname=(const char*)arg[0];
+    return sys_rmdir(pathname);
+}
+static int
+syscall_rewinddir(unsigned int arg[]) {
+    struct dir* dir=(struct dir*)arg[0];
+    sys_rewinddir(dir);
+    return 0;
+}
+static char*
+syscall_getcwd(unsigned int arg[]) {
+    char* buf=(char* )arg[0];
+    unsigned int size=(unsigned int)arg[1];
+    return sys_getcwd(buf,size);
+}
+static int
+syscall_chdir(unsigned int arg[]) {
+    const char* path=(const char*)arg[0];
+    return sys_chdir(path);
+}
+static int
+syscall_stat(unsigned int arg[]) {
+    const char* path=(const char*)arg[0];
+    struct stat *buf=(struct stat *)arg[1];
+    return sys_stat(path,buf);
+}
+static struct dir *
+syscall_opendir(unsigned int arg[]) {
+    const char* name=(const char*)arg[0];
+    return sys_opendir(name);
+}
+static int
+syscall_closedir(unsigned int arg[]) {
+    struct dir* dir=(struct dir* )arg[0];
+    return sys_closedir(dir);
+}
+static int
+syscall_readdir(unsigned int arg[]) {
+    struct dir* dir=(struct dir* )arg[0];
+    return sys_readdir(dir);
+}
 
 static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_exit]              sys_exit,
@@ -87,10 +172,25 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_yield]             sys_yield,
     [SYS_kill]              sys_kill,
     [SYS_getpid]            sys_getpid,
+    [SYS_fdread]              sys_fdread, 
     [SYS_pgdir]             sys_pgdir,
     [SYS_print_char]        sys_print_char,
     [SYS_print_string]      sys_print_string,
     [SYS_print_num]         sys_print_num,
+    [SYS_open]              syscall_open,
+    [SYS_close]             syscall_close,
+    [SYS_write]             syscall_write,
+    [SYS_lseek]             syscall_lseek,
+    [SYS_unlink]            syscall_unlink,
+    [SYS_mkdir]             syscall_mkdir,
+    [SYS_rmdir]             syscall_rmdir,
+    [SYS_rewinddir]         syscall_rewinddir,
+    [SYS_getcwd]            syscall_getcwd,
+    [SYS_chdir]             syscall_chdir,
+    [SYS_stat]              syscall_stat,
+    [SYS_opendir]           syscall_opendir,
+    [SYS_closedir]          syscall_closedir,
+    [SYS_readdir]           syscall_readdir,
 };
 
 #define NUM_SYSCALLS        ((sizeof(syscalls)) / (sizeof(syscalls[0])))
@@ -117,7 +217,7 @@ syscall_trap(struct trapframe *tf) {
     //        num, current->pid, current->name);
 }
 
-
+/*
 static inline int
 user_syscall(int num, ...) {
     va_list ap;
@@ -158,3 +258,4 @@ void
 user_print_num(int num,unsigned char base,char len,int flag) {
     user_syscall(SYS_print_num,num,base,len,flag);
 }
+*/

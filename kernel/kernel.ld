@@ -31,6 +31,29 @@ SECTIONS
     }
     PROVIDE(init_end = .);
 
+    /* 指定user从虚拟地址0x40000000处开始 */
+    /* 物理地址也从0x40000000处开始*/
+     . = 0x40000000; 
+    .user.text :   
+    {
+        user/CMakeFiles/user.dir/*.o(.text)
+    }
+    .user.data :  
+    {
+        user/CMakeFiles/user.dir/*.o(.data)
+        
+    }
+    .user.rodata :
+    {
+        user/CMakeFiles/user.dir/*.o(.rodata)
+    }
+    .user.bss :
+    {
+        user/CMakeFiles/user.dir/*.o(.bss)
+    }
+
+    PROVIDE(user_end = .);
+
     /* 指定内核从虚拟地址0xC0000000+0x01000000(16MB)处开始 */
     /* 物理地址从0x01000000(16MB)处开始，通过AT命令指定 */
     . = 0xC1000000;
@@ -50,14 +73,14 @@ SECTIONS
 
     PROVIDE(kernel_data = .);
     /* The data segment */
-    .data : AT(ADDR(.data) - 0xC0000000) 
+    .data :  AT(ADDR(.data) - 0xC0000000) 
     {
         *(.data)
     }
 
     PROVIDE(kernel_bss = .);
 
-    .bss :  AT(ADDR(.bss) - 0xC0000000) 
+    .bss :   AT(ADDR(.bss) - 0xC0000000) 
     {
         *(.bss)
     }
@@ -68,5 +91,4 @@ SECTIONS
     /DISCARD/ : {
         *(.eh_frame .note.GNU-stack)
     }
-    
 }

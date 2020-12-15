@@ -6,11 +6,14 @@ kernel/main/CMakeFiles/main.dir/main.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
@@ -23,4 +26,5 @@ kernel/main/CMakeFiles/main.dir/main.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/timer/timer.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/user/user_main.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h

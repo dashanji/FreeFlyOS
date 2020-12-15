@@ -20,6 +20,8 @@ set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "../kernel/task"
   "../kernel/stl"
   "../kernel/debug"
+  "../kernel/sync"
+  "../kernel/file"
   )
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/caoy/Desktop/FreeFlyOS/kernel/task/task.c" "/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/task.c.o"
@@ -36,6 +38,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/task"
   "../kernel/stl"
   "../kernel/debug"
+  "../kernel/sync"
+  "../kernel/file"
   )
 
 # Targets to which this target links.

@@ -4,6 +4,7 @@
 kernel/serial/CMakeFiles/serial.dir/serial.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.h

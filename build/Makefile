@@ -390,6 +390,19 @@ file/fast:
 	$(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/build
 .PHONY : file/fast
 
+#=============================================================================
+# Target rules for targets named user
+
+# Build rule for target.
+user: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 user
+.PHONY : user
+
+# fast build rule for target.
+user/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/build
+.PHONY : user/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -417,6 +430,7 @@ help:
 	@echo "... sync"
 	@echo "... task"
 	@echo "... timer"
+	@echo "... user"
 	@echo "... vga"
 .PHONY : help
 

@@ -7,11 +7,11 @@ ASM_FLAGS = -Iinclude/ -Os -nostdlib -fno-builtin  -Wall -ggdb -m32 -gstabs -nos
 
 ASM_DEFINES = 
 
-ASM_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/dt -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/task -I/Users/caoy/Desktop/FreeFlyOS/kernel/stl -I/Users/caoy/Desktop/FreeFlyOS/kernel/debug 
+ASM_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/dt -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/task -I/Users/caoy/Desktop/FreeFlyOS/kernel/stl -I/Users/caoy/Desktop/FreeFlyOS/kernel/debug -I/Users/caoy/Desktop/FreeFlyOS/kernel/sync -I/Users/caoy/Desktop/FreeFlyOS/kernel/file 
 
 C_FLAGS = -nostdlib -g -m32 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk  
 
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/dt -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/task -I/Users/caoy/Desktop/FreeFlyOS/kernel/stl -I/Users/caoy/Desktop/FreeFlyOS/kernel/debug 
+C_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/dt -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/task -I/Users/caoy/Desktop/FreeFlyOS/kernel/stl -I/Users/caoy/Desktop/FreeFlyOS/kernel/debug -I/Users/caoy/Desktop/FreeFlyOS/kernel/sync -I/Users/caoy/Desktop/FreeFlyOS/kernel/file 
 

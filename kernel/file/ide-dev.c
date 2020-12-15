@@ -111,7 +111,7 @@ static void delay(unsigned int xus) // xus代表需要延时的微秒数
 struct partition *read_main_partition(){
     struct partition *main_partition;
     //申请内存存储主分区信息
-    unsigned int main_part=vmm_malloc(SECTSIZE,1);
+    unsigned int main_part=vmm_malloc(SECTSIZE,2);
     //主分区位于0号扇区
     ide_read_sect((unsigned char *)main_part,0);
     //分区表位于引导扇区（0号扇区）的0x1BE - 0x1FD中

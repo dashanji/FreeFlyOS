@@ -14,4 +14,6 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/timer
     ${FreeFlyOS_SOURCE_DIR}/kernel/vga
     ${FreeFlyOS_SOURCE_DIR}/kernel/task
+    ${FreeFlyOS_SOURCE_DIR}/kernel/file
+    ${FreeFlyOS_SOURCE_DIR}/kernel/user
 )
