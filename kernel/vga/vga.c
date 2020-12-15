@@ -121,7 +121,30 @@ color_type background,color_type foreground,unsigned char base,char len,int flag
     print_string(str,background,foreground);
 }
 
+/* 退格 */
+void backtrace(){
+    if(cursor_y>21){
+    cursor_y--;
+    unsigned short attribute=0,character=0,pos;
+   
+    if(cursor_x>=25){
+        clear();
+    }
+        
+    //calculate the pos from (0,0)
+    pos=cursor_x*80+cursor_y;
 
+    //set the first byte of character
+    character=' ';
+    //set the last byte of character
+    attribute=((default_background<<4)&0xf0|(default_foreground&0xf))<<8;
+    character=character|attribute;
+    //send character to vga memory
+    vga_memory[pos]=character;
+
+    print_cursor(cursor_x,cursor_y);
+    }
+}
 /*
 *    printk(“”,...)-standardized format output
 *         %c-------char

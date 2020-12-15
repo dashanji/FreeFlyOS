@@ -111,7 +111,6 @@ int kbd_proc_data(void) {
     int c;
     unsigned char data;
     //static unsigned int shift=0;
-
    
     if ((inb(KBSTATP) & KBS_DIB) == 0) {
         return -1;
@@ -144,6 +143,11 @@ int kbd_proc_data(void) {
         else if ('A' <= c && c <= 'Z')
             c += 'a' - 'A';
     }
+    //backspace
+    if (c=='\b'){
+        backtrace();
+        return 0;
+    }
     // Process special keys
     // Ctrl-Alt-Del: reboot
     if (!(~shift & (CTL | ALT)) && c == KEY_DEL) {
@@ -168,6 +172,7 @@ void kbd_init(void) {
 
     shell_input=0;
     // drain the kbd buffer
+    shift=0;
     kbd_intr();
     pic_enable(IRQ_KBD);
 }

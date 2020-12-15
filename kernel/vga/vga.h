@@ -68,5 +68,5 @@ void print_num(unsigned long long num,color_type background,color_type foregroun
 void printk(char *fmt,...);
 void cons_putc(int c);
 int cons_getc(void);
-
+void backtrace();
 #endif
