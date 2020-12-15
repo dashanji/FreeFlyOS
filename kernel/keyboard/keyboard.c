@@ -144,10 +144,10 @@ int kbd_proc_data(void) {
             c += 'a' - 'A';
     }
     //backspace
-    if (c=='\b'){
-        backtrace();
-        return 0;
-    }
+    //if (c=='\b'){
+        //backtrace();
+    //    return '\b';
+    //}
     // Process special keys
     // Ctrl-Alt-Del: reboot
     if (!(~shift & (CTL | ALT)) && c == KEY_DEL) {

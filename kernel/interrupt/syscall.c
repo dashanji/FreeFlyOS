@@ -72,7 +72,11 @@ sys_print_num(unsigned int arg[]) {
     print_num(num,default_background,default_foreground,base,len,flag);
     return 0;
 }
-
+static int
+sys_backtrace(unsigned int arg[]) {
+    backtrace();
+    return 0;
+}
 static int
 sys_pgdir(unsigned int arg[]) {
     //print_pgdir();
@@ -177,6 +181,7 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_print_char]        sys_print_char,
     [SYS_print_string]      sys_print_string,
     [SYS_print_num]         sys_print_num,
+    [SYS_backtrace]         sys_backtrace,
     [SYS_open]              syscall_open,
     [SYS_close]             syscall_close,
     [SYS_write]             syscall_write,

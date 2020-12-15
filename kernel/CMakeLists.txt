@@ -60,7 +60,7 @@ add_custom_command(OUTPUT ${IMG}
     COMMAND
         dd if=kernel of=../../FreeFlyOS.img seek=1 conv=notrunc	        
     COMMAND    
-        qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img	
+        qemu-system-i386  -m 2048 -hda ../../FreeFlyOS.img	
 )
 add_custom_target(Test1 ALL DEPENDS ${IMG})
 

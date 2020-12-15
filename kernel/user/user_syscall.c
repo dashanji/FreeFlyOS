@@ -44,6 +44,10 @@ void
 user_print_num(int num,unsigned char base,char len,int flag) {
     user_syscall(SYS_print_num,num,base,len,flag);
 }
+void 
+user_backtrace() {
+    user_syscall(SYS_backtrace);
+}
 /* 从文件描述符fd中读取count个字节到buf */
 int 
 read(int fd, void* buf, unsigned int count) {

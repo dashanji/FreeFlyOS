@@ -25,7 +25,7 @@
 #define SYS_print_char      36
 #define SYS_print_string    37
 #define SYS_print_num       38
-
+#define SYS_backtrace       39
 #define SYS_open  40
 #define SYS_close 41
 #define SYS_write 42
@@ -61,6 +61,7 @@ void user_print_string(char *str);
 //__attribute__( (section(".user.text") ) ) 
 void user_print_num(int num,unsigned char base,char len,int flag);
 //__attribute__( (section(".user.text") ) ) 
+void user_backtrace();
 int read(int fd, void* buf, unsigned int count);
 int open(char* pathname, unsigned char flag);
 int close(int fd);

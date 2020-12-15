@@ -42,7 +42,8 @@ static void user_readline(char* buf, int count) {
 	 case '\b':
 	    if (buf[0] != '\b') {		// 阻止删除非本次输入的信息
 	       --pos;	   // 退回到缓冲区cmd_line中上一个字符
-	       user_print_char('\b');
+	       //user_print_char('\b');
+          user_backtrace();
 	    }
 	    break;
 
@@ -101,6 +102,7 @@ static int cmd_parse(char* cmd_str, char** argv, char token) {
 /* 简单的shell */
 void my_shell(void) {
    cwd_cache[0] = '/';
+   cwd_cache[1] = '\0';
    while (1) {
       print_prompt(); 
       user_memset(final_path, 0, MAX_PATH_LEN);
