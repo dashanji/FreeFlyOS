@@ -126,3 +126,22 @@ struct dir_entry* readdir(struct dir* dir) {
    return (struct dir_entry*)user_syscall(SYS_readdir, dir);
 }
 
+/* 打印全部进程 */
+void ps(){
+  return user_syscall(SYS_print_task);
+}
+
+/* 获取内存 */
+unsigned int malloc(unsigned int bytes){
+   return user_syscall(SYS_malloc,bytes);
+}
+
+/* 释放内存 */
+void free(unsigned int addr,unsigned int size){
+   user_syscall(SYS_free,addr,size);
+}
+
+/* 拷贝进程 */
+int fork(){
+   return user_syscall(SYS_fork);
+}

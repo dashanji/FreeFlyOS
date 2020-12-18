@@ -15,6 +15,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/mem"
   "../kernel/vga"
   "../kernel/stl"
+  "../kernel/task"
   )
 
 # Targets to which this target links.

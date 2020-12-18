@@ -8,10 +8,16 @@ static void delay(unsigned int xus) // xus代表需要延时的微秒数
     for(x=xus;x>0;x--)
         for(y=110;y>0;y--);
 }
+void test_fork(){
+    unsigned int ret_pid=fork();
+    printf("my pid is %d",ret_pid);
+    while(1);
+}
 void user_main(){
     char str[50]="Hello,I'm a User Function!Nice to meet you!\n";
     //printf(str);
-    my_shell();
+    test_fork();
+    //my_shell();
     /*while(1)
     {
         printf("user\n");

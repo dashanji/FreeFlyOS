@@ -3,4 +3,5 @@
 
 void main(void);
 void test();
+static void write2fs();
 #endif

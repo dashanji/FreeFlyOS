@@ -59,6 +59,7 @@ void main(void)
 
     fs_init();
     kernel_task_init(kernel_main);
+    //write2fs(); //放在进程初始化后，需要安装到当前进程的fd表，写入到文件系统即可，故仅需执行一次
     clear();
     //必须放在task_init后，不然访问current会出现缺页
     timer_init(TIME_FREQUENCY); //100HZ
@@ -76,6 +77,21 @@ void main(void)
     //test_ide_io();
     //test_fs();
     while(1);
+}
+/* 将test_exec测试程序（占20个扇区）从500扇区处写入到文件系统中 */
+static void write2fs(){
+    unsigned int file_size=8728; //通过本机OS 的ls -l命令获得
+    unsigned int sec_cnt=(file_size+512-1)/512;    //扇区数
+    unsigned int prog=vmm_malloc(file_size,1);
+    ide_read((void *)prog,500,sec_cnt);
+    int fd=sys_open("/prog_no_arg",O_CREAT|O_RDWR);
+    if(fd!=-1){
+      if(sys_write(fd,prog,file_size) == -1){
+            printk("file write error!\n");
+            while(1);
+      }
+    }
+    vmm_free(prog,file_size);
 }
 void kernel_main(){
     while(1)

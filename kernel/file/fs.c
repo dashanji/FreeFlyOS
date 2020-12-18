@@ -847,8 +847,9 @@ int sys_chdir(const char* path) {
    dir_close(searched_record.parent_dir); 
    return ret;
 }
+
 void fs_init(){
-    //partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
+    partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
     mount_partition();
     //unsigned int fd=sys_open("/file",O_CREAT);
    // unsigned int fd=sys_open("/file",O_RDWR); //O_RDONLY

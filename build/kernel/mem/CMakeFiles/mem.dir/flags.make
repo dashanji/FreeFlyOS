@@ -6,5 +6,5 @@ C_FLAGS = -nostdlib -g -m32 -isysroot /Library/Developer/CommandLineTools/SDKs/M
 
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/stl 
+C_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/stl -I/Users/caoy/Desktop/FreeFlyOS/kernel/task 
 

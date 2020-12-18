@@ -346,6 +346,12 @@ task_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/task
 task_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/task
 
 //Value Computed by CMake
+test_exec_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/test_exec
+
+//Value Computed by CMake
+test_exec_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/test_exec
+
+//Value Computed by CMake
 timer_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/timer
 
 //Value Computed by CMake
@@ -485,7 +491,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=19
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=20
 //ADVANCED property for variable: CMAKE_OBJDUMP
 CMAKE_OBJDUMP-ADVANCED:INTERNAL=1
 //Platform information initialized

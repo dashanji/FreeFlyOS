@@ -75,18 +75,21 @@ CMAKE_BINARY_DIR = /Users/caoy/Desktop/FreeFlyOS/build
 # The main recursive "all" target.
 all: boot/all
 all: kernel/all
+all: test_exec/all
 
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: boot/preinstall
 preinstall: kernel/preinstall
+preinstall: test_exec/preinstall
 
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: boot/clean
 clean: kernel/clean
+clean: test_exec/clean
 
 .PHONY : clean
 
@@ -468,14 +471,34 @@ kernel/vga/clean: kernel/vga/CMakeFiles/vga.dir/clean
 .PHONY : kernel/vga/clean
 
 #=============================================================================
+# Directory level rules for directory test_exec
+
+# Recursive "all" directory target.
+test_exec/all: test_exec/CMakeFiles/Test2.dir/all
+test_exec/all: test_exec/CMakeFiles/test_exec.dir/all
+
+.PHONY : test_exec/all
+
+# Recursive "preinstall" directory target.
+test_exec/preinstall:
+
+.PHONY : test_exec/preinstall
+
+# Recursive "clean" directory target.
+test_exec/clean: test_exec/CMakeFiles/Test2.dir/clean
+test_exec/clean: test_exec/CMakeFiles/test_exec.dir/clean
+
+.PHONY : test_exec/clean
+
+#=============================================================================
 # Target rules for target boot/CMakeFiles/bootblock.o.dir
 
 # All Build rule for target.
-boot/CMakeFiles/bootblock.o.dir/all: boot/CMakeFiles/bootmain.dir/all
 boot/CMakeFiles/bootblock.o.dir/all: boot/CMakeFiles/bootsector.dir/all
+boot/CMakeFiles/bootblock.o.dir/all: boot/CMakeFiles/bootmain.dir/all
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootblock.o.dir/build.make boot/CMakeFiles/bootblock.o.dir/depend
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootblock.o.dir/build.make boot/CMakeFiles/bootblock.o.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=3 "Built target bootblock.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=4 "Built target bootblock.o"
 .PHONY : boot/CMakeFiles/bootblock.o.dir/all
 
 # Build rule for subdir invocation for target.
@@ -502,7 +525,7 @@ boot/CMakeFiles/bootblock.o.dir/clean:
 boot/CMakeFiles/bootmain.dir/all:
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootmain.dir/build.make boot/CMakeFiles/bootmain.dir/depend
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootmain.dir/build.make boot/CMakeFiles/bootmain.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=4 "Built target bootmain"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=5 "Built target bootmain"
 .PHONY : boot/CMakeFiles/bootmain.dir/all
 
 # Build rule for subdir invocation for target.
@@ -529,7 +552,7 @@ boot/CMakeFiles/bootmain.dir/clean:
 boot/CMakeFiles/bootsector.dir/all:
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootsector.dir/build.make boot/CMakeFiles/bootsector.dir/depend
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootsector.dir/build.make boot/CMakeFiles/bootsector.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=5 "Built target bootsector"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=6 "Built target bootsector"
 .PHONY : boot/CMakeFiles/bootsector.dir/all
 
 # Build rule for subdir invocation for target.
@@ -598,7 +621,7 @@ kernel/CMakeFiles/kernel.dir/all: kernel/file/CMakeFiles/file.dir/all
 kernel/CMakeFiles/kernel.dir/all: kernel/user/CMakeFiles/user.dir/all
 	$(MAKE) $(MAKESILENT) -f kernel/CMakeFiles/kernel.dir/build.make kernel/CMakeFiles/kernel.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/CMakeFiles/kernel.dir/build.make kernel/CMakeFiles/kernel.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=20 "Built target kernel"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=21 "Built target kernel"
 .PHONY : kernel/CMakeFiles/kernel.dir/all
 
 # Build rule for subdir invocation for target.
@@ -625,7 +648,7 @@ kernel/CMakeFiles/kernel.dir/clean:
 kernel/init/CMakeFiles/init.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/init/CMakeFiles/init.dir/build.make kernel/init/CMakeFiles/init.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/init/CMakeFiles/init.dir/build.make kernel/init/CMakeFiles/init.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=15 "Built target init"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=16 "Built target init"
 .PHONY : kernel/init/CMakeFiles/init.dir/all
 
 # Build rule for subdir invocation for target.
@@ -652,7 +675,7 @@ kernel/init/CMakeFiles/init.dir/clean:
 kernel/asm/CMakeFiles/asm.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/asm/CMakeFiles/asm.dir/build.make kernel/asm/CMakeFiles/asm.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/asm/CMakeFiles/asm.dir/build.make kernel/asm/CMakeFiles/asm.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=2 "Built target asm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=3 "Built target asm"
 .PHONY : kernel/asm/CMakeFiles/asm.dir/all
 
 # Build rule for subdir invocation for target.
@@ -679,7 +702,7 @@ kernel/asm/CMakeFiles/asm.dir/clean:
 kernel/debug/CMakeFiles/debug.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/debug/CMakeFiles/debug.dir/build.make kernel/debug/CMakeFiles/debug.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/debug/CMakeFiles/debug.dir/build.make kernel/debug/CMakeFiles/debug.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=6,7,8 "Built target debug"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=7,8,9 "Built target debug"
 .PHONY : kernel/debug/CMakeFiles/debug.dir/all
 
 # Build rule for subdir invocation for target.
@@ -706,7 +729,7 @@ kernel/debug/CMakeFiles/debug.dir/clean:
 kernel/dt/CMakeFiles/dt.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/dt/CMakeFiles/dt.dir/build.make kernel/dt/CMakeFiles/dt.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/dt/CMakeFiles/dt.dir/build.make kernel/dt/CMakeFiles/dt.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=9 "Built target dt"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=10 "Built target dt"
 .PHONY : kernel/dt/CMakeFiles/dt.dir/all
 
 # Build rule for subdir invocation for target.
@@ -733,7 +756,7 @@ kernel/dt/CMakeFiles/dt.dir/clean:
 kernel/interrupt/CMakeFiles/interrupt.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/interrupt/CMakeFiles/interrupt.dir/build.make kernel/interrupt/CMakeFiles/interrupt.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/interrupt/CMakeFiles/interrupt.dir/build.make kernel/interrupt/CMakeFiles/interrupt.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=16,17,18,19 "Built target interrupt"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=17,18,19,20 "Built target interrupt"
 .PHONY : kernel/interrupt/CMakeFiles/interrupt.dir/all
 
 # Build rule for subdir invocation for target.
@@ -760,7 +783,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/clean:
 kernel/keyboard/CMakeFiles/keyboard.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/keyboard/CMakeFiles/keyboard.dir/build.make kernel/keyboard/CMakeFiles/keyboard.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/keyboard/CMakeFiles/keyboard.dir/build.make kernel/keyboard/CMakeFiles/keyboard.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=21 "Built target keyboard"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=22 "Built target keyboard"
 .PHONY : kernel/keyboard/CMakeFiles/keyboard.dir/all
 
 # Build rule for subdir invocation for target.
@@ -787,7 +810,7 @@ kernel/keyboard/CMakeFiles/keyboard.dir/clean:
 kernel/main/CMakeFiles/main.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/main/CMakeFiles/main.dir/build.make kernel/main/CMakeFiles/main.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/main/CMakeFiles/main.dir/build.make kernel/main/CMakeFiles/main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=22 "Built target main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=23 "Built target main"
 .PHONY : kernel/main/CMakeFiles/main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -814,7 +837,7 @@ kernel/main/CMakeFiles/main.dir/clean:
 kernel/mem/CMakeFiles/mem.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/mem/CMakeFiles/mem.dir/build.make kernel/mem/CMakeFiles/mem.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/mem/CMakeFiles/mem.dir/build.make kernel/mem/CMakeFiles/mem.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=23,24 "Built target mem"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=24,25 "Built target mem"
 .PHONY : kernel/mem/CMakeFiles/mem.dir/all
 
 # Build rule for subdir invocation for target.
@@ -841,7 +864,7 @@ kernel/mem/CMakeFiles/mem.dir/clean:
 kernel/task/CMakeFiles/task.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=28,29,30 "Built target task"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=29,30,31 "Built target task"
 .PHONY : kernel/task/CMakeFiles/task.dir/all
 
 # Build rule for subdir invocation for target.
@@ -868,7 +891,7 @@ kernel/task/CMakeFiles/task.dir/clean:
 kernel/pic/CMakeFiles/pic.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/pic/CMakeFiles/pic.dir/build.make kernel/pic/CMakeFiles/pic.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/pic/CMakeFiles/pic.dir/build.make kernel/pic/CMakeFiles/pic.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=25 "Built target pic"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=26 "Built target pic"
 .PHONY : kernel/pic/CMakeFiles/pic.dir/all
 
 # Build rule for subdir invocation for target.
@@ -895,7 +918,7 @@ kernel/pic/CMakeFiles/pic.dir/clean:
 kernel/serial/CMakeFiles/serial.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/serial/CMakeFiles/serial.dir/build.make kernel/serial/CMakeFiles/serial.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/serial/CMakeFiles/serial.dir/build.make kernel/serial/CMakeFiles/serial.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=26 "Built target serial"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=27 "Built target serial"
 .PHONY : kernel/serial/CMakeFiles/serial.dir/all
 
 # Build rule for subdir invocation for target.
@@ -922,7 +945,7 @@ kernel/serial/CMakeFiles/serial.dir/clean:
 kernel/timer/CMakeFiles/timer.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/timer/CMakeFiles/timer.dir/build.make kernel/timer/CMakeFiles/timer.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/timer/CMakeFiles/timer.dir/build.make kernel/timer/CMakeFiles/timer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=31 "Built target timer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=33 "Built target timer"
 .PHONY : kernel/timer/CMakeFiles/timer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -949,7 +972,7 @@ kernel/timer/CMakeFiles/timer.dir/clean:
 kernel/vga/CMakeFiles/vga.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=38 "Built target vga"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=40 "Built target vga"
 .PHONY : kernel/vga/CMakeFiles/vga.dir/all
 
 # Build rule for subdir invocation for target.
@@ -976,7 +999,7 @@ kernel/vga/CMakeFiles/vga.dir/clean:
 kernel/sync/CMakeFiles/sync.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/sync/CMakeFiles/sync.dir/build.make kernel/sync/CMakeFiles/sync.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/sync/CMakeFiles/sync.dir/build.make kernel/sync/CMakeFiles/sync.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=27 "Built target sync"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=28 "Built target sync"
 .PHONY : kernel/sync/CMakeFiles/sync.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1003,7 +1026,7 @@ kernel/sync/CMakeFiles/sync.dir/clean:
 kernel/file/CMakeFiles/file.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/file/CMakeFiles/file.dir/build.make kernel/file/CMakeFiles/file.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=10,11,12,13,14 "Built target file"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=11,12,13,14,15 "Built target file"
 .PHONY : kernel/file/CMakeFiles/file.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1030,7 +1053,7 @@ kernel/file/CMakeFiles/file.dir/clean:
 kernel/user/CMakeFiles/user.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=32,33,34,35,36,37 "Built target user"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=34,35,36,37,38,39 "Built target user"
 .PHONY : kernel/user/CMakeFiles/user.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1049,6 +1072,60 @@ user: kernel/user/CMakeFiles/user.dir/rule
 kernel/user/CMakeFiles/user.dir/clean:
 	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/clean
 .PHONY : kernel/user/CMakeFiles/user.dir/clean
+
+#=============================================================================
+# Target rules for target test_exec/CMakeFiles/Test2.dir
+
+# All Build rule for target.
+test_exec/CMakeFiles/Test2.dir/all: test_exec/CMakeFiles/test_exec.dir/all
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/Test2.dir/build.make test_exec/CMakeFiles/Test2.dir/depend
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/Test2.dir/build.make test_exec/CMakeFiles/Test2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=2 "Built target Test2"
+.PHONY : test_exec/CMakeFiles/Test2.dir/all
+
+# Build rule for subdir invocation for target.
+test_exec/CMakeFiles/Test2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_exec/CMakeFiles/Test2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
+.PHONY : test_exec/CMakeFiles/Test2.dir/rule
+
+# Convenience name for target.
+Test2: test_exec/CMakeFiles/Test2.dir/rule
+
+.PHONY : Test2
+
+# clean rule for target.
+test_exec/CMakeFiles/Test2.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/Test2.dir/build.make test_exec/CMakeFiles/Test2.dir/clean
+.PHONY : test_exec/CMakeFiles/Test2.dir/clean
+
+#=============================================================================
+# Target rules for target test_exec/CMakeFiles/test_exec.dir
+
+# All Build rule for target.
+test_exec/CMakeFiles/test_exec.dir/all:
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/depend
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=32 "Built target test_exec"
+.PHONY : test_exec/CMakeFiles/test_exec.dir/all
+
+# Build rule for subdir invocation for target.
+test_exec/CMakeFiles/test_exec.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_exec/CMakeFiles/test_exec.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
+.PHONY : test_exec/CMakeFiles/test_exec.dir/rule
+
+# Convenience name for target.
+test_exec: test_exec/CMakeFiles/test_exec.dir/rule
+
+.PHONY : test_exec
+
+# clean rule for target.
+test_exec/CMakeFiles/test_exec.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/clean
+.PHONY : test_exec/CMakeFiles/test_exec.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

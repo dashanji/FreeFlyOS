@@ -2,7 +2,7 @@
 #include "../task/task.h"
 #include "../vga/vga.h"
 #include "../file/fs.h"
-
+#include "../mem/vmm.h"
 extern struct task_struct *current;  //指向当前进程
 
 static int
@@ -167,6 +167,23 @@ syscall_readdir(unsigned int arg[]) {
     struct dir* dir=(struct dir* )arg[0];
     return sys_readdir(dir);
 }
+static int 
+syscall_print_task(unsigned int arg[]) {
+    sys_print_task();
+    return 0;
+}
+static unsigned int 
+syscall_malloc(unsigned int arg[]){
+    unsigned int bytes=(unsigned int)arg[0];
+    return sys_malloc(bytes);
+}
+static int
+syscall_free(unsigned int arg[]){
+    unsigned int addr=(unsigned int)arg[0];
+    unsigned int size=(unsigned int)arg[1];
+    sys_free(addr,size);
+    return 0;
+}
 
 static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_exit]              sys_exit,
@@ -176,7 +193,7 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_yield]             sys_yield,
     [SYS_kill]              sys_kill,
     [SYS_getpid]            sys_getpid,
-    [SYS_fdread]              sys_fdread, 
+    [SYS_fdread]            sys_fdread, 
     [SYS_pgdir]             sys_pgdir,
     [SYS_print_char]        sys_print_char,
     [SYS_print_string]      sys_print_string,
@@ -196,6 +213,9 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_opendir]           syscall_opendir,
     [SYS_closedir]          syscall_closedir,
     [SYS_readdir]           syscall_readdir,
+    [SYS_print_task]        syscall_print_task,
+    [SYS_malloc]            syscall_malloc,
+    [SYS_free]              syscall_free,
 };
 
 #define NUM_SYSCALLS        ((sizeof(syscalls)) / (sizeof(syscalls[0])))

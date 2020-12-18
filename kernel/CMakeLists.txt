@@ -17,7 +17,6 @@ add_subdirectory(vga)
 add_subdirectory(sync)
 add_subdirectory(file)
 add_subdirectory(user)
-
 add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:init>
         $<TARGET_OBJECTS:asm>
@@ -54,13 +53,13 @@ add_custom_command(OUTPUT ${IMG}
     COMMAND
         echo "Generating FreeFlyOS.img..."
     #COMMAND
-    #    dd if=/dev/zero of=${IMG} count=10000	     
+    #    dd if=/dev/zero of=${IMG} count=10000	  
+    #COMMAND
+    #    cp /Users/caoy/Downloads/FreeFlyOS.img ../../FreeFlyOS.img
     COMMAND    
         dd if=../boot/bootblock of=../../FreeFlyOS.img bs=446 count=1 conv=notrunc
     COMMAND
         dd if=kernel of=../../FreeFlyOS.img seek=1 conv=notrunc	        
-    COMMAND    
-        qemu-system-i386  -m 2048 -hda ../../FreeFlyOS.img	
 )
 add_custom_target(Test1 ALL DEPENDS ${IMG})
 

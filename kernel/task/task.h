@@ -29,7 +29,7 @@
 #define EFLAGS_IOPL_3 (3<<12) 
 #define EFLGAS_IOPL_0 (0<<12)
 
-
+#define FL_IF           0x00000200  // Interrupt Flag
 /* 自定义通用函数类型,它将在很多线程函数中做为形参类型 */
 typedef void thread_func(void*);
 
@@ -68,11 +68,14 @@ struct task_struct{
     //unsigned int start_code,end_code,end_data,brk,start_stack;
     unsigned int kernel_stack;    //内核栈
     unsigned int cr3;            //cr3基址
+    unsigned int cr3_va;         //cr3虚拟地址（访问地址）
+    struct task_struct *parent;  //父进程
     struct trapframe *tf;
     //struct taskstate tss;
     struct context context;
     //struct trapframe *tf;
-    list_entry_t link;                //进程链表
+    list_entry_t link;                //进程状态链表
+    list_entry_t all_link;            //所有进程链表
     list_entry_t hash_link;           //哈希链表
     unsigned int fd_table[MAX_FILE_OPEN]; //文件描述符数组
     unsigned int magic;
@@ -107,6 +110,7 @@ static void free_pid(int pid);
 
 /* 进程链表管理函数 */
 static void add_link(list_entry_t *new);
+static void add_all_link(list_entry_t *new);
 static void remove_link(list_entry_t *node);
 
 /* PID哈希表管理函数 */
@@ -139,6 +143,9 @@ static void print_task2();
 void do_exit();
 
 int do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned int size);
-unsigned int set_user_cr3();
+void set_user_cr3();
+void copy_user_cr3(struct task_struct *task);
 void user_task_init(void *function);
+
+void sys_print_task();
 #endif

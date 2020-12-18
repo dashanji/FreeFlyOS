@@ -203,7 +203,14 @@ void buildin_ls(int argc, char** argv) {
       }
    }
 }
-
+/* ps命令内建函数 */
+void buildin_ps(int argc,char **argv){
+   if(argc!=1){
+      printf("ps: no arguement support!\n");
+      return ;
+   }
+   ps();
+}
 /* mkdir命令内建函数 */
 int buildin_mkdir(int argc, char** argv) {
    int ret = -1;

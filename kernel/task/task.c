@@ -42,6 +42,8 @@ static unsigned int volatile last_pid=0;
 
 //就绪进程链表
 static list_entry_t ready_task_list;
+//所有进程链表
+static list_entry_t all_task_list;
 struct task_struct *task0;  //祖先进程，即进程0
 struct task_struct *user_task; //第一个用户进程
 //struct task_struct *task1;  //由进程0 do_fork出来的进程1
@@ -54,6 +56,8 @@ static unsigned int volatile nr_task=0; //当前所有进程数量
 
 void forkrets(struct trapframe *tf);
 
+extern unsigned int __trapret;
+
 extern struct segdesc gdt[];
 extern unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 struct task_struct *task0,*task1;
@@ -62,8 +66,10 @@ struct task_struct *task0,*task1;
 */
 void kernel_task_init(void *function){
 
-    /*进程链表初始化*/
+    /*就绪进程链表初始化*/
     list_init(&ready_task_list);
+    /*所有进程链表初始化*/
+    list_init(&all_task_list);
     /*哈希链表初始化*/
     for(int i=0;i<HASH_LIST_SIZE;i++){
         list_init(&hash_list[i]);
@@ -78,7 +84,7 @@ void kernel_task_init(void *function){
     task0->counter=5;
     task0->priority=1; 
     last_pid=task0->pid=0;  //初始化task0的PID和last_pid
-    set_task_name(task0,"task0");
+    set_task_name(task0,"kernel_task");
     task0->kernel_stack=(unsigned int)task0+VMM_PAGE_SIZE;
     task0->cr3=LA_PA((unsigned int)new_pdt);
     task0->cwd_inode_nr=0;
@@ -97,13 +103,13 @@ void kernel_task_init(void *function){
     task0->tf->tf_cs=KERNEL_CS;
     task0->tf->tf_ds=task0->tf->tf_es=task0->tf->tf_fs=task0->tf->tf_ss=KERNEL_DS;
     task0->tf->tf_gs=0;
-    task0->tf->tf_eip=function; //user_space1
+    task0->tf->tf_eip=forkret;//function; //user_space1
     task0->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
 
     task0->tf->tf_esp=task0->kernel_stack-sizeof(struct trapframe);
     
     /*设置用户的上下文*/
-    task0->context.eip=task0->tf->tf_eip;
+    task0->context.eip=function;//task0->tf->tf_eip;
     task0->context.esp= (unsigned int)(task0->tf); 
     task0->context.ebx=task0->tf->tf_regs.reg_ebx;
     task0->context.edx=task0->tf->tf_regs.reg_edx;
@@ -112,8 +118,12 @@ void kernel_task_init(void *function){
     //ask_list=task0->link;   //待调试
     //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
     //list_init(&task0->link);
+    //插入就绪任务链表
     list_init(&task0->link);
     add_link(&task0->link);
+    //插入所有任务链表
+    list_init(&task0->all_link);
+    add_all_link(&task0->all_link);
     for(int i=0;i<MAX_FILE_OPEN;i++){
         task0->fd_table[i]=-1;
     }
@@ -207,6 +217,10 @@ char *get_task_name(struct task_struct *task) {
 static void add_link(list_entry_t *new){
     list_add_before(&ready_task_list,new);
 }
+//将新进程插入所有进程链表队尾
+static void add_all_link(list_entry_t *new){
+    list_add_before(&all_task_list,new);
+}
 
 //在进程链表中删除某个进程
 static void remove_link(list_entry_t *node){
@@ -249,9 +263,9 @@ static struct task_struct* find_task(int pid){
 static struct task_struct* alloc_task(enum task_kind kind){
     struct task_struct *task;
     if(kind==KERNEL_TASK)
-        task=vmm_malloc(sizeof(struct task_struct),1);
+        task=vmm_malloc(VMM_PAGE_SIZE*2,1);
     else
-        task=vmm_malloc(sizeof(struct task_struct),2);
+        task=vmm_malloc(VMM_PAGE_SIZE*2,2);
     
     if(task!=NULL){
         task->state=UNRUNNABLE;
@@ -290,20 +304,22 @@ static void
 copy_thread(struct task_struct *task, unsigned int esp, struct trapframe *tf) {
     //在内核栈顶分配一个中断帧大小
     task->tf = (struct trapframe *)(task->kernel_stack)- 1;
-    task->kernel_stack-=sizeof(struct trapframe);
-    //接着分配一个上下文大小
-    //task.context= (struct context *)(task->kernel_stack)- 1;
+    //task->kernel_stack-=sizeof(struct trapframe);
     //将trapframe信息放入内核栈中
     *(task->tf) = *tf;
     task->tf->tf_regs.reg_eax = 0;
-    task->tf->tf_esp = esp;
-    //task->tf->tf_eflags |= FL_IF;
+    //task->tf->tf_esp = esp;
+    task->tf->tf_eflags |= FL_IF;
 
-    task->context.eip=tf->tf_eip;
+    //拷贝栈信息，即用户态之前的函数调用信息
+    memcpy((unsigned int)task+sizeof(struct task_struct),(unsigned int)current+sizeof(struct task_struct),VMM_PAGE_SIZE-sizeof(struct task_struct));
+    //设置相同的栈地址
+    task->tf->tf_esp=(task->tf->tf_esp-(unsigned int)current)+(unsigned int)task;
+    task->context.eip=forkret;
     task->context.ebx=tf->tf_regs.reg_ebx;
     task->context.edx=tf->tf_regs.reg_edx;
     //task->context.eip = (unsigned int)forkret;//print_task1;
-    task->context.esp = (unsigned int)(task->tf);  //task->kernel_stack;
+    task->context.esp = (unsigned int)((unsigned int)task+VMM_PAGE_SIZE);  
 }
 
 /* do_fork -     parent task for a new child task
@@ -321,11 +337,18 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
     }
     
     //分配task_struct结构体
-    if((task=alloc_task(KERNEL_TASK)) == NULL){
+    if((task=alloc_task(USER_TASK)) == NULL){
         return -1;
     }
-    task->kernel_stack=(unsigned int)task+VMM_PAGE_SIZE;
+    //设置父进程指针
+    task->parent=current;
+    ASSERT(current->state==0);
     
+    //设置新进程内核栈
+    task->kernel_stack=(unsigned int)task+VMM_PAGE_SIZE*2;
+    
+    //设置新进程的cr3
+    copy_user_cr3(task);
     //在新进程的内核栈中设置中断帧，并设置中断上下文的eip和esp
     copy_thread(task,stack,tf);
 
@@ -334,14 +357,17 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
         return -1;
     }
     list_init(&task->link);
-    //将新进程加入进程链表中,加入到队尾中
+    //将新进程加入就绪进程链表中,加入到队尾中
     add_link(&(task->link));
+    list_init(&task->all_link);
+    //将新进程加入所有进程链表中,加入到队尾中
+    add_all_link(&(task->all_link));
     //将新进程的PID加入到哈希表中
     add_pid_hash(task);
     nr_task++;
 
     wakeup_task(task);
-
+    //schedule();
     return task->pid;
 }
 
@@ -510,8 +536,9 @@ static int
 user_main(void *arg) {
     //KERNEL_EXECVE(exit);
 }
+
 //设置用户页表
-unsigned int set_user_cr3(){
+void set_user_cr3(struct task_struct *task){
     unsigned int cr3_addr=vmm_malloc(VMM_PAGE_SIZE,2);
    // printk("cr3_addr:%08x",cr3_addr);
    // printk("new_pdt[0]:%08x",new_pdt[0]);
@@ -542,7 +569,26 @@ unsigned int set_user_cr3(){
     printk("phaddr:%08ux\n",phaddr);
    // pt[0x1001]|=VMM_PAGE_USER;
    // pt[0x1002]|=VMM_PAGE_USER;
-    return phaddr;//cr3_addr;
+    task->cr3=phaddr;
+    task->cr3_va=cr3_addr;
+}
+/* 拷贝用户页表 */
+void copy_user_cr3(struct task_struct *task){
+    unsigned int cr3_addr=vmm_malloc(VMM_PAGE_SIZE,2);
+    //先拷贝内核页表，因为该页信息在内核页表中
+    memcpy(cr3_addr,new_pdt,VMM_PAGE_SIZE);
+    //然后拷贝进程独有的页目录项,实际上还是和内核共用页表项，但页目录项是分开的。
+    unsigned int *task_pdt=(unsigned int *)current->cr3_va;
+    unsigned int *pdt=(unsigned int *)cr3_addr;
+    for(int i=0;i<0x400;i++){
+        pdt[i]=(task_pdt[i]&VMM_PAGE_PRESENT)?task_pdt[i]:pdt[i];
+    }
+    //获取该页物理地址
+    unsigned int *cr3_ph_addr=(unsigned int *)cr3_addr;
+    unsigned int *zh1=PA_LA((cr3_ph_addr[(unsigned int)((cr3_addr>>22)&0x3FF)]&VMM_PAGE_MASK));
+    unsigned int phaddr=zh1[((cr3_addr&0x003FF000)>>12)]&VMM_PAGE_MASK;
+    task->cr3_va=cr3_addr;
+    task->cr3=phaddr;
 }
 /*用户进程初始化*/
 void  user_task_init(void *function){
@@ -557,11 +603,11 @@ void  user_task_init(void *function){
     user_task->priority=1; 
     user_task->pid=alloc_pid();  //初始化task0的PID和last_pid
     set_task_name(user_task,"user_task");
-    user_task->kernel_stack=KERNEL_STACK_START;
+    user_task->kernel_stack=(unsigned int)user_task+VMM_PAGE_SIZE*2;//后一页为内核栈
 
-    user_task->cr3=set_user_cr3();//LA_PA(set_user_cr3());
+    set_user_cr3(user_task);//LA_PA(set_user_cr3());
     
-    user_task->tf = (struct trapframe *)((unsigned int)user_task+VMM_PAGE_SIZE)- 1;
+    user_task->tf = (struct trapframe *)((unsigned int)user_task+VMM_PAGE_SIZE*2)- 1;
     user_task->tf->tf_regs.reg_eax=0;
     user_task->tf->tf_regs.reg_ebp=0;
     user_task->tf->tf_regs.reg_ebx=0;
@@ -574,14 +620,15 @@ void  user_task_init(void *function){
     user_task->tf->tf_cs=USER_CS;
     user_task->tf->tf_ds=user_task->tf->tf_es=user_task->tf->tf_fs=user_task->tf->tf_ss=USER_DS;
     user_task->tf->tf_gs=0;
-    user_task->tf->tf_eip=function; //user_space1
+    user_task->tf->tf_eip=function;//function; //user_space1
     user_task->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
 
-    user_task->tf->tf_esp=(unsigned int)user_task+VMM_PAGE_SIZE-sizeof(struct trapframe);
+    //前一页为用户栈
+    user_task->tf->tf_esp=(unsigned int)user_task+VMM_PAGE_SIZE;
     
     /*设置用户的上下文*/
-    user_task->context.eip=user_task->tf->tf_eip;
-    user_task->context.esp= (unsigned int)(user_task->tf); 
+    user_task->context.eip=__trapret;//user_task->tf->tf_eip;
+    user_task->context.esp=(unsigned int)user_task+VMM_PAGE_SIZE; 
     user_task->context.ebx=user_task->tf->tf_regs.reg_ebx;
     user_task->context.edx=user_task->tf->tf_regs.reg_edx;
 
@@ -592,8 +639,12 @@ void  user_task_init(void *function){
     //ask_list=task0->link;   //待调试
     //memcpy(&(task_list),&(task0->link),sizeof(list_entry_t));
     //list_init(&task0->link);
-    list_init(&user_task->link);
     
+    list_init(&user_task->link);
+    //add_link(&user_task->link);
+    //插入所有任务链表
+    list_init(&user_task->all_link);
+    add_all_link(&user_task->all_link);
     
     //add_link(&user_task->link);
     //printk("task0->counter:%08d!\n",task0->counter);
@@ -610,6 +661,31 @@ void  user_task_init(void *function){
     //这时候直接赋值，以免静态全局变量在不同编译器下跑飞
     //nr_task++;
     current=user_task;
+    set_ts_esp0(user_task->kernel_stack);
+    lcr3(user_task->cr3);
     asm volatile ("movl %0, %%esp; jmp __trapret" : : "g" (user_task->tf) : "memory");
-    
+    //schedule();
+    //task_run(user_task);
+}
+/* sys_fork系统调用，返回子进程PID号 */
+/*int sys_fork(){
+
+}*/
+
+/* sys_print_task 系统调用，打印所有运行进程*/
+void sys_print_task(){
+    list_entry_t *head=&all_task_list;
+    list_entry_t *ite=head;
+    struct task_struct *task;
+    printk("PID\t\tNAME\t\tSTATE\n");
+    while((ite=list_next(ite))!=head){
+        task=list_to_task(ite,all_link);
+        printk("%d\t\t%s\t",task->pid,task->name);
+        if(task->state==-1)
+            printk("UNRUNNABLE\n");
+        else if(task->state==0)
+            printk("RUNNABLE\n");
+        else
+            printk("STOPPED\n"); 
+    }
 }

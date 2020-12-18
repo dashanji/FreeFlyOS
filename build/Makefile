@@ -403,6 +403,32 @@ user/fast:
 	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/build
 .PHONY : user/fast
 
+#=============================================================================
+# Target rules for targets named Test2
+
+# Build rule for target.
+Test2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test2
+.PHONY : Test2
+
+# fast build rule for target.
+Test2/fast:
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/Test2.dir/build.make test_exec/CMakeFiles/Test2.dir/build
+.PHONY : Test2/fast
+
+#=============================================================================
+# Target rules for targets named test_exec
+
+# Build rule for target.
+test_exec: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_exec
+.PHONY : test_exec
+
+# fast build rule for target.
+test_exec/fast:
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/build
+.PHONY : test_exec/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -412,6 +438,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test1"
+	@echo "... Test2"
 	@echo "... asm"
 	@echo "... bootblock.o"
 	@echo "... bootmain"
@@ -429,6 +456,7 @@ help:
 	@echo "... serial"
 	@echo "... sync"
 	@echo "... task"
+	@echo "... test_exec"
 	@echo "... timer"
 	@echo "... user"
 	@echo "... vga"

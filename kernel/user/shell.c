@@ -103,6 +103,13 @@ static int cmd_parse(char* cmd_str, char** argv, char token) {
 void my_shell(void) {
    cwd_cache[0] = '/';
    cwd_cache[1] = '\0';
+  /* unsigned int addr=malloc(500);
+   printf("user malloc addr:%08x\n",addr);
+   printf("before change:%08x",*(unsigned int *)addr);
+   *(unsigned int *)addr=0xFFFFFFFF;
+   printf("after change:%08x",*(unsigned int *)addr);
+   free(addr,500);  //由于释放后，映射关系也会取消，导致缺页
+   printf("after free:%08x",*(unsigned int *)addr);  */
    while (1) {
       print_prompt(); 
       user_memset(final_path, 0, MAX_PATH_LEN);
@@ -125,6 +132,8 @@ void my_shell(void) {
 	    user_memset(cwd_cache, 0, MAX_PATH_LEN);
 	    user_strcpy(cwd_cache, final_path);
 	 }
+    } else if (!user_strcmp("ps", argv[0])) {
+	 buildin_ps(argc, argv);
       } else if (!user_strcmp("pwd", argv[0])) {
 	 buildin_pwd(argc, argv);
       } else if (!user_strcmp("mkdir", argv[0])){

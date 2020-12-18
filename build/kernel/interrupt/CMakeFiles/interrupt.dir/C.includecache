@@ -45,6 +45,8 @@ syscall.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 ../file/fs.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+../mem/vmm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
 trap.h

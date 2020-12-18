@@ -5,6 +5,7 @@
 #include "../interrupt/trap.h"
 #include "../asm/asm.h"
 #include "../stl/defs.h"
+#include "../task/task.h"
 //新页目录表
 unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 //将DMA和NORMAL区域(0xC0000000-0xF8000000)线性映射到0x0-896MB处，刚好224个页表
@@ -31,6 +32,7 @@ unsigned int highmem_end=0xF8000000;
 unsigned int highmem_ptr;
 
 extern unsigned int user_end;
+extern struct task_struct *current;
 //建立新页表，记住每个表项存的都是物理地址，此时线性地址需进行转换
 void setup_vpt()
 {
@@ -205,3 +207,14 @@ mm_create(char zonenum) {
     }    
     return mm;
 }*/
+/* sys_malloc系统调用，为用户分配内存 */
+unsigned int sys_malloc(unsigned int bytes){
+    unsigned int addr=vmm_malloc(bytes,2);
+    memcpy(current->cr3_va,new_pdt,VMM_PAGE_SIZE);
+    return addr;
+}
+/* sys_free系统调用，为用户释放内存 */
+void sys_free(unsigned int addr,unsigned int size){
+    vmm_free(addr,size);
+    memcpy(current->cr3_va,new_pdt,VMM_PAGE_SIZE);
+}

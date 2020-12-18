@@ -39,6 +39,9 @@
 #define SYS_opendir 51
 #define SYS_closedir 52
 #define SYS_readdir 53
+#define SYS_print_task 54
+#define SYS_malloc 55
+#define SYS_free 56
 
 void syscall_trap(struct trapframe *tf);
 int user_sys_getpid(void);

@@ -23,4 +23,5 @@ add_subdirectory(boot)
 #set(${user}.out obj_user.out)
 set(CMAKE_C_FLAGS "-nostdlib -g -m32")
 add_subdirectory(kernel)
+add_subdirectory(test_exec)
 

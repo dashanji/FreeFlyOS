@@ -40,6 +40,9 @@
 #define SYS_opendir 51
 #define SYS_closedir 52
 #define SYS_readdir 53
+#define SYS_print_task 54
+#define SYS_malloc 55
+#define SYS_free 56
 //__attribute__( (section(".user.text") ) ) 
 enum std_fd{
     stdin_no, //0 标准输入
@@ -77,4 +80,7 @@ int stat(const char* path, struct stat* buf) ;
 struct dir* opendir(const char* name);
 int closedir(struct dir* dir);
 struct dir_entry* readdir(struct dir* dir);
+void ps();
+unsigned int malloc(unsigned int bytes);
+void free(unsigned int addr,unsigned int size);
 #endif
