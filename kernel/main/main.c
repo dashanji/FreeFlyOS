@@ -80,7 +80,7 @@ void main(void)
 }
 /* 将test_exec测试程序（占20个扇区）从500扇区处写入到文件系统中 */
 static void write2fs(){
-    unsigned int file_size=8728; //通过本机OS 的ls -l命令获得
+    unsigned int file_size=12240; //通过本机OS 的ls -l命令获得
     unsigned int sec_cnt=(file_size+512-1)/512;    //扇区数
     unsigned int prog=vmm_malloc(file_size,1);
     ide_read((void *)prog,500,sec_cnt);

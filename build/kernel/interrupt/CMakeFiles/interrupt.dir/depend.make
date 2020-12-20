@@ -21,6 +21,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/mem/vmm.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/stl/defs.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/stl/hash.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/stl/list.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/task/exec.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/task/task.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/vga/vga.h
 

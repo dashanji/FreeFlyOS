@@ -22,6 +22,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o

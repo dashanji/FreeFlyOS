@@ -24,6 +24,7 @@ set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "../kernel/file"
   )
 set(CMAKE_DEPENDS_CHECK_C
+  "/Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.c" "/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/exec.c.o"
   "/Users/caoy/Desktop/FreeFlyOS/kernel/task/task.c" "/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/task.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

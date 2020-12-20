@@ -36,4 +36,5 @@ char* strcat(char* dst_, const char* src_);
 char* strcpy(char* dst_, const char* src_);
 void CPU_INVLPG(unsigned int addr);
 void lcr3(unsigned int cr3);
+int memcmp(const void* a_, const void* b_, unsigned int size) ;
 #endif

@@ -145,6 +145,33 @@ task/fast:
 	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/build
 .PHONY : task/fast
 
+exec.o: exec.c.o
+
+.PHONY : exec.o
+
+# target to build an object file
+exec.c.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/exec.c.o
+.PHONY : exec.c.o
+
+exec.i: exec.c.i
+
+.PHONY : exec.i
+
+# target to preprocess a source file
+exec.c.i:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/exec.c.i
+.PHONY : exec.c.i
+
+exec.s: exec.c.s
+
+.PHONY : exec.s
+
+# target to generate assembly for a file
+exec.c.s:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/exec.c.s
+.PHONY : exec.c.s
+
 switch.o: switch.S.o
 
 .PHONY : switch.o
@@ -199,6 +226,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... task"
+	@echo "... exec.o"
+	@echo "... exec.i"
+	@echo "... exec.s"
 	@echo "... switch.o"
 	@echo "... task.o"
 	@echo "... task.i"

@@ -279,6 +279,9 @@ static struct task_struct* alloc_task(enum task_kind kind){
         memset(&(task->context),0,sizeof(task->context));
         task->magic=TASK_MAGIC;
         task->cwd_inode_nr=0;
+        for(int i=0;i<MAX_FILE_OPEN;i++){
+        task->fd_table[i]=-1;
+    }
     }
     return task;
 }

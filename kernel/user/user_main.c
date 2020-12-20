@@ -16,8 +16,8 @@ void test_fork(){
 void user_main(){
     char str[50]="Hello,I'm a User Function!Nice to meet you!\n";
     //printf(str);
-    test_fork();
-    //my_shell();
+    //test_fork();
+    my_shell();
     /*while(1)
     {
         printf("user\n");

@@ -78,9 +78,9 @@ test_exec/CMakeFiles/Test2: ../test_exec/test.c
 
 test_exec/test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating test"
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && x86_64-elf-ld -m elf_i386 -e main ../../build/kernel/user/CMakeFiles/user.dir/stdio.c.o ../../build/kernel/user/CMakeFiles/user.dir/user_syscall.c.o ../../build/test_exec/CMakeFiles/test_exec.dir/test.c.o -o test
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && dd if=../test_exec/test of=../../FreeFlyOS.img bs=512 count=20 seek=500 conv=notrunc
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img
+	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && x86_64-elf-ld -T ../../test_exec/test.ld -m elf_i386 -e main ../../build/kernel/user/CMakeFiles/user.dir/stdio.c.o ../../build/kernel/user/CMakeFiles/user.dir/user_syscall.c.o ../../build/test_exec/CMakeFiles/test_exec.dir/test.c.o -o test
+	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && x86_64-elf-objdump -d test > ../../disassembly/test_disass.md
+	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && qemu-system-i386 -S -s -m 2048 -hda ../../FreeFlyOS.img
 
 Test2: test_exec/CMakeFiles/Test2
 Test2: test_exec/test

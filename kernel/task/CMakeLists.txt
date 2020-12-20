@@ -1,7 +1,7 @@
 #设置项目名
 project (task)
 
-add_library(${PROJECT_NAME} OBJECT task.c thread_entry.S switch.S)
+add_library(${PROJECT_NAME} OBJECT task.c thread_entry.S switch.S exec.c)
 target_include_directories(${PROJECT_NAME}
     PUBLIC
     ${FreeFlyOS_SOURCE_DIR}/kernel/dt

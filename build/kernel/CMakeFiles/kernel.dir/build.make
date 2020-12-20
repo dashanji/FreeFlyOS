@@ -99,6 +99,7 @@ kernel_EXTERNAL_OBJECTS = \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/task.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/thread_entry.S.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/switch.S.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/task/CMakeFiles/task.dir/exec.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/pic/CMakeFiles/pic.dir/pic.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/serial/CMakeFiles/serial.dir/serial.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/timer/CMakeFiles/timer.dir/timer.c.o" \
@@ -133,6 +134,7 @@ kernel/kernel: kernel/mem/CMakeFiles/mem.dir/vmm.c.o
 kernel/kernel: kernel/task/CMakeFiles/task.dir/task.c.o
 kernel/kernel: kernel/task/CMakeFiles/task.dir/thread_entry.S.o
 kernel/kernel: kernel/task/CMakeFiles/task.dir/switch.S.o
+kernel/kernel: kernel/task/CMakeFiles/task.dir/exec.c.o
 kernel/kernel: kernel/pic/CMakeFiles/pic.dir/pic.c.o
 kernel/kernel: kernel/serial/CMakeFiles/serial.dir/serial.c.o
 kernel/kernel: kernel/timer/CMakeFiles/timer.dir/timer.c.o

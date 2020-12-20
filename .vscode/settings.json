@@ -8,6 +8,10 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
-        "cstring": "c"
+        "cstring": "c",
+        "*.tcc": "c",
+        "algorithm": "c",
+        "string_view": "c",
+        "initializer_list": "c"
     }
 }

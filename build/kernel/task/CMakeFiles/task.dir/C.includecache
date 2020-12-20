@@ -64,6 +64,22 @@ trap.h
 ../task/task.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.c
+exec.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.h
+../interrupt/syscall.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
+../asm/asm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+../mem/vmm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
+../mem/memlayout.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
+task.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.c
 task.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h

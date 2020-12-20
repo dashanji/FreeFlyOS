@@ -113,7 +113,7 @@ void my_shell(void) {
    while (1) {
       print_prompt(); 
       user_memset(final_path, 0, MAX_PATH_LEN);
-      user_memset(cmd_line, 0, MAX_PATH_LEN);
+      user_memset(cmd_line, 0, cmd_len);
       user_readline(cmd_line, cmd_len);
       //printf("%s",cmd_line);
       if (cmd_line[0] == 0) {	 // 若只键入了一个回车
@@ -143,7 +143,29 @@ void my_shell(void) {
       } else if (!user_strcmp("rm", argv[0])) {
 	 buildin_rm(argc, argv);
       } else {
-	 printf("external command\n");
+         int pid = fork();
+            if (pid) {	   // 父进程pid>0
+               /* 下面这个while必须要加上,否则父进程一般情况下会比子进程先执行,
+               因此会进行下一轮循环将findl_path清空,这样子进程将无法从final_path中获得参数*/
+               while(1);
+               } else {	   // 子进程pid=0
+                  make_clear_abs_path(argv[0], final_path);
+                  argv[0] = final_path;
+                  /* 先判断下文件是否存在 */
+                  struct stat file_stat;
+                  user_memset(&file_stat, 0, sizeof(struct stat));
+                  if (stat(argv[0], &file_stat) == -1) {
+                  printf("my_shell: cannot access %s: No such file or directory\n", argv[0]);
+                  } else {
+                  exec(argv[0], argv);
+                  }
+                  while(1);
+               }
       }
+      int arg_idx = 0;
+		while(arg_idx < MAX_ARG_NR) {
+			argv[arg_idx] = NULL;
+			arg_idx++;
+		}
    }
 }

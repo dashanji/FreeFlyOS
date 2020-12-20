@@ -43,6 +43,7 @@
 #define SYS_print_task 54
 #define SYS_malloc 55
 #define SYS_free 56
+#define SYS_mmap 57
 //__attribute__( (section(".user.text") ) ) 
 enum std_fd{
     stdin_no, //0 标准输入
@@ -83,4 +84,7 @@ struct dir_entry* readdir(struct dir* dir);
 void ps();
 unsigned int malloc(unsigned int bytes);
 void free(unsigned int addr,unsigned int size);
+int fork();
+void mmap(unsigned int va_start,unsigned int va_end,unsigned pa_start);
+void exec(char *path,char **argv);
 #endif

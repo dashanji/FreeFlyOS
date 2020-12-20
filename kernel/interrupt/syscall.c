@@ -3,6 +3,7 @@
 #include "../vga/vga.h"
 #include "../file/fs.h"
 #include "../mem/vmm.h"
+#include "../task/exec.h"
 extern struct task_struct *current;  //指向当前进程
 
 static int
@@ -28,11 +29,9 @@ sys_wait(unsigned int arg[]) {
 
 static int
 sys_exec(unsigned int arg[]) {
-    const char *name = (const char *)arg[0];
-    unsigned int len = (unsigned int)arg[1];
-    unsigned char *binary = (unsigned char *)arg[2];
-    unsigned int size = (unsigned int)arg[3];
-    return do_execve(name, len, binary, size);
+    const char *path = (const char *)arg[0];
+    const char **argv = (const char **)arg[1];
+    return sys_execv(path,argv);
 }
 
 static int
@@ -216,6 +215,7 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_print_task]        syscall_print_task,
     [SYS_malloc]            syscall_malloc,
     [SYS_free]              syscall_free,
+    [SYS_mmap]              sys_mmap,
 };
 
 #define NUM_SYSCALLS        ((sizeof(syscalls)) / (sizeof(syscalls[0])))

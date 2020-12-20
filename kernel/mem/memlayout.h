@@ -6,6 +6,8 @@
 #define KERNEL_STACK_START 0xF8000000 //0xC1800000
 #define KERNEL_STACK_SIZE 0x2000   //8KB
 
+#define EXEC_START 0x60000000
+
 
 //物理地址到线性地址的转换
 #define PA_LA(addr) (unsigned int)(addr+(unsigned int)0xC0000000) 

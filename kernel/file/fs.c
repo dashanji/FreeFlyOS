@@ -849,7 +849,7 @@ int sys_chdir(const char* path) {
 }
 
 void fs_init(){
-    partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
+    //partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
     mount_partition();
     //unsigned int fd=sys_open("/file",O_CREAT);
    // unsigned int fd=sys_open("/file",O_RDWR); //O_RDONLY
@@ -976,7 +976,7 @@ void fs_init(){
    sys_getcwd(cwd_buf, 32);
    printk("cwd:%s\n", cwd_buf);*/
    //获得文件属性
-   struct stat obj_stat;
+  /* struct stat obj_stat;
    clear();
    sys_stat("/", &obj_stat);
    printk("/`s info\n   i_no:%02x\n   size:%02x\n   filetype:%s\n", \
@@ -985,5 +985,5 @@ void fs_init(){
    sys_stat("/dir1", &obj_stat);
    printk("/dir1`s info\n   i_no:%02x\n   size:%02x\n   filetype:%s\n", \
 	 obj_stat.st_ino, obj_stat.st_size, \
-	 obj_stat.st_filetype == 2 ? "directory" : "regular");
+	 obj_stat.st_filetype == 2 ? "directory" : "regular");*/
 }

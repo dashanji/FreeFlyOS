@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/task.dir/exec.c.o"
   "CMakeFiles/task.dir/switch.S.o"
   "CMakeFiles/task.dir/task.c.o"
   "CMakeFiles/task.dir/thread_entry.S.o"

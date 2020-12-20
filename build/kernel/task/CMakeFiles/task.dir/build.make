@@ -100,9 +100,23 @@ kernel/task/CMakeFiles/task.dir/switch.S.o: ../kernel/task/switch.S
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building ASM object kernel/task/CMakeFiles/task.dir/switch.S.o"
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/task && /usr/local/bin/x86_64-elf-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/task.dir/switch.S.o -c /Users/caoy/Desktop/FreeFlyOS/kernel/task/switch.S
 
+kernel/task/CMakeFiles/task.dir/exec.c.o: kernel/task/CMakeFiles/task.dir/flags.make
+kernel/task/CMakeFiles/task.dir/exec.c.o: ../kernel/task/exec.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object kernel/task/CMakeFiles/task.dir/exec.c.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/task && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/task.dir/exec.c.o   -c /Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.c
+
+kernel/task/CMakeFiles/task.dir/exec.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/task.dir/exec.c.i"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/task && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.c > CMakeFiles/task.dir/exec.c.i
+
+kernel/task/CMakeFiles/task.dir/exec.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/task.dir/exec.c.s"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel/task && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.c -o CMakeFiles/task.dir/exec.c.s
+
 task: kernel/task/CMakeFiles/task.dir/task.c.o
 task: kernel/task/CMakeFiles/task.dir/thread_entry.S.o
 task: kernel/task/CMakeFiles/task.dir/switch.S.o
+task: kernel/task/CMakeFiles/task.dir/exec.c.o
 task: kernel/task/CMakeFiles/task.dir/build.make
 
 .PHONY : task

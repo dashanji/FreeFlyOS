@@ -182,3 +182,16 @@ void
 lcr3(unsigned int cr3) {
     asm volatile ("mov %0, %%cr3" :: "r" (cr3) : "memory");
 }
+/* 连续比较以地址a_和地址b_开头的size个字节,若相等则返回0,若a_大于b_返回+1,否则返回-1 */
+int memcmp(const void* a_, const void* b_, unsigned int size) {
+   const char* a = a_;
+   const char* b = b_;
+   while (size-- > 0) {
+      if(*a != *b) {
+	 return *a > *b ? 1 : -1; 
+      }
+      a++;
+      b++;
+   }
+   return 0;
+}

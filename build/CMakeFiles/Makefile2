@@ -494,8 +494,8 @@ test_exec/clean: test_exec/CMakeFiles/test_exec.dir/clean
 # Target rules for target boot/CMakeFiles/bootblock.o.dir
 
 # All Build rule for target.
-boot/CMakeFiles/bootblock.o.dir/all: boot/CMakeFiles/bootsector.dir/all
 boot/CMakeFiles/bootblock.o.dir/all: boot/CMakeFiles/bootmain.dir/all
+boot/CMakeFiles/bootblock.o.dir/all: boot/CMakeFiles/bootsector.dir/all
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootblock.o.dir/build.make boot/CMakeFiles/bootblock.o.dir/depend
 	$(MAKE) $(MAKESILENT) -f boot/CMakeFiles/bootblock.o.dir/build.make boot/CMakeFiles/bootblock.o.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=4 "Built target bootblock.o"
@@ -584,7 +584,7 @@ kernel/CMakeFiles/Test1.dir/all: kernel/CMakeFiles/kernel.dir/all
 
 # Build rule for subdir invocation for target.
 kernel/CMakeFiles/Test1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 35
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 36
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/CMakeFiles/Test1.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
 .PHONY : kernel/CMakeFiles/Test1.dir/rule
@@ -626,7 +626,7 @@ kernel/CMakeFiles/kernel.dir/all: kernel/user/CMakeFiles/user.dir/all
 
 # Build rule for subdir invocation for target.
 kernel/CMakeFiles/kernel.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 34
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 35
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/CMakeFiles/kernel.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
 .PHONY : kernel/CMakeFiles/kernel.dir/rule
@@ -864,12 +864,12 @@ kernel/mem/CMakeFiles/mem.dir/clean:
 kernel/task/CMakeFiles/task.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/task/CMakeFiles/task.dir/build.make kernel/task/CMakeFiles/task.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=29,30,31 "Built target task"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=29,30,31,32 "Built target task"
 .PHONY : kernel/task/CMakeFiles/task.dir/all
 
 # Build rule for subdir invocation for target.
 kernel/task/CMakeFiles/task.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/task/CMakeFiles/task.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles 0
 .PHONY : kernel/task/CMakeFiles/task.dir/rule
@@ -945,7 +945,7 @@ kernel/serial/CMakeFiles/serial.dir/clean:
 kernel/timer/CMakeFiles/timer.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/timer/CMakeFiles/timer.dir/build.make kernel/timer/CMakeFiles/timer.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/timer/CMakeFiles/timer.dir/build.make kernel/timer/CMakeFiles/timer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=33 "Built target timer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=34 "Built target timer"
 .PHONY : kernel/timer/CMakeFiles/timer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -972,7 +972,7 @@ kernel/timer/CMakeFiles/timer.dir/clean:
 kernel/vga/CMakeFiles/vga.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/vga/CMakeFiles/vga.dir/build.make kernel/vga/CMakeFiles/vga.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=40 "Built target vga"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=41 "Built target vga"
 .PHONY : kernel/vga/CMakeFiles/vga.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1053,7 +1053,7 @@ kernel/file/CMakeFiles/file.dir/clean:
 kernel/user/CMakeFiles/user.dir/all:
 	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/depend
 	$(MAKE) $(MAKESILENT) -f kernel/user/CMakeFiles/user.dir/build.make kernel/user/CMakeFiles/user.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=34,35,36,37,38,39 "Built target user"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=35,36,37,38,39,40 "Built target user"
 .PHONY : kernel/user/CMakeFiles/user.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1107,7 +1107,7 @@ test_exec/CMakeFiles/Test2.dir/clean:
 test_exec/CMakeFiles/test_exec.dir/all:
 	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/depend
 	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=32 "Built target test_exec"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=33 "Built target test_exec"
 .PHONY : test_exec/CMakeFiles/test_exec.dir/all
 
 # Build rule for subdir invocation for target.

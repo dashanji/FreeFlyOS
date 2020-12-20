@@ -145,3 +145,11 @@ void free(unsigned int addr,unsigned int size){
 int fork(){
    return user_syscall(SYS_fork);
 }
+/* 映射一段内存 */
+void mmap(unsigned int va_start,unsigned int va_end,unsigned pa_start){
+   return user_syscall(SYS_mmap,va_start,va_end,pa_start);
+}
+/* 执行程序 */
+void exec(char *path,char **argv){
+   return user_syscall(SYS_exec,path,argv);
+}

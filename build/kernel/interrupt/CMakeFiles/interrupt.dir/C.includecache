@@ -47,6 +47,8 @@ syscall.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 ../mem/vmm.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
+../task/exec.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
 trap.h
@@ -93,6 +95,8 @@ trap.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
 ../task/task.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 ../dt/dt.h

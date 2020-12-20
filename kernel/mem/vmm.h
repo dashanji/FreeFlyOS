@@ -66,4 +66,5 @@ void vmm_map(unsigned int *pdt,unsigned int va_start,unsigned int va_end,unsigne
 unsigned int setup_pgdir();
 unsigned int sys_malloc(unsigned int bytes);
 void sys_free(unsigned int addr,unsigned int size);
+void sys_mmap(unsigned int va_start,unsigned int va_end,unsigned int pa_start);
 #endif

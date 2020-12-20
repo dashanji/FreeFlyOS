@@ -135,7 +135,7 @@ void vmm_free(unsigned int addr,unsigned int bytes){
 
 /*
 **           vmm_map(pdt,start,end)
-**             pdt为待映射的页表基址
+**          pdt为待映射的页表基址，虚拟地址
 ** 将虚拟地址va_start-va_end的区域映射到HIGHMEM区域pa_start，建立页表映射关系
 **      （DMA和NORMAL区域已经默认映射内核 ）
 **       
@@ -152,15 +152,14 @@ unsigned int pa_start){
     //计算需要分配的页数
     page=(map_end-map_start)/VMM_PAGE_SIZE;
     for(unsigned int i=0;i<page;i++){
-            user_pt_highmem[(pos-map_start)/((unsigned int)PAGE_TABLE_SIZE*
-            (unsigned int)VMM_PAGE_SIZE)][((pos-map_start)/VMM_PAGE_SIZE)%PAGE_TABLE_SIZE]=
+            user_pt_highmem[idx(pos)][(pos/(unsigned int)VMM_PAGE_SIZE)%PAGE_TABLE_SIZE]=
             pa_start|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
             pa_start+=VMM_PAGE_SIZE;
             pos+=VMM_PAGE_SIZE;
         }
         unsigned int pt_num=(page+PAGE_TABLE_SIZE-1)/PAGE_TABLE_SIZE;
         for(unsigned int i=0;i<pt_num;i++){
-            pdt[i+idx(map_start)]=LA_PA((unsigned int)user_pt_highmem[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+            pdt[i+idx(map_start)]=LA_PA((unsigned int)user_pt_highmem[i+idx(map_start)])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
         }
 }
 
@@ -217,4 +216,9 @@ unsigned int sys_malloc(unsigned int bytes){
 void sys_free(unsigned int addr,unsigned int size){
     vmm_free(addr,size);
     memcpy(current->cr3_va,new_pdt,VMM_PAGE_SIZE);
+}
+/* sys_mmap系统调用，分配内存段到指定位置*/
+void sys_mmap(unsigned int va_start,unsigned int va_end,unsigned int pa_start){
+    unsigned int *pdt=(unsigned int *)current->cr3_va;
+    vmm_map(pdt,va_start,va_end,pa_start);
 }

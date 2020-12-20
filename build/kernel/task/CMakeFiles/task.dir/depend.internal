@@ -5,6 +5,26 @@ kernel/task/CMakeFiles/task.dir/switch.S.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/switch.S
 kernel/task/CMakeFiles/task.dir/thread_entry.S.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/thread_entry.S
+kernel/task/CMakeFiles/task.dir/exec.c.o
+ /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.c
+ /Users/caoy/Desktop/FreeFlyOS/kernel/task/exec.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 kernel/task/CMakeFiles/task.dir/task.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
