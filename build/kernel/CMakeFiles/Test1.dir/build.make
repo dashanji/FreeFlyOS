@@ -82,6 +82,7 @@ kernel/FreeFlyOS.img: kernel/kernel
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && x86_64-elf-objdump -d kernel > ../../disassembly/kernel_disass.md
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && x86_64-elf-readelf -a kernel > ../../elf/kernel_elf.md
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && echo Generating\ FreeFlyOS.img...
+	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && cp /Users/caoy/Downloads/FreeFlyOS.img ../../FreeFlyOS.img
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=../boot/bootblock of=../../FreeFlyOS.img bs=446 count=1 conv=notrunc
 	cd /Users/caoy/Desktop/FreeFlyOS/build/kernel && dd if=kernel of=../../FreeFlyOS.img seek=1 conv=notrunc
 

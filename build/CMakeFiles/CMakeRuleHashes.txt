@@ -1,5 +1,7 @@
 # Hashes of file build rules.
 95d20a5dc32615dfe4651115de140bdb kernel/CMakeFiles/Test1
-035bea964e8f0102eb96112fcec3732b kernel/FreeFlyOS.img
-c9983d0bd86666dc299e35c1b65bab35 test_exec/CMakeFiles/Test2
-bd2cc4b5613d112042292f23076cdc96 test_exec/test
+f57cacad7f83bdd45e6516b473c28536 kernel/FreeFlyOS.img
+ee3b6fc98736f1209002595d600584ee test_cat/CMakeFiles/cat_tar
+e991afaa1e825444d901e335a265c842 test_cat/cat
+c9983d0bd86666dc299e35c1b65bab35 test_exec/CMakeFiles/exec_tar
+704229ef1a39551ba7f604ac7c46fbac test_exec/exec

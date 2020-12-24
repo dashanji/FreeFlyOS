@@ -50,6 +50,7 @@ struct task_struct *user_task; //第一个用户进程
 struct task_struct *current;  //指向当前进程
 
 extern struct semaphore user_sema;
+
 //MACOS下容易出现BUG
 //静态全局变量设置为0值时，在运行的时候容易跑飞，所以为了避免出现BUG，在使用的时候应先定义0值
 static unsigned int volatile nr_task=0; //当前所有进程数量  
@@ -60,6 +61,9 @@ extern unsigned int __trapret;
 
 extern struct segdesc gdt[];
 extern unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
+extern unsigned int user_pt_highmem[(unsigned int)0xC0000000/
+((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
+[PAGE_TABLE_SIZE]__attribute__( (aligned(VMM_PAGE_SIZE) ) );
 struct task_struct *task0,*task1;
 /*
 *   kernel_task_init:创建第一个内核进程
@@ -316,6 +320,15 @@ copy_thread(struct task_struct *task, unsigned int esp, struct trapframe *tf) {
 
     //拷贝栈信息，即用户态之前的函数调用信息
     memcpy((unsigned int)task+sizeof(struct task_struct),(unsigned int)current+sizeof(struct task_struct),VMM_PAGE_SIZE-sizeof(struct task_struct));
+    //更改下栈信息，防止破坏父进程的栈
+    unsigned int *start=(unsigned int)task+sizeof(struct task_struct);
+    unsigned int i;
+    for(i=0;i<((unsigned int)VMM_PAGE_SIZE-sizeof(struct task_struct))/sizeof(unsigned int);i++){
+        if((*(start+i)&0xFFFFF000)==((unsigned int)current&0xFFFFF000)){
+            *(start+i)=(unsigned int)((unsigned int)task&(unsigned int)0xFFFFF000)+
+            +(unsigned int)(*(start+i)&(unsigned int)0x00000FFF);
+        }
+    }
     //设置相同的栈地址
     task->tf->tf_esp=(task->tf->tf_esp-(unsigned int)current)+(unsigned int)task;
     task->context.eip=forkret;
@@ -345,6 +358,7 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
     }
     //设置父进程指针
     task->parent=current;
+    task->ppid=current->pid;
     ASSERT(current->state==0);
     
     //设置新进程内核栈
@@ -446,7 +460,7 @@ void schedule(){
 /* 当前线程将自己阻塞,标志其状态为stat. */
 void thread_block(enum task_state stat) {
 /* stat取值为TASK_BLOCKED,TASK_WAITING,TASK_HANGING,也就是只有这三种状态才不会被调度*/
-   ASSERT(stat == STOPPED);
+   //ASSERT(stat == STOPPED);
    enum intr_status flag;
    local_intr_save(flag);
    {
@@ -593,6 +607,206 @@ void copy_user_cr3(struct task_struct *task){
     task->cr3_va=cr3_addr;
     task->cr3=phaddr;
 }
+/* 把列表plist中的每个元素elem和arg传给回调函数func,
+ * arg给func用来判断elem是否符合条件.
+ * 本函数的功能是遍历列表内所有元素,逐个判断是否有符合条件的元素。
+ * 找到符合条件的元素返回元素指针,否则返回NULL. */
+struct list_entry_t* list_traversal(struct list_entry_t* list, function func, int arg) {
+   struct list_entry_t* ite = list;
+/* 如果队列为空,就必然没有符合条件的结点,故直接返回NULL */
+   if (list_empty(ite)) { 
+      return NULL;
+   }
+    while((ite=list_next(ite))!=list){
+        if (func(ite, arg)) {		  // func返回ture则认为该元素在回调函数中符合条件,命中,故停止继续遍历
+	        return ite;
+        }
+    }
+   return NULL;
+}
+/* 进程退出，由父进程释放子进程的资源 */
+void task_exit(struct task_struct *task)
+{
+    list_entry_t *ready_head=&ready_task_list;
+    list_entry_t *all_head=&all_task_list;
+    list_entry_t *ite=ready_head;
+    enum intr_status flag;
+    local_intr_save(flag);
+    {
+        //进程设置为退出状态
+        task->state=EXIT;  
+        //在就绪进程列表中删除该进程
+        while((ite=list_next(ite))!=ready_head){
+            if(task==list_to_task(ite,link)){
+                list_del_init(ite);
+                break;
+            }
+        }
+        //在所有进程列表中删除该进程
+        ite=all_head;
+        while((ite=list_next(ite))!=all_head){
+            if(task==list_to_task(ite,all_link)){
+                list_del_init(ite);
+                break;
+            }
+        }
+        //释放PID
+        free_pid(task->pid);
+        //释放进程所属页目录表
+        vmm_free(task->cr3_va,VMM_PAGE_SIZE);
+        //释放进程内核栈
+        vmm_free((unsigned int)task+(unsigned int)VMM_PAGE_SIZE,VMM_PAGE_SIZE);
+        //释放进程结构体信息和用户栈
+        vmm_free((unsigned int)task,VMM_PAGE_SIZE);
+    }
+    local_intr_restore(flag);
+}
+/* 得到虚拟地址vaddr对应的pte指针*/
+unsigned int* pte_ptr(unsigned int vaddr) {
+   /* 先访问到页表自己 + \
+    * 再用页目录项pde(页目录内页表的索引)做为pte的索引访问到页表 + \
+    * 再用pte的索引做为页内偏移*/
+   unsigned int* pte = (unsigned int*)(0xffc00000 + \
+	 ((vaddr & 0xffc00000) >> 10) + \
+	 ((vaddr & 0x003ff000) >> 12) * 4);
+   return pte;
+}
+/* 用户进程自己释放资源 */
+void release_prog_resource(struct task_struct *task){
+   /*
+    //查找用户空间占用的页（3G以下），设置页表项
+   unsigned int* pgdir_vaddr = task->cr3_va;
+   unsigned short user_pde_nr = 768, pde_idx = 0;
+   unsigned int pde = 0;
+   unsigned int* v_pde_ptr = NULL;	    // v表示var,和函数pde_ptr区分
+
+   unsigned short user_pte_nr = 1024, pte_idx = 0;
+   unsigned int pte = 0;
+   unsigned int* v_pte_ptr = NULL;	    // 加个v表示var,和函数pte_ptr区分
+
+   unsigned int* first_pte_vaddr_in_pde = NULL;	// 用来记录pde中第0个pte的地址
+   unsigned int pg_phy_addr = 0;
+
+   // 回收页表中用户空间的页框 
+   while (pde_idx < user_pde_nr) {
+      v_pde_ptr = pgdir_vaddr + pde_idx;
+      pde = *v_pde_ptr;
+      if (pde & 0x00000001) {   // 如果页目录项p位为1,表示该页目录项下可能有页表项
+	 first_pte_vaddr_in_pde = pte_ptr(pde_idx * 0x400000);	  // 一个页表表示的内存容量是4M,即0x400000
+	 pte_idx = 0;
+	 while (pte_idx < user_pte_nr) {
+	    v_pte_ptr = first_pte_vaddr_in_pde + pte_idx;
+	    pte = *v_pte_ptr;
+	    if (pte & 0x00000001) {
+	       // 将pte中记录的物理页框直接在相应内存池的位图中清0 
+	       pg_phy_addr = pte & 0xfffff000;
+           if(pg_phy_addr!=0)
+	       pmm_free(pg_phy_addr,PMM_PAGE_SIZE);
+	    }
+	    pte_idx++;
+	 }
+        // 将pde中记录的物理页框直接在相应内存池的位图中清0 
+        //pg_phy_addr = pde & 0xfffff000;
+        //pmm_free(pg_phy_addr,PMM_PAGE_SIZE);
+      }
+        pde_idx++;
+   }*/
+   /* 关闭进程打开的文件 */
+   unsigned char fd_idx = 3;
+   while(fd_idx < MAX_FILE_OPEN) {
+      if (current->fd_table[fd_idx] != -1) {
+	    sys_close(fd_idx);
+      }
+      fd_idx++;
+   }
+}
+/* list_traversal的回调函数,
+ * 查找pelem的parent_pid是否是ppid,成功返回true,失败则返回false */
+static char find_child(list_entry_t *ite, int ppid) {
+    struct task_struct *task=list_to_task(ite,all_link);
+    if (task->ppid == ppid) {     // 若该任务的parent_pid为ppid,返回
+      return 1;   // list_traversal只有在回调函数返回true时才会停止继续遍历,所以在此返回true
+   }
+   return 0;     // 让list_traversal继续传递下一个元素
+}
+
+/* list_traversal的回调函数,
+ * 查找状态为TASK_HANGING的任务 */
+static char find_hanging_child(list_entry_t *ite, int ppid) {
+   struct task_struct* task = list_to_task(ite,all_link);
+   if (task->ppid == ppid && task->state == HANGING) {
+      return 1;
+   }
+   return 0; 
+}
+
+/* list_traversal的回调函数,
+ * 将一个子进程过继给task0 */
+static char task0_adopt_a_child(list_entry_t *ite, int pid) {
+   struct task_struct* task = list_to_task(ite,all_link);
+   if (task->ppid == pid) {     // 若该进程的parent_pid为pid,返回
+      task->ppid = 0;
+   }
+   return 0;		// 让list_traversal继续传递下一个元素
+}
+
+/* 等待子进程调用exit,将子进程的退出状态保存到status指向的变量.
+ * 成功则返回子进程的pid,失败则返回-1 */
+int sys_wait(int* status) {
+
+   while(1) {
+      /* 优先处理已经是挂起状态的任务 */
+      struct list_entry_t* child_elem = list_traversal(&all_task_list, find_hanging_child, current->pid);
+      /* 若有挂起的子进程 */
+      if (child_elem != NULL) {
+	 struct task_struct* child_task = list_to_task(child_elem,all_link);
+	 *status = child_task->exit_status; 
+
+	 /* thread_exit之后,pcb会被回收,因此提前获取pid */
+	 int child_pid = child_task->pid;
+
+	 /* 2 从就绪队列和全部队列中删除进程表项*/
+	 task_exit(child_task); 
+	 /* 进程表项是进程或线程的最后保留的资源, 至此该进程彻底消失了 */
+
+	    return child_pid;
+      } 
+
+      /* 判断是否有子进程 */
+      child_elem = list_traversal(&all_task_list, find_child, current->pid);
+      if (child_elem == NULL) {	 // 若没有子进程则出错返回
+	    return -1;
+      } else {
+      /* 若子进程还未运行完,即还未调用exit,则将自己挂起,直到子进程在执行exit时将自己唤醒 */
+	    thread_block(STOPPED); 
+      }
+   }
+}
+
+/* 子进程用来结束自己时调用 */
+void sys_exit(int status) {
+   current->exit_status = status; 
+   if (current->ppid == -1) {
+      PANIC("sys_exit: child_thread->parent_pid is -1\n");
+   }
+
+   /* 将进程child_thread的所有子进程都过继给task0 */
+   list_traversal(&all_task_list, task0_adopt_a_child, current->pid);
+
+   /* 回收进程child_thread的资源 */
+   //release_prog_resource(current); 
+
+   /* 如果父进程正在等待子进程退出,将父进程唤醒 */
+   struct task_struct* parent_task = find_task(current->ppid);
+   if (parent_task->state == STOPPED) {
+      thread_unblock(parent_task);
+   }
+
+   /* 将自己挂起,等待父进程获取其status,并回收其pcb */
+   thread_block(HANGING);
+}
+
+
 /*用户进程初始化*/
 void  user_task_init(void *function){
     
@@ -605,6 +819,7 @@ void  user_task_init(void *function){
     user_task->counter=5;
     user_task->priority=1; 
     user_task->pid=alloc_pid();  //初始化task0的PID和last_pid
+    user_task->ppid=0;
     set_task_name(user_task,"user_task");
     user_task->kernel_stack=(unsigned int)user_task+VMM_PAGE_SIZE*2;//后一页为内核栈
 

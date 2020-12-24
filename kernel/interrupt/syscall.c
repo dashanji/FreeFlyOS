@@ -7,9 +7,9 @@
 extern struct task_struct *current;  //指向当前进程
 
 static int
-sys_exit(unsigned int arg[]) {
-    int error_code = (int)arg[0];
-    //return do_exit(error_code);
+syscall_exit(unsigned int arg[]) {
+    int status = (int)arg[0];
+    sys_exit(status);
     return 0;
 }
 
@@ -21,9 +21,9 @@ sys_fork(unsigned int arg[]) {
 }
 
 static int
-sys_wait(unsigned int arg[]) {
-    int pid = (int)arg[0];
-    int *store = (int *)arg[1];
+syscall_wait(unsigned int arg[]) {
+    int *status = (int *)arg[0];
+    return sys_wait(status);
     //return do_wait(pid, store);
 }
 
@@ -185,9 +185,9 @@ syscall_free(unsigned int arg[]){
 }
 
 static int (*syscalls[])(unsigned int arg[]) = {
-    [SYS_exit]              sys_exit,
+    [SYS_exit]              syscall_exit,
     [SYS_fork]              sys_fork,
-    [SYS_wait]              sys_wait,
+    [SYS_wait]              syscall_wait,
     [SYS_exec]              sys_exec,
     [SYS_yield]             sys_yield,
     [SYS_kill]              sys_kill,

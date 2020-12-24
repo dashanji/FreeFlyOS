@@ -90,7 +90,13 @@ test_exec/CMakeFiles/test_exec.dir/test.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_exec.dir/test.c.s"
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && /usr/local/bin/x86_64-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/caoy/Desktop/FreeFlyOS/test_exec/test.c -o CMakeFiles/test_exec.dir/test.c.s
 
+test_exec/CMakeFiles/test_exec.dir/start.S.o: test_exec/CMakeFiles/test_exec.dir/flags.make
+test_exec/CMakeFiles/test_exec.dir/start.S.o: ../test_exec/start.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building ASM object test_exec/CMakeFiles/test_exec.dir/start.S.o"
+	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && /usr/local/bin/x86_64-elf-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/test_exec.dir/start.S.o -c /Users/caoy/Desktop/FreeFlyOS/test_exec/start.S
+
 test_exec: test_exec/CMakeFiles/test_exec.dir/test.c.o
+test_exec: test_exec/CMakeFiles/test_exec.dir/start.S.o
 test_exec: test_exec/CMakeFiles/test_exec.dir/build.make
 
 .PHONY : test_exec

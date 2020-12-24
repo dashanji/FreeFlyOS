@@ -32,7 +32,8 @@
 #define FL_IF           0x00000200  // Interrupt Flag
 /* 自定义通用函数类型,它将在很多线程函数中做为形参类型 */
 typedef void thread_func(void*);
-
+/* 自定义函数类型function,用于在list_traversal中做回调函数 */
+typedef char (function)(struct list_entry_t*, int arg);
 // Saved registers for kernel context switches.
 // Don't need to save all the %fs etc. segment registers,
 // because they are constant across kernel contexts.
@@ -54,6 +55,8 @@ enum task_state{
     UNRUNNABLE=-1,
     RUNNABLE=0,
     STOPPED=1,
+    HANGING=2,
+    EXIT=3,
 };
 enum task_kind{
     USER_TASK=0,
@@ -63,7 +66,7 @@ struct task_struct{
     enum task_state state;  //-1 unrunnable , 0 runnable, 1 stopped
     int counter; //计数器，已经运行多长时间
     int priority; //优先级
-    int pid;
+    int pid,ppid;
     char name[task_name_max]; //进程名
     //unsigned int start_code,end_code,end_data,brk,start_stack;
     unsigned int kernel_stack;    //内核栈
@@ -80,6 +83,7 @@ struct task_struct{
     unsigned int fd_table[MAX_FILE_OPEN]; //文件描述符数组
     unsigned int magic;
     unsigned int cwd_inode_nr;
+    char exit_status;  //进程退出状态
 };
 union task_union
 {
@@ -145,7 +149,12 @@ void do_exit();
 int do_execve(const char *name, unsigned int len, unsigned char *binary, unsigned int size);
 void set_user_cr3();
 void copy_user_cr3(struct task_struct *task);
+void task_exit(struct task_struct *task);
 void user_task_init(void *function);
 
+struct list_entry_t* list_traversal(struct list_entry_t* list, function func, int arg);
+unsigned int* pte_ptr(unsigned int vaddr);
 void sys_print_task();
+int sys_wait(int* status);
+void sys_exit(int status);
 #endif

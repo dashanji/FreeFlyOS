@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+ide-dev.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+bitmap.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/bitmap.h
+super_block.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/stdio.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/string.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/user_syscall.h
+../file/dir.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/dir.h
+../file/fs.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
+
+/Users/caoy/Desktop/FreeFlyOS/test_cat/test.c
+../kernel/user/stdio.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/stdio.h
+../kernel/user/user_syscall.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/user_syscall.h
+../kernel/user/string.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/user/string.h
+

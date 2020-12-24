@@ -404,17 +404,17 @@ user/fast:
 .PHONY : user/fast
 
 #=============================================================================
-# Target rules for targets named Test2
+# Target rules for targets named exec_tar
 
 # Build rule for target.
-Test2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test2
-.PHONY : Test2
+exec_tar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 exec_tar
+.PHONY : exec_tar
 
 # fast build rule for target.
-Test2/fast:
-	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/Test2.dir/build.make test_exec/CMakeFiles/Test2.dir/build
-.PHONY : Test2/fast
+exec_tar/fast:
+	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/exec_tar.dir/build.make test_exec/CMakeFiles/exec_tar.dir/build
+.PHONY : exec_tar/fast
 
 #=============================================================================
 # Target rules for targets named test_exec
@@ -429,6 +429,32 @@ test_exec/fast:
 	$(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/build
 .PHONY : test_exec/fast
 
+#=============================================================================
+# Target rules for targets named cat_tar
+
+# Build rule for target.
+cat_tar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cat_tar
+.PHONY : cat_tar
+
+# fast build rule for target.
+cat_tar/fast:
+	$(MAKE) $(MAKESILENT) -f test_cat/CMakeFiles/cat_tar.dir/build.make test_cat/CMakeFiles/cat_tar.dir/build
+.PHONY : cat_tar/fast
+
+#=============================================================================
+# Target rules for targets named test_cat
+
+# Build rule for target.
+test_cat: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_cat
+.PHONY : test_cat
+
+# fast build rule for target.
+test_cat/fast:
+	$(MAKE) $(MAKESILENT) -f test_cat/CMakeFiles/test_cat.dir/build.make test_cat/CMakeFiles/test_cat.dir/build
+.PHONY : test_cat/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -438,7 +464,8 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test1"
-	@echo "... Test2"
+	@echo "... cat_tar"
+	@echo "... exec_tar"
 	@echo "... asm"
 	@echo "... bootblock.o"
 	@echo "... bootmain"
@@ -456,6 +483,7 @@ help:
 	@echo "... serial"
 	@echo "... sync"
 	@echo "... task"
+	@echo "... test_cat"
 	@echo "... test_exec"
 	@echo "... timer"
 	@echo "... user"

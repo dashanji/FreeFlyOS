@@ -103,6 +103,7 @@ static int cmd_parse(char* cmd_str, char** argv, char token) {
 void my_shell(void) {
    cwd_cache[0] = '/';
    cwd_cache[1] = '\0';
+   int status;
   /* unsigned int addr=malloc(500);
    printf("user malloc addr:%08x\n",addr);
    printf("before change:%08x",*(unsigned int *)addr);
@@ -147,7 +148,11 @@ void my_shell(void) {
             if (pid) {	   // 父进程pid>0
                /* 下面这个while必须要加上,否则父进程一般情况下会比子进程先执行,
                因此会进行下一轮循环将findl_path清空,这样子进程将无法从final_path中获得参数*/
-               while(1);
+               int child_pid=wait(&status);
+               if(child_pid==-1){
+                  printf("ERROR!\n");
+               }
+               printf("child_pid is %d,its status is %d\n",child_pid,status);
                } else {	   // 子进程pid=0
                   make_clear_abs_path(argv[0], final_path);
                   argv[0] = final_path;
@@ -159,7 +164,7 @@ void my_shell(void) {
                   } else {
                   exec(argv[0], argv);
                   }
-                  while(1);
+                  exit(-1);
                }
       }
       int arg_idx = 0;

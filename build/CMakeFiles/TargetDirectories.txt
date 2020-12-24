@@ -59,5 +59,9 @@
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/rebuild_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/edit_cache.dir
-/Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/Test2.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/exec_tar.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/test_exec.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/rebuild_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/edit_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/cat_tar.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/test_cat.dir

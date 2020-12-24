@@ -52,6 +52,13 @@ void setup_vpt()
         }
         //printk("i:%08ux\nj:%08ux\nk:%08ux\n",i,j,k);
     }
+    //用户页表设置为0，防止后面清理用户页表时缺页（需要遍历）
+    /*for(unsigned int i=0;i<(unsigned int)0xC0000000/
+((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);i++)
+    for(unsigned int j=0;j<PAGE_TABLE_SIZE;j++)
+    {
+        user_pt_highmem[i][j]=0;//|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_USER;
+    }*/
     /* 对user部分进行映射,0x40000000至user_end 映射到 0x40000000起始的一段区域 */
     vmm_map(new_pdt,0x40000000,&user_end,0x40000000);
     //&user_end

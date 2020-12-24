@@ -87,4 +87,6 @@ void free(unsigned int addr,unsigned int size);
 int fork();
 void mmap(unsigned int va_start,unsigned int va_end,unsigned pa_start);
 void exec(char *path,char **argv);
+int wait(int* status);
+void exit(int status);
 #endif

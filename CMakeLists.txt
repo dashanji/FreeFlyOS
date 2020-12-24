@@ -24,4 +24,5 @@ add_subdirectory(boot)
 set(CMAKE_C_FLAGS "-nostdlib -g -m32")
 add_subdirectory(kernel)
 add_subdirectory(test_exec)
+add_subdirectory(test_cat)
 

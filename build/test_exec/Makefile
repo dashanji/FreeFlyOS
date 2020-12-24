@@ -131,19 +131,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-test_exec/CMakeFiles/Test2.dir/rule:
-	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_exec/CMakeFiles/Test2.dir/rule
-.PHONY : test_exec/CMakeFiles/Test2.dir/rule
+test_exec/CMakeFiles/exec_tar.dir/rule:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_exec/CMakeFiles/exec_tar.dir/rule
+.PHONY : test_exec/CMakeFiles/exec_tar.dir/rule
 
 # Convenience name for target.
-Test2: test_exec/CMakeFiles/Test2.dir/rule
+exec_tar: test_exec/CMakeFiles/exec_tar.dir/rule
 
-.PHONY : Test2
+.PHONY : exec_tar
 
 # fast build rule for target.
-Test2/fast:
-	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/Test2.dir/build.make test_exec/CMakeFiles/Test2.dir/build
-.PHONY : Test2/fast
+exec_tar/fast:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/exec_tar.dir/build.make test_exec/CMakeFiles/exec_tar.dir/build
+.PHONY : exec_tar/fast
 
 # Convenience name for target.
 test_exec/CMakeFiles/test_exec.dir/rule:
@@ -159,6 +159,15 @@ test_exec: test_exec/CMakeFiles/test_exec.dir/rule
 test_exec/fast:
 	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/build
 .PHONY : test_exec/fast
+
+start.o: start.S.o
+
+.PHONY : start.o
+
+# target to build an object file
+start.S.o:
+	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f test_exec/CMakeFiles/test_exec.dir/build.make test_exec/CMakeFiles/test_exec.dir/start.S.o
+.PHONY : start.S.o
 
 test.o: test.c.o
 
@@ -195,8 +204,9 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Test2"
+	@echo "... exec_tar"
 	@echo "... test_exec"
+	@echo "... start.o"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"

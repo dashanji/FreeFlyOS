@@ -31,6 +31,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../kernel/timer/CMakeLists.txt"
   "../kernel/user/CMakeLists.txt"
   "../kernel/vga/CMakeLists.txt"
+  "../test_cat/CMakeLists.txt"
   "../test_exec/CMakeLists.txt"
   "/usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeASMCompiler.cmake.in"
   "/usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeASMInformation.cmake"
@@ -157,6 +158,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "kernel/file/CMakeFiles/CMakeDirectoryInformation.cmake"
   "kernel/user/CMakeFiles/CMakeDirectoryInformation.cmake"
   "test_exec/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "test_cat/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -182,6 +184,8 @@ set(CMAKE_DEPEND_INFO_FILES
   "kernel/sync/CMakeFiles/sync.dir/DependInfo.cmake"
   "kernel/file/CMakeFiles/file.dir/DependInfo.cmake"
   "kernel/user/CMakeFiles/user.dir/DependInfo.cmake"
-  "test_exec/CMakeFiles/Test2.dir/DependInfo.cmake"
+  "test_exec/CMakeFiles/exec_tar.dir/DependInfo.cmake"
   "test_exec/CMakeFiles/test_exec.dir/DependInfo.cmake"
+  "test_cat/CMakeFiles/cat_tar.dir/DependInfo.cmake"
+  "test_cat/CMakeFiles/test_cat.dir/DependInfo.cmake"
   )

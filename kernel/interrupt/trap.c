@@ -48,7 +48,7 @@ void print_trapframe(struct trapframe *tf) {
         }
     }
     printk("IOPL=%d\n", (tf->tf_eflags & FL_IOPL_MASK) >> 12);
-
+    while(1);
    // if (!trap_in_kernel(tf)) {
    //     printk("  esp  0x%08x\n", tf->tf_esp);
    //     printk("  ss   0x----%04x\n", tf->tf_ss);
@@ -69,8 +69,8 @@ static void trap_dispatch(struct trapframe *tf)
             printk("test user trap\n");
             break;
         case T_PGFLT:
-            //print_trapframe(tf);
-            printk("queye\n");
+            print_trapframe(tf);
+            //printk("queye\n");
             break;
         case T_SYSCALL:
             syscall_trap(tf);

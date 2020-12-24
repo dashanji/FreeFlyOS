@@ -311,7 +311,7 @@ int sys_open(const char* pathname, unsigned char flags) {
    /* 先检查文件是否存在 */
    int inode_no = search_file(pathname, &searched_record);
    char found = inode_no != -1 ? 1 : 0; 
-   printk("found : %02d\n",found);
+  // printk("found : %02d\n",found);
    if (searched_record.file_type == FT_DIRECTORY) {
       printk("can`t open a direcotry with open(), use opendir() to instead\n");
       dir_close(searched_record.parent_dir);
@@ -350,7 +350,7 @@ int sys_open(const char* pathname, unsigned char flags) {
       default:
          /* 其余情况均为打开已存在文件:
          * O_RDONLY,O_WRONLY,O_RDWR */
-         printk("inode_no:%08d\n",inode_no);
+         //printk("inode_no:%08d\n",inode_no);
          fd = file_open(inode_no, flags);
    }
 
@@ -385,6 +385,7 @@ int sys_write(int fd, const void* buf, unsigned int count) {
       char tmp_buf[1024] = {0};
       memcpy(tmp_buf, buf, count);
       printk(tmp_buf);
+      printk("\n");
       return count;
    }
    unsigned int _fd = fd_local2global(fd);
@@ -849,7 +850,7 @@ int sys_chdir(const char* path) {
 }
 
 void fs_init(){
-    //partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
+    partition_format();  //初始化主分区，只需运行一次就行，硬盘中就有分区信息
     mount_partition();
     //unsigned int fd=sys_open("/file",O_CREAT);
    // unsigned int fd=sys_open("/file",O_RDWR); //O_RDONLY

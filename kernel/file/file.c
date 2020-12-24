@@ -205,9 +205,9 @@ int file_open(unsigned int inode_no, unsigned char flag) {
       printk("exceed max open files\n");
       return -1;
    }
-   printk("fd_idx:%08d\n",inode_no);
+   //printk("fd_idx:%08d\n",inode_no);
    file_table[fd_idx].fd_inode = inode_open(cur_part, inode_no);
-   printk("file_table[fd_idx].fd_inode->inum:%08x",file_table[fd_idx].fd_inode->i_num);
+   //printk("file_table[fd_idx].fd_inode->inum:%08x",file_table[fd_idx].fd_inode->i_num);
    file_table[fd_idx].fd_pos = 0;	     // 每次打开文件,要将fd_pos还原为0,即让文件内的指针指向开头
    file_table[fd_idx].fd_flag = flag;
    char* write_lock = &file_table[fd_idx].fd_inode->write_lock; 
@@ -421,7 +421,7 @@ int file_write(struct file* file, const void* buf, unsigned int count) {
       }
       memcpy(io_buf + sec_off_bytes, src, chunk_size);
       ide_write(io_buf, sec_lba, 1);
-      printk("file write at lba 0x%08x\n", sec_lba);    //调试,完成后去掉
+     // printk("file write at lba 0x%08x\n", sec_lba);    //调试,完成后去掉
 
       src += chunk_size;   // 将指针推移到下个新数据
       file->fd_inode->i_size += chunk_size;  // 更新文件大小
@@ -438,8 +438,8 @@ int file_write(struct file* file, const void* buf, unsigned int count) {
 int file_read(struct file* file, void* buf, unsigned int count) {
    unsigned char* buf_dst = (unsigned char*)buf;
    unsigned int size = count, size_left = size;
-   printk("file pos %02d\n",file->fd_pos);
-   printk("file size %02d\n",file->fd_inode->i_size);
+   //printk("file pos %02d\n",file->fd_pos);
+   //printk("file size %02d\n",file->fd_inode->i_size);
    /* 若要读取的字节数超过了文件可读的剩余量, 就用剩余量做为待读取的字节数 */
    if ((file->fd_pos + count) > file->fd_inode->i_size)	{
       size = file->fd_inode->i_size - file->fd_pos;
@@ -448,7 +448,7 @@ int file_read(struct file* file, void* buf, unsigned int count) {
 	      return -1;
       }
    }
-   printk("file read size %02d\n",size);
+   //printk("file read size %02d\n",size);
    unsigned char* io_buf = (unsigned char *)vmm_malloc(SEC_SIZE,2);
    if (io_buf == NULL) {
       printk("file_read: sys_malloc for io_buf failed\n");

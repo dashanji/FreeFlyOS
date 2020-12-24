@@ -1,7 +1,7 @@
 #include "../kernel/user/stdio.h"
 #include "../kernel/user/user_syscall.h"
-void main(){
-    static char str[50]="Hello,I'm a exec test program!\n";
-    printf(str);
+#define NULL ((void *)0)
+void main(int argc,char **argv){
+    printf("hello nice to meet you\n");
     while(1);
 }

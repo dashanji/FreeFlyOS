@@ -153,3 +153,11 @@ void mmap(unsigned int va_start,unsigned int va_end,unsigned pa_start){
 void exec(char *path,char **argv){
    return user_syscall(SYS_exec,path,argv);
 }
+/* 等待子进程结束 */
+int wait(int* status){
+   return user_syscall(SYS_wait,status);
+}
+/* 进程退出 */
+void exit(int status){
+   return user_syscall(SYS_exit,status);
+}
