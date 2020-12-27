@@ -17,6 +17,7 @@ add_subdirectory(vga)
 add_subdirectory(sync)
 add_subdirectory(file)
 add_subdirectory(user)
+add_subdirectory(pipe)
 add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:init>
         $<TARGET_OBJECTS:asm>
@@ -34,6 +35,7 @@ add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:sync>
         $<TARGET_OBJECTS:file>
         $<TARGET_OBJECTS:user>
+        $<TARGET_OBJECTS:pipe>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE -T ${FreeFlyOS_SOURCE_DIR}/kernel/kernel.ld)

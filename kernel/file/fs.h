@@ -39,6 +39,7 @@ struct path_search_record {
 };
 void mount_partition();
 int path_depth_cnt(char* pathname);
+unsigned int fd_local2global(unsigned int local_fd);
 int sys_open(const char* pathname, unsigned char flags);
 int sys_close(int fd);
 int sys_write(int fd, const void* buf, unsigned int count);

@@ -18,6 +18,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/interrupt/sysca
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/interrupt/trap.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/mem/memlayout.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/mem/vmm.h
+kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/pipe/pipe.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/stl/defs.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/stl/hash.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/stl/list.h

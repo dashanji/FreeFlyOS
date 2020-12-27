@@ -105,6 +105,18 @@ static void write2fs(){
             while(1);
       }
     }
+    //写入test_pipe
+        file_size=14536; //通过本机OS 的ls -l命令获得
+    sec_cnt=(file_size+512-1)/512;    //扇区数
+    prog=vmm_malloc(file_size,1);
+    ide_read((void *)prog,570,sec_cnt);
+    fd=sys_open("/pipe",O_CREAT|O_RDWR);
+    if(fd!=-1){
+      if(sys_write(fd,prog,file_size) == -1){
+            printk("file write error!\n");
+            while(1);
+      }
+    }
     vmm_free(prog,file_size);
     //写入file
     fd=sys_open("/file",O_CREAT|O_RDWR);

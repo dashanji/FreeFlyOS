@@ -83,6 +83,8 @@ file.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
 ../sync/sync.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
+../pipe/pipe.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/pipe/pipe.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
 
@@ -133,6 +135,8 @@ ide-dev.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 ../stl/list.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/pipe/pipe.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
 

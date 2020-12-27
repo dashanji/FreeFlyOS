@@ -79,9 +79,9 @@ test_cat/CMakeFiles/cat_tar: test_cat/cat
 test_cat/cat:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating cat"
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_cat && x86_64-elf-ld -T ../../test_cat/test.ld -m elf_i386 -e _start ../../build/kernel/user/CMakeFiles/user.dir/stdio.c.o ../../build/kernel/user/CMakeFiles/user.dir/user_syscall.c.o ../../build/kernel/user/CMakeFiles/user.dir/string.c.o ../../build/test_cat/CMakeFiles/test_cat.dir/test.c.o ../../build/test_cat/CMakeFiles/test_cat.dir/start.S.o -o test_cat
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_cat && x86_64-elf-objdump -d test_cat > ../../disassembly/test_disass.md
+	cd /Users/caoy/Desktop/FreeFlyOS/build/test_cat && x86_64-elf-objdump -d test_cat > ../../disassembly/test_cat_disass.md
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_cat && dd if=../test_cat/test_cat of=../../FreeFlyOS.img bs=512 count=40 seek=530 conv=notrunc
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_cat && qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img
+	cd /Users/caoy/Desktop/FreeFlyOS/build/test_cat && echo cat\ down!
 
 cat_tar: test_cat/CMakeFiles/cat_tar
 cat_tar: test_cat/cat

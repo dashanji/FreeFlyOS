@@ -4,6 +4,7 @@
 #include "../file/fs.h"
 #include "../mem/vmm.h"
 #include "../task/exec.h"
+#include "../pipe/pipe.h"
 extern struct task_struct *current;  //指向当前进程
 
 static int
@@ -183,7 +184,12 @@ syscall_free(unsigned int arg[]){
     sys_free(addr,size);
     return 0;
 }
-
+static int
+syscall_pipe(unsigned int arg[]){
+    unsigned int *fd=(unsigned int)arg[0];
+    sys_pipe(fd);
+    return 0;
+}
 static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_exit]              syscall_exit,
     [SYS_fork]              sys_fork,
@@ -216,6 +222,7 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_malloc]            syscall_malloc,
     [SYS_free]              syscall_free,
     [SYS_mmap]              sys_mmap,
+    [SYS_pipe]              syscall_pipe,
 };
 
 #define NUM_SYSCALLS        ((sizeof(syscalls)) / (sizeof(syscalls[0])))

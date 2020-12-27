@@ -1,15 +1,15 @@
-Date : 2020-12-15 22:01:48
+Date : 2020-12-27 21:30:26
 Directory : ./
-Total : 115 files,  24723 codes, 3038 comments, 3373 blanks, all 31134 lines, 10.94% comment rate
+Total : 132 files,  31359 codes, 3514 comments, 4044 blanks, all 38917 lines, 10.08% comment rate
 
 Languages
 +--------------+------------+------------+------------+------------+------------+--------------+
 | language     | files      | code       | comment    | blank      | total      | comment rate |
 +--------------+------------+------------+------------+------------+------------+--------------+
-| Markdown     |         22 |     15,977 |          0 |        910 |     16,887 |        0.00% |
-| C            |         32 |      4,874 |      1,560 |        705 |      7,139 |       24.25% |
-| Makefile     |         19 |      2,084 |      1,021 |      1,420 |      4,525 |       32.88% |
-| C++          |         38 |      1,618 |        436 |        304 |      2,358 |       21.23% |
+| Markdown     |         26 |     21,365 |          0 |      1,185 |     22,550 |        0.00% |
+| C            |         38 |      5,563 |      1,795 |        774 |      8,132 |       24.40% |
+| Makefile     |         23 |      2,570 |      1,255 |      1,740 |      5,565 |       32.81% |
+| C++          |         41 |      1,691 |        443 |        311 |      2,445 |       20.76% |
 | Log          |          2 |        156 |          0 |         31 |        187 |        0.00% |
 | Shell Script |          2 |         14 |         21 |          3 |         38 |       60.00% |
 +--------------+------------+------------+------------+------------+------------+--------------+
@@ -18,52 +18,60 @@ Directories
 +--------------------------------------------------------------+------------+------------+------------+------------+------------+--------------+
 | path                                                         | files      | code       | comment    | blank      | total      | comment rate |
 +--------------------------------------------------------------+------------+------------+------------+------------+------------+--------------+
-| .                                                            |        115 |     24,723 |      3,038 |      3,373 |     31,134 |       10.94% |
-| disassembly                                                  |          2 |     14,857 |          0 |        544 |     15,401 |        0.00% |
-| kernel                                                       |         80 |      5,442 |      1,828 |        822 |      8,092 |       25.14% |
-| build                                                        |         23 |      3,243 |      1,123 |      1,679 |      6,045 |       25.72% |
-| kernel/file                                                  |         12 |      1,795 |        502 |        226 |      2,523 |       21.85% |
-| build/kernel                                                 |         17 |      1,762 |        842 |      1,229 |      3,833 |       32.33% |
+| .                                                            |        132 |     31,359 |      3,514 |      4,044 |     38,917 |       10.08% |
+| disassembly                                                  |          6 |     20,149 |          0 |        764 |     20,913 |        0.00% |
+| kernel                                                       |         86 |      6,137 |      2,068 |        898 |      9,103 |       25.20% |
+| build                                                        |         27 |      3,729 |      1,357 |      1,999 |      7,085 |       26.68% |
+| build/kernel                                                 |         18 |      1,887 |        895 |      1,312 |      4,094 |       32.17% |
+| kernel/file                                                  |         12 |      1,802 |        522 |        227 |      2,551 |       22.46% |
 | build/CMakeFiles                                             |          4 |      1,159 |        102 |        259 |      1,520 |        8.09% |
 | build/CMakeFiles/3.17.3                                      |          2 |      1,003 |        102 |        228 |      1,333 |        9.23% |
-| kernel/user                                                  |         13 |        765 |        150 |         76 |        991 |       16.39% |
-| elf                                                          |          1 |        742 |          0 |         10 |        752 |        0.00% |
+| kernel/user                                                  |         13 |        844 |        171 |         78 |      1,093 |       16.85% |
+| kernel/task                                                  |          5 |        837 |        374 |        161 |      1,372 |       30.88% |
+| elf                                                          |          1 |        803 |          0 |         10 |        813 |        0.00% |
 | build/CMakeFiles/3.17.3/CompilerIdC                          |          1 |        507 |         50 |        115 |        672 |        8.98% |
+| kernel/interrupt                                             |          5 |        498 |        128 |         41 |        667 |       20.45% |
 | build/CMakeFiles/3.17.3/CompilerIdCXX                        |          1 |        496 |         52 |        113 |        661 |        9.49% |
-| kernel/task                                                  |          3 |        483 |        226 |        119 |        828 |       31.88% |
-| kernel/interrupt                                             |          5 |        462 |        129 |         45 |        636 |       21.83% |
-| kernel/mem                                                   |          6 |        316 |        287 |         70 |        673 |       47.60% |
+| kernel/mem                                                   |          6 |        334 |        297 |         71 |        702 |       47.07% |
 | kernel/vga                                                   |          3 |        287 |         61 |         41 |        389 |       17.53% |
-| develop log                                                  |          3 |        219 |          0 |        226 |        445 |        0.00% |
+| develop log                                                  |          3 |        254 |          0 |        281 |        535 |        0.00% |
 | kernel/keyboard                                              |          3 |        208 |         27 |         35 |        270 |       11.49% |
 | kernel/dt                                                    |          3 |        192 |         57 |         33 |        282 |       22.89% |
+| kernel/main                                                  |          3 |        185 |         84 |         28 |        297 |       31.23% |
 | build/kernel/user                                            |          1 |        179 |         62 |        110 |        351 |       25.73% |
 | kernel/debug                                                 |          6 |        161 |         35 |         19 |        215 |       17.86% |
 | build/kernel/file                                            |          1 |        161 |         59 |        101 |        321 |       26.82% |
-| kernel/asm                                                   |          3 |        146 |         68 |         17 |        231 |       31.78% |
+| kernel/asm                                                   |          3 |        159 |         69 |         17 |        245 |       30.26% |
 | boot                                                         |          3 |        141 |         66 |         48 |        255 |       31.88% |
-| kernel/main                                                  |          3 |        138 |         79 |         28 |        245 |       36.41% |
+| kernel/pipe                                                  |          4 |        141 |         36 |         34 |        211 |       20.34% |
 | kernel/serial                                                |          3 |        137 |         16 |         26 |        179 |       10.46% |
 | build/kernel/debug                                           |          1 |        125 |         53 |         83 |        261 |       29.78% |
 | build/kernel/interrupt                                       |          1 |        119 |         52 |         80 |        251 |       30.41% |
+| build/kernel/task                                            |          1 |        119 |         52 |         80 |        251 |       30.41% |
 | kernel/stl                                                   |          5 |        117 |         93 |         30 |        240 |       44.29% |
 | build/boot                                                   |          1 |        113 |         54 |         76 |        243 |       32.34% |
+| build/kernel/pipe                                            |          1 |        107 |         50 |         74 |        231 |       31.85% |
 | build/kernel/mem                                             |          1 |        107 |         50 |         74 |        231 |       31.85% |
-| build/kernel/task                                            |          1 |        101 |         49 |         71 |        221 |       32.67% |
+| build/test_cat                                               |          1 |        104 |         51 |         72 |        227 |       32.90% |
+| build/test_exec                                              |          1 |        104 |         51 |         72 |        227 |       32.90% |
+| build/test_pipe                                              |          1 |        104 |         51 |         72 |        227 |       32.90% |
 | build/kernel/init                                            |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/asm                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/timer                                           |          1 |         89 |         47 |         65 |        201 |       34.56% |
 | build/kernel/dt                                              |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/main                                            |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/pic                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/vga                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/serial                                          |          1 |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/keyboard                                        |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/asm                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
 | build/kernel/sync                                            |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/keyboard                                        |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/timer                                           |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/serial                                          |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/vga                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/pic                                             |          1 |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/main                                            |          1 |         89 |         47 |         65 |        201 |       34.56% |
 | kernel/sync                                                  |          2 |         88 |         38 |         10 |        136 |       30.16% |
 | kernel/init                                                  |          3 |         77 |         41 |         20 |        138 |       34.75% |
 | kernel/pic                                                   |          3 |         42 |         17 |         18 |         77 |       28.81% |
+| test_cat                                                     |          1 |         40 |          2 |          0 |         42 |        4.76% |
 | kernel/timer                                                 |          3 |         23 |          2 |          6 |         31 |        8.00% |
+| test_pipe                                                    |          1 |         20 |          0 |          0 |         20 |        0.00% |
+| test_exec                                                    |          1 |          7 |          0 |          0 |          7 |        0.00% |
 +--------------------------------------------------------------+------------+------------+------------+------------+------------+--------------+
 
 Files
@@ -77,7 +85,7 @@ Files
 | build/CMakeFiles/3.17.3/CompilerIdCXX/CMakeCXXCompilerId.cpp | C++          |        496 |         52 |        113 |        661 |        9.49% |
 | build/CMakeFiles/CMakeError.log                              | Log          |        133 |          0 |         19 |        152 |        0.00% |
 | build/CMakeFiles/CMakeOutput.log                             | Log          |         23 |          0 |         12 |         35 |        0.00% |
-| build/Makefile                                               | Makefile     |        209 |        125 |        115 |        449 |       37.43% |
+| build/Makefile                                               | Makefile     |        258 |        153 |        136 |        547 |       37.23% |
 | build/boot/Makefile                                          | Makefile     |        113 |         54 |         76 |        243 |       32.34% |
 | build/kernel/Makefile                                        | Makefile     |         80 |         47 |         60 |        187 |       37.01% |
 | build/kernel/asm/Makefile                                    | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
@@ -90,20 +98,28 @@ Files
 | build/kernel/main/Makefile                                   | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
 | build/kernel/mem/Makefile                                    | Makefile     |        107 |         50 |         74 |        231 |       31.85% |
 | build/kernel/pic/Makefile                                    | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
+| build/kernel/pipe/Makefile                                   | Makefile     |        107 |         50 |         74 |        231 |       31.85% |
 | build/kernel/serial/Makefile                                 | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
 | build/kernel/sync/Makefile                                   | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
-| build/kernel/task/Makefile                                   | Makefile     |        101 |         49 |         71 |        221 |       32.67% |
+| build/kernel/task/Makefile                                   | Makefile     |        119 |         52 |         80 |        251 |       30.41% |
 | build/kernel/timer/Makefile                                  | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
 | build/kernel/user/Makefile                                   | Makefile     |        179 |         62 |        110 |        351 |       25.73% |
 | build/kernel/vga/Makefile                                    | Makefile     |         89 |         47 |         65 |        201 |       34.56% |
-| develop log/shell开发.md                                       | Markdown     |         45 |          0 |         54 |         99 |        0.00% |
+| build/test_cat/Makefile                                      | Makefile     |        104 |         51 |         72 |        227 |       32.90% |
+| build/test_exec/Makefile                                     | Makefile     |        104 |         51 |         72 |        227 |       32.90% |
+| build/test_pipe/Makefile                                     | Makefile     |        104 |         51 |         72 |        227 |       32.90% |
+| develop log/shell开发.md                                       | Markdown     |         80 |          0 |        109 |        189 |        0.00% |
 | develop log/文件系统.md                                          | Markdown     |         28 |          0 |         27 |         55 |        0.00% |
 | develop log/进程管理.md                                          | Markdown     |        146 |          0 |        145 |        291 |        0.00% |
 | disassembly/boot_disass.md                                   | Markdown     |        158 |          0 |         13 |        171 |        0.00% |
-| disassembly/kernel_disass.md                                 | Markdown     |     14,699 |          0 |        531 |     15,230 |        0.00% |
-| elf/kernel_elf.md                                            | Markdown     |        742 |          0 |         10 |        752 |        0.00% |
-| kernel/asm/asm.c                                             | C            |        112 |         61 |         11 |        184 |       35.26% |
-| kernel/asm/asm.h                                             | C++          |         30 |          7 |          2 |         39 |       18.92% |
+| disassembly/kernel_disass.md                                 | Markdown     |     16,855 |          0 |        584 |     17,439 |        0.00% |
+| disassembly/test_cat_disass.md                               | Markdown     |        934 |          0 |         47 |        981 |        0.00% |
+| disassembly/test_disass.md                                   | Markdown     |        925 |          0 |         46 |        971 |        0.00% |
+| disassembly/test_exec_disass.md                              | Markdown     |        605 |          0 |         37 |        642 |        0.00% |
+| disassembly/test_pipe_disass.md                              | Markdown     |        672 |          0 |         37 |        709 |        0.00% |
+| elf/kernel_elf.md                                            | Markdown     |        803 |          0 |         10 |        813 |        0.00% |
+| kernel/asm/asm.c                                             | C            |        124 |         62 |         11 |        197 |       33.33% |
+| kernel/asm/asm.h                                             | C++          |         31 |          7 |          2 |         40 |       18.42% |
 | kernel/asm/readme.md                                         | Markdown     |          4 |          0 |          4 |          8 |        0.00% |
 | kernel/debug/debug.c                                         | C            |         29 |         11 |          6 |         46 |       27.50% |
 | kernel/debug/debug.h                                         | C++          |         12 |          0 |          5 |         17 |        0.00% |
@@ -117,10 +133,10 @@ Files
 | kernel/file/bitmap.h                                         | C++          |          7 |          1 |          0 |          8 |       12.50% |
 | kernel/file/dir.c                                            | C            |        320 |         61 |         42 |        423 |       16.01% |
 | kernel/file/dir.h                                            | C++          |         24 |          2 |          1 |         27 |        7.69% |
-| kernel/file/file.c                                           | C            |        404 |         75 |         53 |        532 |       15.66% |
+| kernel/file/file.c                                           | C            |        398 |         81 |         53 |        532 |       16.91% |
 | kernel/file/file.h                                           | C++          |         30 |          3 |          0 |         33 |        9.09% |
-| kernel/file/fs.c                                             | C            |        660 |        244 |         84 |        988 |       26.99% |
-| kernel/file/fs.h                                             | C++          |         51 |          5 |          3 |         59 |        8.93% |
+| kernel/file/fs.c                                             | C            |        672 |        258 |         85 |      1,015 |       27.74% |
+| kernel/file/fs.h                                             | C++          |         52 |          5 |          3 |         60 |        8.77% |
 | kernel/file/ide-dev.c                                        | C            |         95 |         59 |         12 |        166 |       38.31% |
 | kernel/file/ide-dev.h                                        | C++          |         26 |          1 |          4 |         31 |        3.70% |
 | kernel/file/inode.c                                          | C            |        143 |         45 |         18 |        206 |       23.94% |
@@ -130,25 +146,29 @@ Files
 | kernel/init/init.h                                           | C++          |         21 |          9 |          9 |         39 |       30.00% |
 | kernel/init/readme.md                                        | Markdown     |          6 |          0 |          7 |         13 |        0.00% |
 | kernel/interrupt/readme.md                                   | Markdown     |          8 |          0 |          7 |         15 |        0.00% |
-| kernel/interrupt/syscall.c                                   | C            |        201 |         51 |         14 |        266 |       20.24% |
-| kernel/interrupt/syscall.h                                   | C++          |         43 |          1 |          4 |         48 |        2.27% |
-| kernel/interrupt/trap.c                                      | C            |        128 |         62 |          9 |        199 |       32.63% |
+| kernel/interrupt/syscall.c                                   | C            |        231 |         50 |         12 |        293 |       17.79% |
+| kernel/interrupt/syscall.h                                   | C++          |         48 |          1 |          3 |         52 |        2.04% |
+| kernel/interrupt/trap.c                                      | C            |        129 |         62 |          8 |        199 |       32.46% |
 | kernel/interrupt/trap.h                                      | C++          |         82 |         15 |         11 |        108 |       15.46% |
 | kernel/keyboard/keyboard.c                                   | C            |        135 |         23 |         20 |        178 |       14.56% |
 | kernel/keyboard/keyboard.h                                   | C++          |         71 |          4 |         12 |         87 |        5.33% |
 | kernel/keyboard/readme.md                                    | Markdown     |          2 |          0 |          3 |          5 |        0.00% |
-| kernel/main/main.c                                           | C            |        131 |         79 |         26 |        236 |       37.62% |
-| kernel/main/main.h                                           | C++          |          5 |          0 |          1 |          6 |        0.00% |
+| kernel/main/main.c                                           | C            |        177 |         84 |         26 |        287 |       32.18% |
+| kernel/main/main.h                                           | C++          |          6 |          0 |          1 |          7 |        0.00% |
 | kernel/main/readme.md                                        | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
-| kernel/mem/memlayout.h                                       | C++          |          9 |         96 |          9 |        114 |       91.43% |
+| kernel/mem/memlayout.h                                       | C++          |         10 |         96 |         10 |        116 |       90.57% |
 | kernel/mem/pmm.c                                             | C            |        122 |         75 |         15 |        212 |       38.07% |
 | kernel/mem/pmm.h                                             | C++          |         38 |         18 |         10 |         66 |       32.14% |
 | kernel/mem/readme.md                                         | Markdown     |          4 |          0 |          3 |          7 |        0.00% |
-| kernel/mem/vmm.c                                             | C            |        109 |         77 |         21 |        207 |       41.40% |
-| kernel/mem/vmm.h                                             | C++          |         34 |         21 |         12 |         67 |       38.18% |
+| kernel/mem/vmm.c                                             | C            |        123 |         87 |         21 |        231 |       41.43% |
+| kernel/mem/vmm.h                                             | C++          |         37 |         21 |         12 |         70 |       36.21% |
 | kernel/pic/pic.c                                             | C            |         35 |         17 |         15 |         67 |       32.69% |
 | kernel/pic/pic.h                                             | C++          |          5 |          0 |          2 |          7 |        0.00% |
 | kernel/pic/readme.md                                         | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
+| kernel/pipe/ioqueue.c                                        | C            |         62 |         19 |         15 |         96 |       23.46% |
+| kernel/pipe/ioqueue.h                                        | C++          |         19 |          6 |          5 |         30 |       24.00% |
+| kernel/pipe/pipe.c                                           | C            |         52 |         11 |         12 |         75 |       17.46% |
+| kernel/pipe/pipe.h                                           | C++          |          8 |          0 |          2 |         10 |        0.00% |
 | kernel/readme.md                                             | Markdown     |          5 |          0 |          3 |          8 |        0.00% |
 | kernel/serial/readme.md                                      | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
 | kernel/serial/serial.c                                       | C            |         95 |         16 |         19 |        130 |       14.41% |
@@ -160,30 +180,35 @@ Files
 | kernel/stl/readme.md                                         | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
 | kernel/sync/sync.c                                           | C            |         68 |         36 |          7 |        111 |       34.62% |
 | kernel/sync/sync.h                                           | C++          |         20 |          2 |          3 |         25 |        9.09% |
-| kernel/task/task.c                                           | C            |        347 |        200 |         68 |        615 |       36.56% |
-| kernel/task/task.h                                           | C++          |        102 |         26 |         16 |        144 |       20.31% |
+| kernel/task/exec.c                                           | C            |        127 |         38 |         23 |        188 |       23.03% |
+| kernel/task/exec.h                                           | C++          |          4 |          0 |          1 |          5 |        0.00% |
+| kernel/task/task.c                                           | C            |        554 |        309 |         87 |        950 |       35.81% |
+| kernel/task/task.h                                           | C++          |        118 |         27 |         15 |        160 |       18.62% |
 | kernel/task/寄存器.md                                           | Markdown     |         34 |          0 |         35 |         69 |        0.00% |
 | kernel/timer/readme.md                                       | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
 | kernel/timer/timer.c                                         | C            |         17 |          2 |          3 |         22 |       10.53% |
 | kernel/timer/timer.h                                         | C++          |          4 |          0 |          2 |          6 |        0.00% |
-| kernel/user/buildin_cmd.c                                    | C            |        226 |         22 |         16 |        264 |        8.87% |
+| kernel/user/buildin_cmd.c                                    | C            |        233 |         23 |         15 |        271 |        8.98% |
 | kernel/user/buildin_cmd.h                                    | C++          |         14 |         12 |          1 |         27 |       46.15% |
-| kernel/user/shell.c                                          | C            |        106 |         20 |         15 |        141 |       15.87% |
+| kernel/user/shell.c                                          | C            |        132 |         30 |         15 |        177 |       18.52% |
 | kernel/user/shell.h                                          | C++          |          6 |          3 |          0 |          9 |       33.33% |
 | kernel/user/stdio.c                                          | C            |        119 |          1 |          9 |        129 |        0.83% |
 | kernel/user/stdio.h                                          | C++          |         12 |          5 |          3 |         20 |       29.41% |
 | kernel/user/string.c                                         | C            |         88 |         42 |          3 |        133 |       32.31% |
 | kernel/user/string.h                                         | C++          |         11 |          2 |          1 |         14 |       15.38% |
-| kernel/user/user_main.c                                      | C            |         13 |          7 |          1 |         21 |       35.00% |
+| kernel/user/user_main.c                                      | C            |         18 |          8 |          1 |         27 |       30.77% |
 | kernel/user/user_main.h                                      | C++          |          4 |          1 |          2 |          7 |       20.00% |
-| kernel/user/user_syscall.c                                   | C            |         93 |         15 |         21 |        129 |       13.89% |
-| kernel/user/user_syscall.h                                   | C++          |         65 |         12 |          3 |         80 |       15.58% |
+| kernel/user/user_syscall.c                                   | C            |        120 |         24 |         24 |        168 |       16.67% |
+| kernel/user/user_syscall.h                                   | C++          |         79 |         12 |          3 |         94 |       13.19% |
 | kernel/user/va_list.h                                        | C++          |          8 |          8 |          1 |         17 |       50.00% |
 | kernel/vga/readme.md                                         | Markdown     |          2 |          0 |          1 |          3 |        0.00% |
 | kernel/vga/vga.c                                             | C            |        236 |         48 |         30 |        314 |       16.90% |
 | kernel/vga/vga.h                                             | C++          |         49 |         13 |         10 |         72 |       20.97% |
 | readme.md                                                    | Markdown     |         65 |          0 |         41 |        106 |        0.00% |
 | run.sh                                                       | Shell Script |         13 |          2 |          1 |         16 |       13.33% |
+| test_cat/test.c                                              | C            |         40 |          2 |          0 |         42 |        4.76% |
+| test_exec/test.c                                             | C            |          7 |          0 |          0 |          7 |        0.00% |
+| test_pipe/test.c                                             | C            |         20 |          0 |          0 |         20 |        0.00% |
 | xxd.sh                                                       | Shell Script |          1 |         19 |          2 |         22 |       95.00% |
-| Total                                                        |              |     24,723 |      3,038 |      3,373 |     31,134 |       10.94% |
+| Total                                                        |              |     31,359 |      3,514 |      4,044 |     38,917 |       10.08% |
 +--------------------------------------------------------------+--------------+------------+------------+------------+------------+--------------+

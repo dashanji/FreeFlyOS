@@ -20,4 +20,5 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/sync
     ${FreeFlyOS_SOURCE_DIR}/kernel/keyboard
     ${FreeFlyOS_SOURCE_DIR}/kernel/mem
+    ${FreeFlyOS_SOURCE_DIR}/kernel/pipe
 )

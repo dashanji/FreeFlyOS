@@ -49,6 +49,7 @@ kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/interrupt/trap.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/keyboard/keyboard.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/mem/memlayout.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/mem/vmm.h
+kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/pipe/pipe.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/stl/defs.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/stl/hash.h
 kernel/file/CMakeFiles/file.dir/fs.c.o: ../kernel/stl/list.h

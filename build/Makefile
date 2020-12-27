@@ -404,6 +404,19 @@ user/fast:
 .PHONY : user/fast
 
 #=============================================================================
+# Target rules for targets named pipe
+
+# Build rule for target.
+pipe: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pipe
+.PHONY : pipe
+
+# fast build rule for target.
+pipe/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/pipe/CMakeFiles/pipe.dir/build.make kernel/pipe/CMakeFiles/pipe.dir/build
+.PHONY : pipe/fast
+
+#=============================================================================
 # Target rules for targets named exec_tar
 
 # Build rule for target.
@@ -455,6 +468,32 @@ test_cat/fast:
 	$(MAKE) $(MAKESILENT) -f test_cat/CMakeFiles/test_cat.dir/build.make test_cat/CMakeFiles/test_cat.dir/build
 .PHONY : test_cat/fast
 
+#=============================================================================
+# Target rules for targets named test_pi
+
+# Build rule for target.
+test_pi: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_pi
+.PHONY : test_pi
+
+# fast build rule for target.
+test_pi/fast:
+	$(MAKE) $(MAKESILENT) -f test_pipe/CMakeFiles/test_pi.dir/build.make test_pipe/CMakeFiles/test_pi.dir/build
+.PHONY : test_pi/fast
+
+#=============================================================================
+# Target rules for targets named test_pipe
+
+# Build rule for target.
+test_pipe: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_pipe
+.PHONY : test_pipe
+
+# fast build rule for target.
+test_pipe/fast:
+	$(MAKE) $(MAKESILENT) -f test_pipe/CMakeFiles/test_pipe.dir/build.make test_pipe/CMakeFiles/test_pipe.dir/build
+.PHONY : test_pipe/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -466,6 +505,7 @@ help:
 	@echo "... Test1"
 	@echo "... cat_tar"
 	@echo "... exec_tar"
+	@echo "... test_pi"
 	@echo "... asm"
 	@echo "... bootblock.o"
 	@echo "... bootmain"
@@ -480,11 +520,13 @@ help:
 	@echo "... main"
 	@echo "... mem"
 	@echo "... pic"
+	@echo "... pipe"
 	@echo "... serial"
 	@echo "... sync"
 	@echo "... task"
 	@echo "... test_cat"
 	@echo "... test_exec"
+	@echo "... test_pipe"
 	@echo "... timer"
 	@echo "... user"
 	@echo "... vga"

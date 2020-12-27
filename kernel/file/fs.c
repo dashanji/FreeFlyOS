@@ -12,6 +12,7 @@
 #include "../task/task.h"
 #include "../keyboard/keyboard.h"
 #include "../sync/sync.h"
+#include "../pipe/pipe.h"
 #define NULL (void *)0
 struct partition *cur_part;
 extern struct task_struct *current;
@@ -359,7 +360,7 @@ int sys_open(const char* pathname, unsigned char flags) {
    return fd;
 }
 /* 将文件描述符转化为文件表的下标 */
-static unsigned int fd_local2global(unsigned int local_fd) {
+unsigned int fd_local2global(unsigned int local_fd) {
    int global_fd = current->fd_table[local_fd];  
    ASSERT(global_fd >= 0 && global_fd < MAX_FILE_OPEN);
    return (unsigned int)global_fd;
@@ -369,8 +370,17 @@ static unsigned int fd_local2global(unsigned int local_fd) {
 int sys_close(int fd) {
    int ret = -1;   // 返回值默认为-1,即失败
    if (fd > 2) {
-      unsigned int _fd = fd_local2global(fd);
-      ret = file_close(&file_table[_fd]);
+      unsigned int global_fd = fd_local2global(fd);
+      if (is_pipe(fd)) {
+	 /* 如果此管道上的描述符都被关闭,释放管道的环形缓冲区 */
+	 if (--file_table[global_fd].fd_pos == 0) {
+	    vmm_free((unsigned int)file_table[global_fd].fd_inode, VMM_PAGE_SIZE);
+	    file_table[global_fd].fd_inode = NULL;
+	 }
+	 ret = 0;
+      } else {
+	 ret = file_close(&file_table[global_fd]);
+      }
       current->fd_table[fd] = -1; // 使该文件描述符位可用
    }
    return ret;
@@ -381,13 +391,20 @@ int sys_write(int fd, const void* buf, unsigned int count) {
       printk("sys_write: fd error\n");
       return -1;
    }
-   if (fd == stdout_no) {  
+   if (fd == stdout_no) { 
+      /* 标准输出有可能被重定向为管道缓冲区, 因此要判断 */
+      if (is_pipe(fd)) {
+	 return pipe_write(fd, buf, count);
+      } else { 
       char tmp_buf[1024] = {0};
       memcpy(tmp_buf, buf, count);
       printk(tmp_buf);
       printk("\n");
       return count;
-   }
+      }
+   }else if (is_pipe(fd)){	    /* 若是管道就调用管道的方法 */
+      return pipe_write(fd, buf, count);
+   } else {
    unsigned int _fd = fd_local2global(fd);
    struct file* wr_file = &file_table[_fd];
    if (wr_file->fd_flag & O_WRONLY || wr_file->fd_flag & O_RDWR) {
@@ -397,6 +414,7 @@ int sys_write(int fd, const void* buf, unsigned int count) {
       printk("sys_write: not allowed to write file without flag O_RDWR or O_WRONLY\n");
       return -1;
    }
+   }
 }
 /* 从文件描述符fd指向的文件中读取count个字节到buf,若成功则返回读出的字节数,到文件尾则返回-1 */
 int sys_read(int fd, void* buf, unsigned int count) {
@@ -405,6 +423,10 @@ int sys_read(int fd, void* buf, unsigned int count) {
    if (fd < 0 || fd == stdout_no || fd == stderr_no) {
       printk("sys_read: fd error\n");
    } else if (fd == stdin_no) {
+       /* 标准输入有可能被重定向为管道缓冲区, 因此要判断 */
+      if (is_pipe(fd)) {
+	 ret = pipe_read(fd, buf, count);
+      } else {
       char* buffer = buf;
       unsigned int bytes_read = 0;
       if(shell_input==0){
@@ -418,6 +440,9 @@ int sys_read(int fd, void* buf, unsigned int count) {
          buffer++;
       }
       ret = (bytes_read == 0 ? -1 : (int)bytes_read);
+      }
+       } else if (is_pipe(fd)) {	 /* 若是管道就调用管道的方法 */
+      ret = pipe_read(fd, buf, count);
    } else {
       unsigned int _fd = fd_local2global(fd);
       ret = file_read(&file_table[_fd], buf, count);   

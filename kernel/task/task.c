@@ -6,6 +6,8 @@
 #include "../mem/memlayout.h"
 #include "../debug/debug.h"
 #include "../sync/sync.h"
+#include "../file/file.h"
+#include "../file/inode.h"
 #define HASH_SHIFT          10
 #define HASH_LIST_SIZE      (1 << HASH_SHIFT)
 #define pid_hashfn(x)       (hash32(x, HASH_SHIFT))
@@ -58,7 +60,7 @@ static unsigned int volatile nr_task=0; //当前所有进程数量
 void forkrets(struct trapframe *tf);
 
 extern unsigned int __trapret;
-
+extern struct file file_table[MAX_FILE_OPEN];
 extern struct segdesc gdt[];
 extern unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 extern unsigned int user_pt_highmem[(unsigned int)0xC0000000/
@@ -128,7 +130,10 @@ void kernel_task_init(void *function){
     //插入所有任务链表
     list_init(&task0->all_link);
     add_all_link(&task0->all_link);
-    for(int i=0;i<MAX_FILE_OPEN;i++){
+    task0->fd_table[0]=0;
+    task0->fd_table[1]=1;
+    task0->fd_table[2]=2;
+    for(int i=3;i<MAX_FILE_OPEN;i++){
         task0->fd_table[i]=-1;
     }
     /* 当前进程指向task0 */
@@ -335,7 +340,24 @@ copy_thread(struct task_struct *task, unsigned int esp, struct trapframe *tf) {
     task->context.ebx=tf->tf_regs.reg_ebx;
     task->context.edx=tf->tf_regs.reg_edx;
     //task->context.eip = (unsigned int)forkret;//print_task1;
-    task->context.esp = (unsigned int)((unsigned int)task+VMM_PAGE_SIZE);  
+    task->context.esp =task->tf->tf_esp;  
+}
+
+/* 更新inode打开数 */
+static void update_inode_open_cnts(struct task_struct* task) {
+   int local_fd = 3, global_fd = 0;
+   while (local_fd < MAX_FILE_OPEN) {
+      global_fd = task->fd_table[local_fd];
+      ASSERT(global_fd < MAX_FILE_OPEN);
+      if (global_fd != -1) {
+	 if (is_pipe(local_fd)) {
+	    file_table[global_fd].fd_pos++;
+	 } else {
+	    file_table[global_fd].fd_inode->i_open_cnts++;
+	 }
+      }
+      local_fd++;
+   }
 }
 
 /* do_fork -     parent task for a new child task
@@ -369,6 +391,12 @@ do_fork(unsigned int clone_flags, unsigned int stack, struct trapframe *tf) {
     //在新进程的内核栈中设置中断帧，并设置中断上下文的eip和esp
     copy_thread(task,stack,tf);
 
+    //复制父进程的文件表
+    for(int i=0;i<MAX_FILE_OPEN;i++){
+        task->fd_table[i]=current->fd_table[i];
+    }
+    //设置子进程文件表
+    update_inode_open_cnts(task);
     //获取PID
     if((task->pid=alloc_pid())<0){
         return -1;
@@ -712,12 +740,22 @@ void release_prog_resource(struct task_struct *task){
         pde_idx++;
    }*/
    /* 关闭进程打开的文件 */
-   unsigned char fd_idx = 3;
-   while(fd_idx < MAX_FILE_OPEN) {
-      if (current->fd_table[fd_idx] != -1) {
-	    sys_close(fd_idx);
+
+      /* 关闭进程打开的文件 */
+   unsigned char local_fd = 3;
+   while(local_fd < MAX_FILE_OPEN) {
+      if (task->fd_table[local_fd] != -1) {
+	 if (is_pipe(local_fd)) {
+	    unsigned int global_fd = fd_local2global(local_fd);  
+	    if (--file_table[global_fd].fd_pos == 0) {
+           vmm_free(file_table[global_fd].fd_inode,VMM_PAGE_SIZE);
+	       file_table[global_fd].fd_inode = NULL;
+	    }
+	 } else {
+	    sys_close(local_fd);
+	 }
       }
-      fd_idx++;
+      local_fd++;
    }
 }
 /* list_traversal的回调函数,
@@ -850,7 +888,10 @@ void  user_task_init(void *function){
     user_task->context.ebx=user_task->tf->tf_regs.reg_ebx;
     user_task->context.edx=user_task->tf->tf_regs.reg_edx;
 
-    for(int i=0;i<MAX_FILE_OPEN;i++){
+    user_task->fd_table[0]=0;
+    user_task->fd_table[1]=1;
+    user_task->fd_table[2]=2;
+    for(int i=3;i<MAX_FILE_OPEN;i++){
         user_task->fd_table[i]=-1;
     }
     /* 进程链表指向task0 */

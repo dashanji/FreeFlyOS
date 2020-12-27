@@ -6,7 +6,7 @@ add_library(${PROJECT_NAME} OBJECT test.c start.S)
 target_include_directories(${PROJECT_NAME}
     PUBLIC
     ${FreeFlyOS_SOURCE_DIR}/kernel/user/
-     ${FreeFlyOS_SOURCE_DIR}/kernel/test_cat
+     ${FreeFlyOS_SOURCE_DIR}/test_cat
 )
 set(test_name "cat")
 add_custom_command(OUTPUT ${test_name}
@@ -19,10 +19,10 @@ add_custom_command(OUTPUT ${test_name}
         ../../build/test_cat/CMakeFiles/test_cat.dir/test.c.o  
         ../../build/test_cat/CMakeFiles/test_cat.dir/start.S.o -o test_cat
     COMMAND
-        x86_64-elf-objdump -d test_cat > ../../disassembly/test_disass.md
+        x86_64-elf-objdump -d test_cat > ../../disassembly/test_cat_disass.md
     COMMAND
         dd if=../test_cat/test_cat of=../../FreeFlyOS.img bs=512 count=40 seek=530 conv=notrunc
-    COMMAND   
-        qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img	
+    COMMAND
+        echo "cat down!"
 )
 add_custom_target(cat_tar ALL DEPENDS ${test_name})

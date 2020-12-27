@@ -3,7 +3,7 @@
 */
 OUTPUT_FORMAT(elf32-i386)
 OUTPUT_ARCH(i386)
-ENTRY(start)
+ENTRY(_start)
 /*
 *   ld有多种方法设置进程入口地址, 按以下顺序: (编号越前, 优先级越高)
 *           1, ld命令行的-e选项

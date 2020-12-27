@@ -34,6 +34,12 @@ bitmap.h
 super_block.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.h
+../stl/list.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+ide-dev.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
@@ -97,6 +103,10 @@ task.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
 ../sync/sync.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/sync/sync.h
+../file/file.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
+../file/inode.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
 ../dt/dt.h

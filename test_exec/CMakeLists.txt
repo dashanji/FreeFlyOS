@@ -6,7 +6,7 @@ add_library(${PROJECT_NAME} OBJECT test.c start.S)
 target_include_directories(${PROJECT_NAME}
     PUBLIC
     ${FreeFlyOS_SOURCE_DIR}/kernel/user/
-    ${FreeFlyOS_SOURCE_DIR}/kernel/test_exec
+    ${FreeFlyOS_SOURCE_DIR}/test_exec
 )
 set(test_name "exec")
 add_custom_command(OUTPUT ${test_name}
@@ -18,8 +18,10 @@ add_custom_command(OUTPUT ${test_name}
         ../../build/test_exec/CMakeFiles/test_exec.dir/test.c.o  
         ../../build/test_exec/CMakeFiles/test_exec.dir/start.S.o -o test_exec
     COMMAND
-        x86_64-elf-objdump -d test_exec > ../../disassembly/test_disass.md
+        x86_64-elf-objdump -d test_exec > ../../disassembly/test_exec_disass.md
     COMMAND
         dd if=../test_exec/test_exec of=../../FreeFlyOS.img bs=512 count=30 seek=500 conv=notrunc
+    COMMAND
+        echo "exec down!"
 )
 add_custom_target(exec_tar ALL DEPENDS ${test_name})

@@ -43,6 +43,7 @@
 #define SYS_malloc 55
 #define SYS_free 56
 #define SYS_mmap 57
+#define SYS_pipe 58
 void syscall_trap(struct trapframe *tf);
 int user_sys_getpid(void);
 void user_print_char(char c); 

@@ -2,6 +2,8 @@
 95d20a5dc32615dfe4651115de140bdb kernel/CMakeFiles/Test1
 f57cacad7f83bdd45e6516b473c28536 kernel/FreeFlyOS.img
 ee3b6fc98736f1209002595d600584ee test_cat/CMakeFiles/cat_tar
-e991afaa1e825444d901e335a265c842 test_cat/cat
+0fce4d4df3cdd936ae5474ae071d2c65 test_cat/cat
 c9983d0bd86666dc299e35c1b65bab35 test_exec/CMakeFiles/exec_tar
-704229ef1a39551ba7f604ac7c46fbac test_exec/exec
+47989827e1a7e3e5a68421927fb54c91 test_exec/exec
+e0a5d1563ec4bf98cd73fb681e0be936 test_pipe/CMakeFiles/test_pi
+d6c8d8f63316b3c730fd0d8f0897e6e3 test_pipe/pip

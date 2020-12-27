@@ -115,7 +115,9 @@ kernel_EXTERNAL_OBJECTS = \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/stdio.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/shell.c.o" \
 "/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/string.c.o" \
-"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/buildin_cmd.c.o"
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir/buildin_cmd.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/pipe/CMakeFiles/pipe.dir/pipe.c.o" \
+"/Users/caoy/Desktop/FreeFlyOS/build/kernel/pipe/CMakeFiles/pipe.dir/ioqueue.c.o"
 
 kernel/kernel: kernel/init/CMakeFiles/init.dir/init.c.o
 kernel/kernel: kernel/asm/CMakeFiles/asm.dir/asm.c.o
@@ -151,6 +153,8 @@ kernel/kernel: kernel/user/CMakeFiles/user.dir/stdio.c.o
 kernel/kernel: kernel/user/CMakeFiles/user.dir/shell.c.o
 kernel/kernel: kernel/user/CMakeFiles/user.dir/string.c.o
 kernel/kernel: kernel/user/CMakeFiles/user.dir/buildin_cmd.c.o
+kernel/kernel: kernel/pipe/CMakeFiles/pipe.dir/pipe.c.o
+kernel/kernel: kernel/pipe/CMakeFiles/pipe.dir/ioqueue.c.o
 kernel/kernel: kernel/CMakeFiles/kernel.dir/build.make
 kernel/kernel: kernel/CMakeFiles/kernel.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Linking C executable kernel"

@@ -50,6 +50,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/sync/cmake_install.cmake")
   include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/file/cmake_install.cmake")
   include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/user/cmake_install.cmake")
+  include("/Users/caoy/Desktop/FreeFlyOS/build/kernel/pipe/cmake_install.cmake")
 
 endif()
 

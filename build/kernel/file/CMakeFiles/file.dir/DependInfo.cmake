@@ -21,6 +21,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/debug"
   "../kernel/task"
   "../kernel/keyboard"
+  "../kernel/pipe"
   )
 
 # Targets to which this target links.

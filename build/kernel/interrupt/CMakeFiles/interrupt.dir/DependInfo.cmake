@@ -22,6 +22,7 @@ set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "../kernel/sync"
   "../kernel/keyboard"
   "../kernel/mem"
+  "../kernel/pipe"
   )
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.c" "/Users/caoy/Desktop/FreeFlyOS/build/kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o"
@@ -41,6 +42,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/sync"
   "../kernel/keyboard"
   "../kernel/mem"
+  "../kernel/pipe"
   )
 
 # Targets to which this target links.

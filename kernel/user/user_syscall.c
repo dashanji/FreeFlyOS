@@ -161,3 +161,7 @@ int wait(int* status){
 void exit(int status){
    return user_syscall(SYS_exit,status);
 }
+/* 创建管道 */
+void pipe(int fd[2]){
+   return user_syscall(SYS_pipe,fd);
+}

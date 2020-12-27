@@ -34,6 +34,7 @@ kernel/task/CMakeFiles/task.dir/task.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/file.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/file/inode.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h

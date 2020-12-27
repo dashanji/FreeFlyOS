@@ -19,6 +19,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/pipe/pipe.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/defs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/hash.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h

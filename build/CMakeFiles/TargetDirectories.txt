@@ -57,6 +57,9 @@
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/rebuild_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/kernel/user/CMakeFiles/user.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/pipe/CMakeFiles/rebuild_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/pipe/CMakeFiles/edit_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/kernel/pipe/CMakeFiles/pipe.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/rebuild_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_exec/CMakeFiles/exec_tar.dir
@@ -65,3 +68,7 @@
 /Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/edit_cache.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/cat_tar.dir
 /Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/test_cat.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_pipe/CMakeFiles/rebuild_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_pipe/CMakeFiles/edit_cache.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_pipe/CMakeFiles/test_pi.dir
+/Users/caoy/Desktop/FreeFlyOS/build/test_pipe/CMakeFiles/test_pipe.dir

@@ -12,7 +12,7 @@ set(CMAKE_ASM_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "../kernel/user"
-  "../kernel/test_cat"
+  "../test_cat"
   )
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/caoy/Desktop/FreeFlyOS/test_cat/test.c" "/Users/caoy/Desktop/FreeFlyOS/build/test_cat/CMakeFiles/test_cat.dir/test.c.o"
@@ -22,7 +22,7 @@ set(CMAKE_C_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/user"
-  "../kernel/test_cat"
+  "../test_cat"
   )
 
 # Targets to which this target links.

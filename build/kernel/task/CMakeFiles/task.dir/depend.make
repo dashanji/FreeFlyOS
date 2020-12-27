@@ -33,6 +33,7 @@ kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/file/dir.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/file/file.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/file/fs.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/file/ide-dev.h
+kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/file/inode.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/file/super_block.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/interrupt/syscall.h
 kernel/task/CMakeFiles/task.dir/task.c.o: ../kernel/interrupt/trap.h
