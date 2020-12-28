@@ -105,5 +105,9 @@ In Mac OS，the result is:
 
 In Linux,the result is:
 
+![image-20201228223246325](readme.assets/image-20201228223246325.png)
 
+![image-20201228223255211](readme.assets/image-20201228223255211.png)
+
+![image-20201228223304979](readme.assets/image-20201228223304979.png)
 
