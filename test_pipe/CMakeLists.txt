@@ -19,8 +19,8 @@ add_custom_command(OUTPUT ${test_name}
         ../../build/test_pipe/CMakeFiles/test_pipe.dir/start.S.o -o test_pipe
     COMMAND
         x86_64-elf-objdump -d test_pipe > ../../disassembly/test_pipe_disass.md
-    COMMAND
-        dd if=../test_pipe/test_pipe of=../../FreeFlyOS.img bs=512 count=30 seek=570 conv=notrunc
+    #COMMAND
+    #    dd if=../test_pipe/test_pipe of=../../FreeFlyOS.img bs=512 count=30 seek=570 conv=notrunc
     COMMAND
         echo "pipe down!"
     COMMAND   

@@ -24,4 +24,5 @@ void buildin_ls(int argc, char** argv);
 int buildin_mkdir(int argc, char** argv);
 int buildin_rmdir(int argc, char** argv);
 int buildin_rm(int argc, char** argv);
+void buildin_help(int argc, char** argv);
 #endif

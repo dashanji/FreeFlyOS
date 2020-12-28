@@ -97,9 +97,13 @@ sh run.sh
 
 In Mac OS，the result is:
 
-![avatar](https://github.com/dashanji/picture/blob/main/image-20201005133730995.png)
+![image-20201228213055895](readme.assets/image-20201228213055895.png)
+
+![image-20201228213344675](readme.assets/image-20201228213344675.png)
+
+![image-20201228222144608](readme.assets/image-20201228222144608.png)
 
 In Linux,the result is:
 
-![avatar](https://github.com/dashanji/picture/blob/main/image-20201005192518961.png)
+
 

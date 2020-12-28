@@ -26,7 +26,7 @@ Disassembly of section .text:
 80000036:	83 e8 30             	sub    $0x30,%eax
 80000039:	83 f8 48             	cmp    $0x48,%eax
 8000003c:	0f 87 6f 02 00 00    	ja     800002b1 <printf+0x2b1>
-80000042:	8b 04 85 10 06 00 80 	mov    -0x7ffff9f0(,%eax,4),%eax
+80000042:	8b 04 85 4c 06 00 80 	mov    -0x7ffff9b4(,%eax,4),%eax
 80000049:	ff e0                	jmp    *%eax
 8000004b:	83 45 f4 04          	addl   $0x4,-0xc(%ebp)
 8000004f:	8b 45 f4             	mov    -0xc(%ebp),%eax
@@ -230,7 +230,7 @@ Disassembly of section .text:
 800002a9:	88 45 f3             	mov    %al,-0xd(%ebp)
 800002ac:	e9 73 fd ff ff       	jmp    80000024 <printf+0x24>
 800002b1:	83 ec 0c             	sub    $0xc,%esp
-800002b4:	68 f0 05 00 80       	push   $0x800005f0
+800002b4:	68 2c 06 00 80       	push   $0x8000062c
 800002b9:	e8 cc 00 00 00       	call   8000038a <user_print_string>
 800002be:	83 c4 10             	add    $0x10,%esp
 800002c1:	90                   	nop
@@ -627,15 +627,34 @@ Disassembly of section .text:
 800005cc:	ff 71 fc             	pushl  -0x4(%ecx)
 800005cf:	55                   	push   %ebp
 800005d0:	89 e5                	mov    %esp,%ebp
-800005d2:	51                   	push   %ecx
-800005d3:	83 ec 04             	sub    $0x4,%esp
-800005d6:	83 ec 0c             	sub    $0xc,%esp
-800005d9:	68 34 07 00 80       	push   $0x80000734
-800005de:	e8 1d fa ff ff       	call   80000000 <printf>
-800005e3:	83 c4 10             	add    $0x10,%esp
-800005e6:	eb fe                	jmp    800005e6 <main+0x21>
+800005d2:	53                   	push   %ebx
+800005d3:	51                   	push   %ecx
+800005d4:	83 ec 10             	sub    $0x10,%esp
+800005d7:	89 cb                	mov    %ecx,%ebx
+800005d9:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+800005e0:	eb 29                	jmp    8000060b <main+0x46>
+800005e2:	8b 45 f4             	mov    -0xc(%ebp),%eax
+800005e5:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+800005ec:	8b 43 04             	mov    0x4(%ebx),%eax
+800005ef:	01 d0                	add    %edx,%eax
+800005f1:	8b 00                	mov    (%eax),%eax
+800005f3:	83 ec 04             	sub    $0x4,%esp
+800005f6:	50                   	push   %eax
+800005f7:	ff 75 f4             	pushl  -0xc(%ebp)
+800005fa:	68 70 07 00 80       	push   $0x80000770
+800005ff:	e8 fc f9 ff ff       	call   80000000 <printf>
+80000604:	83 c4 10             	add    $0x10,%esp
+80000607:	83 45 f4 01          	addl   $0x1,-0xc(%ebp)
+8000060b:	8b 45 f4             	mov    -0xc(%ebp),%eax
+8000060e:	3b 03                	cmp    (%ebx),%eax
+80000610:	7c d0                	jl     800005e2 <main+0x1d>
+80000612:	83 ec 0c             	sub    $0xc,%esp
+80000615:	68 80 07 00 80       	push   $0x80000780
+8000061a:	e8 e1 f9 ff ff       	call   80000000 <printf>
+8000061f:	83 c4 10             	add    $0x10,%esp
+80000622:	eb fe                	jmp    80000622 <main+0x5d>
 
-800005e8 <_start>:
-800005e8:	53                   	push   %ebx
-800005e9:	51                   	push   %ecx
-800005ea:	e8 d6 ff ff ff       	call   800005c5 <main>
+80000624 <_start>:
+80000624:	53                   	push   %ebx
+80000625:	51                   	push   %ecx
+80000626:	e8 9a ff ff ff       	call   800005c5 <main>

@@ -59,15 +59,15 @@ void main(void)
 
     fs_init();
     kernel_task_init(kernel_main);
-    write2fs(); //放在进程初始化后，需要安装到当前进程的fd表，写入到文件系统即可，故仅需执行一次
-    clear();
+    //write2fs(); //放在进程初始化后，需要安装到当前进程的fd表，写入到文件系统即可，故仅需执行一次
+    
     //必须放在task_init后，不然访问current会出现缺页
     timer_init(TIME_FREQUENCY); //100HZ
     
     sema_init(&user_sema,0);
     
     intr_enable();
-    
+    clear();
     user_task_init(user_main);
     
     //test_schedule();
@@ -81,7 +81,7 @@ void main(void)
 /* 将test_exec和test_cat测试程序（占20个扇区）从500扇区处写入到文件系统中 */
 static void write2fs(){
     //写入test_exec
-    unsigned int file_size=13852; //通过本机OS 的ls -l命令获得
+    unsigned int file_size=14136; //通过本机OS 的ls -l命令获得
     unsigned int sec_cnt=(file_size+512-1)/512;    //扇区数
     unsigned int prog=vmm_malloc(file_size,1);
     ide_read((void *)prog,500,sec_cnt);
@@ -94,7 +94,7 @@ static void write2fs(){
     }
     vmm_free(prog,file_size);
     //写入test_cat
-    file_size=17628; //通过本机OS 的ls -l命令获得
+    file_size=17748; //通过本机OS 的ls -l命令获得
     sec_cnt=(file_size+512-1)/512;    //扇区数
     prog=vmm_malloc(file_size,1);
     ide_read((void *)prog,530,sec_cnt);
@@ -106,7 +106,7 @@ static void write2fs(){
       }
     }
     //写入test_pipe
-        file_size=14536; //通过本机OS 的ls -l命令获得
+    file_size=14536; //通过本机OS 的ls -l命令获得
     sec_cnt=(file_size+512-1)/512;    //扇区数
     prog=vmm_malloc(file_size,1);
     ide_read((void *)prog,570,sec_cnt);

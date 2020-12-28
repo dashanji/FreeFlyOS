@@ -591,8 +591,8 @@ void set_user_cr3(struct task_struct *task){
    // printk("new_pdt[0]:%08x",new_pdt[0]);
     unsigned int *pdt=(unsigned int *)cr3_addr;
     //printk("idx(PA_LA(DMA_START)):%08x",idx(PA_LA(DMA_START)));
-    printk("new_pdt[0x300]:%08x",new_pdt[0x300]);
-    printk("pdt[0x300]:%08x",pdt[0x300]);
+    //printk("new_pdt[0x300]:%08x",new_pdt[0x300]);
+    //printk("pdt[0x300]:%08x",pdt[0x300]);
    /* unsigned int pt_len=(unsigned int)HIGHMEM_START/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
 
@@ -611,7 +611,7 @@ void set_user_cr3(struct task_struct *task){
     unsigned int *zh1=PA_LA((cr3_ph_addr[(unsigned int)((cr3_addr>>22)&0x3FF)]&VMM_PAGE_MASK));
     unsigned int phaddr=zh1[((cr3_addr&0x003FF000)>>12)]&VMM_PAGE_MASK;
     //unsigned int ph_addr=(unsigned int)(*cr3_ph_addr[((cr3_addr>>22)&0x3FF)/4]&VMM_PAGE_MASK)[((cr3_addr&0x003FF000)>>12)/4]&VMM_PAGE_MASK;
-    printk("phaddr:%08ux\n",phaddr);
+    //printk("phaddr:%08ux\n",phaddr);
    // pt[0x1001]|=VMM_PAGE_USER;
    // pt[0x1002]|=VMM_PAGE_USER;
     task->cr3=phaddr;

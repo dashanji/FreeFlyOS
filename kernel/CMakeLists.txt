@@ -56,8 +56,8 @@ add_custom_command(OUTPUT ${IMG}
         echo "Generating FreeFlyOS.img..."
     #COMMAND
     #    dd if=/dev/zero of=${IMG} count=10000	  
-    COMMAND
-        cp /Users/caoy/Downloads/FreeFlyOS.img ../../FreeFlyOS.img
+    #COMMAND
+    #    cp /Users/caoy/Downloads/FreeFlyOS.img ../../FreeFlyOS.img
     COMMAND    
         dd if=../boot/bootblock of=../../FreeFlyOS.img bs=446 count=1 conv=notrunc
     COMMAND

@@ -268,3 +268,13 @@ int buildin_rm(int argc, char** argv) {
    }
    return ret;
 }
+void buildin_help(int argc, char** argv){
+      printf("buildin commands:\n\
+       ls: show directory or file information\n\
+       cd: change current work directory\n\
+       mkdir: create a directory\n\
+       rmdir: remove a empty directory\n\
+       rm: remove a regular file\n\
+       pwd: show current work directory\n\
+       ps: show process information\n");
+}

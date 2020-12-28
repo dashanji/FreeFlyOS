@@ -143,6 +143,8 @@ void my_shell(void) {
 	 buildin_rmdir(argc, argv);
       } else if (!user_strcmp("rm", argv[0])) {
 	 buildin_rm(argc, argv);
+      } else if (!user_strcmp("help", argv[0])) {
+    buildin_help(argc,argv);
       } else {
          int pid = fork();
             if (pid) {	   // 父进程pid>0

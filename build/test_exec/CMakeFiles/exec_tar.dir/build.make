@@ -80,7 +80,6 @@ test_exec/exec:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating exec"
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && x86_64-elf-ld -T ../../test_exec/test.ld -m elf_i386 -e _start ../../build/kernel/user/CMakeFiles/user.dir/stdio.c.o ../../build/kernel/user/CMakeFiles/user.dir/user_syscall.c.o ../../build/test_exec/CMakeFiles/test_exec.dir/test.c.o ../../build/test_exec/CMakeFiles/test_exec.dir/start.S.o -o test_exec
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && x86_64-elf-objdump -d test_exec > ../../disassembly/test_exec_disass.md
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && dd if=../test_exec/test_exec of=../../FreeFlyOS.img bs=512 count=30 seek=500 conv=notrunc
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_exec && echo exec\ down!
 
 exec_tar: test_exec/CMakeFiles/exec_tar

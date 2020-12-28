@@ -12,6 +12,7 @@
         "*.tcc": "c",
         "algorithm": "c",
         "string_view": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "random": "c"
     }
 }

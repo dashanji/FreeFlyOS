@@ -20,8 +20,8 @@ add_custom_command(OUTPUT ${test_name}
         ../../build/test_cat/CMakeFiles/test_cat.dir/start.S.o -o test_cat
     COMMAND
         x86_64-elf-objdump -d test_cat > ../../disassembly/test_cat_disass.md
-    COMMAND
-        dd if=../test_cat/test_cat of=../../FreeFlyOS.img bs=512 count=40 seek=530 conv=notrunc
+    #COMMAND
+    #    dd if=../test_cat/test_cat of=../../FreeFlyOS.img bs=512 count=40 seek=530 conv=notrunc
     COMMAND
         echo "cat down!"
 )
