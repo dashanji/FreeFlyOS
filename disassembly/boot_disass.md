@@ -149,22 +149,20 @@ Disassembly of section .text:
     7d49:	e8 4c ff ff ff       	call   7c9a <readseg>
     7d4e:	a1 1c 00 01 00       	mov    0x1001c,%eax
     7d53:	0f b7 35 2c 00 01 00 	movzwl 0x1002c,%esi
-    7d5a:	c7 05 00 00 00 80 ff 	movl   $0xffffffff,0x80000000
-    7d61:	ff ff ff 
-    7d64:	8d 98 00 00 01 00    	lea    0x10000(%eax),%ebx
-    7d6a:	c1 e6 05             	shl    $0x5,%esi
-    7d6d:	01 de                	add    %ebx,%esi
-    7d6f:	39 f3                	cmp    %esi,%ebx
-    7d71:	73 22                	jae    7d95 <bootmain+0x61>
-    7d73:	8b 43 08             	mov    0x8(%ebx),%eax
-    7d76:	8b 4b 04             	mov    0x4(%ebx),%ecx
-    7d79:	8b 53 14             	mov    0x14(%ebx),%edx
-    7d7c:	3d 01 00 00 c0       	cmp    $0xc0000001,%eax
-    7d81:	19 ff                	sbb    %edi,%edi
-    7d83:	83 c3 20             	add    $0x20,%ebx
-    7d86:	81 cf ff ff ff 0f    	or     $0xfffffff,%edi
-    7d8c:	21 f8                	and    %edi,%eax
-    7d8e:	e8 07 ff ff ff       	call   7c9a <readseg>
-    7d93:	eb da                	jmp    7d6f <bootmain+0x3b>
-    7d95:	ff 15 18 00 01 00    	call   *0x10018
-    7d9b:	eb fe                	jmp    7d9b <bootmain+0x67>
+    7d5a:	8d 98 00 00 01 00    	lea    0x10000(%eax),%ebx
+    7d60:	c1 e6 05             	shl    $0x5,%esi
+    7d63:	01 de                	add    %ebx,%esi
+    7d65:	39 f3                	cmp    %esi,%ebx
+    7d67:	73 22                	jae    7d8b <bootmain+0x57>
+    7d69:	8b 43 08             	mov    0x8(%ebx),%eax
+    7d6c:	8b 4b 04             	mov    0x4(%ebx),%ecx
+    7d6f:	8b 53 14             	mov    0x14(%ebx),%edx
+    7d72:	3d 01 00 00 c0       	cmp    $0xc0000001,%eax
+    7d77:	19 ff                	sbb    %edi,%edi
+    7d79:	83 c3 20             	add    $0x20,%ebx
+    7d7c:	81 cf ff ff ff 0f    	or     $0xfffffff,%edi
+    7d82:	21 f8                	and    %edi,%eax
+    7d84:	e8 11 ff ff ff       	call   7c9a <readseg>
+    7d89:	eb da                	jmp    7d65 <bootmain+0x31>
+    7d8b:	ff 15 18 00 01 00    	call   *0x10018
+    7d91:	eb fe                	jmp    7d91 <bootmain+0x5d>

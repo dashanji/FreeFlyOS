@@ -109,7 +109,7 @@ void kernel_task_init(void *function){
     task0->tf->tf_cs=KERNEL_CS;
     task0->tf->tf_ds=task0->tf->tf_es=task0->tf->tf_fs=task0->tf->tf_ss=KERNEL_DS;
     task0->tf->tf_gs=0;
-    task0->tf->tf_eip=forkret;//function; //user_space1
+    task0->tf->tf_eip=0;//function; //user_space1
     task0->tf->tf_eflags=(EFLGAS_IOPL_0|EFLAGS_MBS|EFLAGS_IF_1);
 
     task0->tf->tf_esp=task0->kernel_stack-sizeof(struct trapframe);

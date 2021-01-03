@@ -70,47 +70,4 @@
  * */
 
 
-
-/* *
- * Virtual memory map:                                          Permissions
- *                                                              kernel/user
- *
- *     4G ------------------> +---------------------------------+
- *                            |                                 |
- *                            |         Empty Memory (*)        |
- *                            |                                 |
- *                            +---------------------------------+ 0xFB000000
- *                            |   Cur. Page Table (Kern, RW)    | RW/-- PTSIZE
- *     VPT -----------------> +---------------------------------+ 0xFAC00000
- *                            |        Invalid Memory (*)       | --/--
- *     KERNTOP -------------> +---------------------------------+ 0xF8000000
- *                            |                                 |
- *                            |    Remapped Physical Memory     | RW/-- KMEMSIZE
- *                            |                                 |
- *     KERNBASE ------------> +---------------------------------+ 0xC0000000
- *                            |        Invalid Memory (*)       | --/--
- *     USERTOP -------------> +---------------------------------+ 0xB0000000
- *                            |           User stack            |
- *                            +---------------------------------+
- *                            |                                 |
- *                            :                                 :
- *                            |         ~~~~~~~~~~~~~~~~        |
- *                            :                                 :
- *                            |                                 |
- *                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *                            |       User Program & Heap       |
- *     UTEXT ---------------> +---------------------------------+ 0x00800000
- *                            |        Invalid Memory (*)       | --/--
- *                            |  - - - - - - - - - - - - - - -  |
- *                            |    User STAB Data (optional)    |
- *     USERBASE, USTAB------> +---------------------------------+ 0x00200000
- *                            |        Invalid Memory (*)       | --/--
- *     0 -------------------> +---------------------------------+ 0x00000000
- * (*) Note: The kernel ensures that "Invalid Memory" is *never* mapped.
- *     "Empty Memory" is normally unmapped, but user programs may map pages
- *     there if desired.
- *
- * */
-
-
 #endif

@@ -16,7 +16,7 @@ void init()
     //内核栈 起始页在页目录表中的第几项
     unsigned int stack_pdt_idx=((KERNEL_STACK_START-KERNEL_STACK_SIZE)&page_mask)/(vmm_page_size*page_table_size);
     //user 
-    unsigned int user_pdt_idx=((unsigned int)0x800000&page_mask)/(vmm_page_size*page_table_size);
+    //unsigned int user_pdt_idx=((unsigned int)0x800000&page_mask)/(vmm_page_size*page_table_size);
 
     //在页目录表项中设置对应的页表地址
     //init部分对应的页目录表项
@@ -30,7 +30,7 @@ void init()
     //内核栈部分对应的页目录表项
     pdt[stack_pdt_idx]=(unsigned int)stack_pt|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     //user部分对应的页目录项
-    pdt[user_pdt_idx]=(unsigned int)user_pt|vmm_page_present|vmm_page_rw|vmm_page_kernel;
+    //pdt[user_pdt_idx]=(unsigned int)user_pt|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     /*目前需要映射页表的只有三个部分，分别是init部分（一个页表）、内核部分（两个页表）、内核栈（两页）*/
     
     //因为在init中开启分页后，代码仍然是停留在init部分，所以需要将其虚拟地址映射到物理地址，显然这部分不会超过4MB
@@ -60,10 +60,10 @@ void init()
     for(unsigned int i=stack_pt_idx,j=0x37FFE000;i<stack_pt_idx+2;i++,j+=vmm_page_size){
         stack_pt[i]=j|vmm_page_present|vmm_page_rw|vmm_page_kernel;
     }
-    unsigned int user_pt_idx=(((unsigned int)0x800000&page_mask)/vmm_page_size)&0x3ff;
+    /*unsigned int user_pt_idx=(((unsigned int)0x800000&page_mask)/vmm_page_size)&0x3ff;
     for(unsigned int i=user_pt_idx,j=(unsigned int)0x800000;i<stack_pt_idx+1;i++,j+=vmm_page_size){
         user_pt[i]=j|vmm_page_present|vmm_page_rw|vmm_page_kernel;
-    }
+    }*/
     //0x37FFE000
     /*  开启分页    */
 	__asm__ volatile ("mov %0, %%cr3" : : "r" (pdt) );       
@@ -78,7 +78,7 @@ void init()
 	__asm__ volatile ("xor %%ebp, %%ebp" : :);
 //__asm__ volatile ("mov %0, %%ebp" : : "r" ((unsigned int)KERNEL_STACK_START-(unsigned int)KERNEL_STACK_SIZE));
     //判断内核是否映射完全，关键是BSS段
-    ASSERT((unsigned int)(&kernel_end)>(unsigned int)0x01B00000);
+    //ASSERT((unsigned int)(&kernel_end)>(unsigned int)0x01B00000);
     //调用内核入口
     main();
     

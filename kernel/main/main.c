@@ -43,8 +43,6 @@ void main(void)
     pic_init();
     idt_init();
     
-    
-
     enable_interupt();
     
     serial_init();
@@ -136,6 +134,9 @@ void kernel_main(){
     }
 }
 void test_pmm(){
+    //unsigned int *test=(unsigned int *)((unsigned int)0x000FFD00+(unsigned int)0xC0000000);
+    //*test=0xFFFFFFFF;
+    //printk("\ntest :%08x\n",*test);
     //在NORMAL区域申请200个字节
     unsigned int nor_addr=pmm_alloc(0x200,1);
     //在DMA区域申请2000个字节

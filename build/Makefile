@@ -170,19 +170,6 @@ bootsector/fast:
 .PHONY : bootsector/fast
 
 #=============================================================================
-# Target rules for targets named Test1
-
-# Build rule for target.
-Test1: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test1
-.PHONY : Test1
-
-# fast build rule for target.
-Test1/fast:
-	$(MAKE) $(MAKESILENT) -f kernel/CMakeFiles/Test1.dir/build.make kernel/CMakeFiles/Test1.dir/build
-.PHONY : Test1/fast
-
-#=============================================================================
 # Target rules for targets named kernel
 
 # Build rule for target.
@@ -502,7 +489,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Test1"
 	@echo "... cat_tar"
 	@echo "... exec_tar"
 	@echo "... test_pi"

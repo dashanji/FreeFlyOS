@@ -4,7 +4,9 @@
 #define NULL ((void *)0)
 static char buf[BUFSIZE];
 
-/* getchar - reads a single non-zero character from stdin */
+/* 
+** getchar - reads a single non-zero character from stdin 
+*/
 int
 getchar(void) {
     int c;

@@ -170,7 +170,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "boot/CMakeFiles/bootblock.o.dir/DependInfo.cmake"
   "boot/CMakeFiles/bootmain.dir/DependInfo.cmake"
   "boot/CMakeFiles/bootsector.dir/DependInfo.cmake"
-  "kernel/CMakeFiles/Test1.dir/DependInfo.cmake"
   "kernel/CMakeFiles/kernel.dir/DependInfo.cmake"
   "kernel/init/CMakeFiles/init.dir/DependInfo.cmake"
   "kernel/asm/CMakeFiles/asm.dir/DependInfo.cmake"

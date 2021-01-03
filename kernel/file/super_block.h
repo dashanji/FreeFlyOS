@@ -1,7 +1,9 @@
 #ifndef _SUPER_BLOCK_H_
 #define _SUPER_BLOCK_H_
 
-/* 超级块 */
+/* 
+** 超级块-super block
+*/
 struct super_block{
     unsigned int magic; //魔数，用来标识文件系统
     unsigned int sec_cnt; //本分区总共扇区数

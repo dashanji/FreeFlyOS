@@ -12,6 +12,7 @@ static inline void waitdisk(void) {
     while ((inb(0x1F7) & 0xC0) != 0x40)
         ;
 }
+
 /*
 *insl(port,addr,cnt):从port端口循环读cnt次双字到addr位置
 *
@@ -32,6 +33,10 @@ static inline void insl(unsigned int port, void *addr, int cnt) {
             : "d" (port), "0" (addr), "1" (cnt)
             : "memory", "cc");
 }
+
+/*
+**  outsl(port,addr,cnt):从port端口循环写cnt次双字到addr位置
+*/
 static inline void outsl(unsigned int port, void *addr, int cnt) {
     asm volatile (
             "cld;"
@@ -39,9 +44,10 @@ static inline void outsl(unsigned int port, void *addr, int cnt) {
             : "=S" (addr), "=c" (cnt)
             : "d" (port), "0" (addr), "1" (cnt)
             : "memory", "cc");
-    }
+}
+
 /*
-*   ide_read_sect(dst,secno):读取扇区号secno所在的扇区进入dst地址中
+**   ide_read_sect(dst,secno):读取扇区号secno所在的扇区进入dst地址中
 */
 static void ide_read_sect(void *dst, unsigned int secno) {
     
@@ -60,8 +66,9 @@ static void ide_read_sect(void *dst, unsigned int secno) {
     // 读取一个扇区
     insl(0x1F0, dst, SECTSIZE / 4);
 }
+
 /*
-*   ide_write_sect(src,secno):将src的数据写入到secno扇区中
+**   ide_write_sect(src,secno):将src的数据写入到secno扇区中
 */
 static void ide_write_sect(void *src, unsigned int secno) {
     
@@ -80,6 +87,7 @@ static void ide_write_sect(void *src, unsigned int secno) {
     // 读取一个扇区
     outsl(0x1F0, src, SECTSIZE / 4);
 } 
+
 /*
 **    ide_read(dst,secno,size):将secno开始的um个扇区读入dst起始的size大小的字节中
 */
@@ -90,6 +98,7 @@ void ide_read(void *dst,unsigned int secno,unsigned int num){
         dst+=SECTSIZE;
     }
 }
+
 /*
 **    ide_write(src,secno,size):将src起始的num个扇区写入secno开始的扇区中
 */
@@ -117,21 +126,7 @@ struct partition *read_main_partition(){
     //分区表位于引导扇区（0号扇区）的0x1BE - 0x1FD中
     //由于只有一个主分区，所以读取0x1BE开始的16个字节数据
     main_partition=(struct partition *)((unsigned char *)main_part+0x1BE);
-    
-    clear();
-    printk("active_flag:%08ux\n",main_partition->active_flag);
-    printk("start_magnetic:%08ux\n",main_partition->start_magnetic);
-    printk("start_sector:%08ux\n",main_partition->start_sector);
-    printk("start_cylinder:%08ux\n",main_partition->start_cylinder);
-    printk("file_type:%08ux\n",main_partition->file_type);
-    printk("end_magnetic:%08ux\n",main_partition->end_magnetic);
-    printk("end_sector:%08ux\n",main_partition->end_sector);
-    printk("end_cylinder:%08ux\n",main_partition->end_cylinder);
-    printk("start_offset:%08ux\n",main_partition->start_offset);
-    printk("sector_size:%08ux\n",main_partition->sector_size);
 
-   // printk("the last 2 bytes:%08ux,%08ux\n",*((unsigned char *)main_part+0x1FE)
-   // ,*((unsigned char *)main_part+0x1FF)); 
     return main_partition;
 
 }

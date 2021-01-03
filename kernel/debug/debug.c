@@ -22,6 +22,7 @@ void print_seg()
     printk("fs=%04x\n",fs);
     printk("ss=%04x\n",ss);
 }
+
 /* *
  * __panic - __panic is called on unresolvable fatal errors. it prints
  * "panic: 'message'", and then enters the kernel monitor.

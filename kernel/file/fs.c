@@ -20,7 +20,9 @@ extern struct dir *root_dir;             // 根目录
 extern struct file file_table[MAX_FILE_OPEN];
 extern char shell_input; //shell输入缓冲区
 extern struct semaphore user_sema;
-/* 格式化分区，创建文件系统 */
+/* 
+** 格式化分区，创建文件系统 
+*/
 static void partition_format(){
     //2048-9999扇区是主分区起始扇区和终止扇区
     struct partition *main_partition=read_main_partition();

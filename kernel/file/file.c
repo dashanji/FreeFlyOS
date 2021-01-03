@@ -110,7 +110,7 @@ void bitmap_sync(struct partition *part,unsigned int bit_idx,unsigned char btmp)
 /* 创建文件,若成功则返回文件描述符,否则返回-1 */
 int file_create(struct dir* parent_dir, char* filename, unsigned char flag) {
    /* 后续操作的公共缓冲区 */
-   void* io_buf = vmm_malloc(1024,2);
+   void* io_buf = vmm_malloc(VMM_PAGE_SIZE,2);
    if (io_buf == NULL) {
       printk("in file_creat: sys_malloc for io_buf failed\n");
       return -1;

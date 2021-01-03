@@ -137,7 +137,6 @@ void bootmain(void) {
     // read the 1st page off disk
     readseg((unsigned int )ELFHDR, SECTSIZE * 2, 0);
 
-    *(unsigned int *)0x80000000=0xFFFFFFFF;
     struct proghdr *ph, *eph;
 
     // load each program segment (ignores ph flags)

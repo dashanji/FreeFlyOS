@@ -8,7 +8,7 @@ set(CMAKE_CXX_COMPILER_WORKS TRUE)
 #项目信息
 project(FreeFlyOS C ASM)
 
-set(CMAKE_C_FLAGS "-Iinclude/ -Os -nostdlib -fno-builtin  -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector")
+set(CMAKE_C_FLAGS "-Os -nostdlib -fno-builtin -Wall -ggdb -m32 -gstabs -nostdinc  -fno-stack-protector")
 set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS}")
 
 

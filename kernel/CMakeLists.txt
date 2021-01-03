@@ -42,10 +42,12 @@ target_link_options(${PROJECT_NAME} PRIVATE -T ${FreeFlyOS_SOURCE_DIR}/kernel/ke
 target_link_options(${PROJECT_NAME} PRIVATE -Wl,-melf_i386)
 #target_link_options(${PROJECT_NAME} PRIVATE -Wl,--format=binary  $<TARGET_OBJECTS:timer>)
 
-set(IMG "FreeFlyOS.img")
-add_custom_command(OUTPUT ${IMG}
-    DEPENDS
-        ${PROJECT_NAME}
+#set(IMG "FreeFlyOS.img")
+#add_custom_command(OUTPUT ${IMG}
+    #DEPENDS
+    #    ${PROJECT_NAME}
+add_custom_command(TARGET ${PROJECT_NAME}
+    POST_BUILD
     COMMAND
         x86_64-elf-objdump -d ../../build/boot/bootblock.o > ../../disassembly/boot_disass.md
     COMMAND
@@ -63,7 +65,7 @@ add_custom_command(OUTPUT ${IMG}
     COMMAND
         dd if=kernel of=../../FreeFlyOS.img seek=1 conv=notrunc	        
 )
-add_custom_target(Test1 ALL DEPENDS ${IMG})
+#add_custom_target(Test1 ALL DEPENDS ${IMG})
 
 
 

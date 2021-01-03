@@ -32,14 +32,21 @@ struct segdesc gdt[] = {
  * */
 static struct gatedesc idt[256] = {{0}};
 
-//set gdt's info
+/* *
+ * set gdt's info
+ * */
 static struct dtdesc gdtinfo={
     sizeof(gdt)-1,(unsigned int)gdt
 };
-//set tss
+
+/* *
+ * set tss
+ * */
 static struct taskstate ts = {0};
 
-//set idt's info
+/* *
+ * set idt's info
+ * */
 static struct dtdesc idtinfo = {
     sizeof(idt) - 1, (unsigned int)idt
 };
@@ -59,11 +66,16 @@ static inline void lgdt(struct dtdesc *dt){
     asm volatile ("ljmp %0, $1f\n 1:\n" :: "i" (KERNEL_CS));
 }
 
+/* *
+ * 加载任务寄存器
+ * */
 void ltr(unsigned short sel) {
     asm volatile ("ltr %0" :: "r" (sel) : "memory");
 }
 
-/* 加载全局描述符表 */
+/* *
+ * 加载全局描述符表 
+ * */
 void gdt_init(){
     // set boot kernel stack and default SS0
     ts.ts_esp0=(unsigned int)KERNEL_STACK_START;
@@ -79,7 +91,9 @@ void gdt_init(){
     ltr(GD_TSS);
 }
 
-/* 加载中断描述符表 */
+/* *
+ * 加载中断描述符表 
+ * */
 static inline void lidt(struct dtdesc *dt) {
     asm volatile ("lidt (%0)" :: "r" (dt) : "memory");
 }
@@ -102,6 +116,9 @@ void idt_init(){
     lidt(&idtinfo);
 }
 
+/* *
+ * 设置TSS的内核栈(ring0权限)
+ * */
 void set_ts_esp0(unsigned int esp){
     ts.ts_esp0=esp;
 }

@@ -131,21 +131,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-kernel/CMakeFiles/Test1.dir/rule:
-	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/CMakeFiles/Test1.dir/rule
-.PHONY : kernel/CMakeFiles/Test1.dir/rule
-
-# Convenience name for target.
-Test1: kernel/CMakeFiles/Test1.dir/rule
-
-.PHONY : Test1
-
-# fast build rule for target.
-Test1/fast:
-	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f kernel/CMakeFiles/Test1.dir/build.make kernel/CMakeFiles/Test1.dir/build
-.PHONY : Test1/fast
-
-# Convenience name for target.
 kernel/CMakeFiles/kernel.dir/rule:
 	cd /Users/caoy/Desktop/FreeFlyOS/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kernel/CMakeFiles/kernel.dir/rule
 .PHONY : kernel/CMakeFiles/kernel.dir/rule
@@ -168,7 +153,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Test1"
 	@echo "... kernel"
 .PHONY : help
 

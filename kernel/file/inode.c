@@ -70,8 +70,7 @@ void inode_sync(struct partition *part,struct inode *inode,void *io_buf){
 }
 /* 根据i节点号返回相应的i节点 */
 struct inode* inode_open(struct partition *part,unsigned int inode_no){
-    /* 先在已打开的inode链表中找inode，此链表是为提速创建的缓冲区 */
-    //list_entry_t *elem=part
+
     /* 从硬盘中读入此inode */
     struct inode_position inode_pos;
     /* 将inode位置信息存入inode_pos */

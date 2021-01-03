@@ -2,7 +2,8 @@
 #define _ASM_H_ 
 
 /*
-* 除操作。n 被除数；base 除数。结果 n 为商，函数返回值为余数。
+** 32位机下只能使用被除数最大为32位的除法，为了支持64位被除数的除法，构建do_div宏
+** 支持任意除数除操作。n 被除数；base 除数。结果 n 为商，函数返回值为余数。
 */
 #define do_div(n, base) ({                                          \
             unsigned long __upper, __low, __high, __mod, __base;    \

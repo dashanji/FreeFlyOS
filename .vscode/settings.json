@@ -13,6 +13,9 @@
         "algorithm": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "random": "c"
+        "random": "c",
+        "string": "c",
+        "sync.h": "c",
+        "user_main.h": "c"
     }
 }

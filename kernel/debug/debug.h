@@ -12,6 +12,7 @@
 
 
 void print_seg();
-void __attribute__((noreturn)) __PANIC(const char *file, int line, const char *func, const char *condition);
+void __attribute__((noreturn)) 
+__PANIC(const char *file, int line, const char *func, const char *condition);
 
 #endif

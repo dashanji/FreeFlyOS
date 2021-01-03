@@ -10,13 +10,13 @@
 struct dir *root_dir;             // 根目录
 extern struct partition *cur_part;
 
-/* 打开根目录 */
+/*
+** 打开根目录 
+*/
 void 
 open_root_dir(struct partition* part) {
    root_dir=(struct dir *)vmm_malloc(sizeof(struct dir),2);
-   printk("root_inode_no:%08x\n",part->sb->root_inode_no);
    root_dir->inode = inode_open(part, part->sb->root_inode_no);
-   printk("root_dir.inode:%08x\n",root_dir->inode);
    root_dir->dir_pos = 0;
 }
 

@@ -4,14 +4,21 @@
 #include "../interrupt/trap.h"
 #include "../asm/asm.h"
 extern unsigned int shift;
-/* 初始化指令数组 */
+
+/* 
+** 初始化指令数组 
+*/
 struct instr instr_list[]={
     {"hello","The instruction is to welcome you!",instr_hello},
     {"help","You can use the following instructions!",instr_help},
     {"game","Play a simple game---Guess number!",instr_game}
 };
+
 #define instr_num (sizeof(instr_list)/sizeof(struct instr))
-/* 监视器：用于监控用户输入字符 */
+
+/* 
+** 监视器：用于监控用户输入字符 
+*/
 void monitor(){
     char *buf;
     shift=0;
@@ -21,8 +28,9 @@ void monitor(){
         }
     }
 }
-/* 解析器：用于解析用户输入字符 */
-/* 运行指令 */
+/* 
+** 解析器：用于解析用户输入字符 
+*/
 void run(char *buf){
     for(int i=0;i<instr_num;i++){
         if(!strcmp(buf,instr_list[i].name)){
@@ -31,10 +39,18 @@ void run(char *buf){
     }
     
 }
+
+/*
+** hello指令
+*/
 void instr_hello(){
     printk("%s\n",instr_list[0].desc);
     printk("Nice to meet you!I'm the writer of FreeFlyOS!\n");
 }
+
+/*
+** help指令
+*/
 void instr_help(){
     printk("%s\n",instr_list[1].desc);
     printk("Instruction ---- Describition\n");
@@ -42,6 +58,10 @@ void instr_help(){
         printk("%s --- %s\n",instr_list[i].name,instr_list[i].desc);
     }
 }
+
+/*
+** game指令
+*/
 void instr_game(){
     char *buf;
     int answer=28;

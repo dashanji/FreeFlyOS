@@ -68,15 +68,12 @@ struct task_struct{
     int priority; //优先级
     int pid,ppid;
     char name[task_name_max]; //进程名
-    //unsigned int start_code,end_code,end_data,brk,start_stack;
     unsigned int kernel_stack;    //内核栈
     unsigned int cr3;            //cr3基址
     unsigned int cr3_va;         //cr3虚拟地址（访问地址）
     struct task_struct *parent;  //父进程
     struct trapframe *tf;
-    //struct taskstate tss;
     struct context context;
-    //struct trapframe *tf;
     list_entry_t link;                //进程状态链表
     list_entry_t all_link;            //所有进程链表
     list_entry_t hash_link;           //哈希链表
