@@ -404,6 +404,58 @@ pipe/fast:
 .PHONY : pipe/fast
 
 #=============================================================================
+# Target rules for targets named apic
+
+# Build rule for target.
+apic: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 apic
+.PHONY : apic
+
+# fast build rule for target.
+apic/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/apic/CMakeFiles/apic.dir/build.make kernel/apic/CMakeFiles/apic.dir/build
+.PHONY : apic/fast
+
+#=============================================================================
+# Target rules for targets named mp
+
+# Build rule for target.
+mp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mp
+.PHONY : mp
+
+# fast build rule for target.
+mp/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/mp/CMakeFiles/mp.dir/build.make kernel/mp/CMakeFiles/mp.dir/build
+.PHONY : mp/fast
+
+#=============================================================================
+# Target rules for targets named ap
+
+# Build rule for target.
+ap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ap
+.PHONY : ap
+
+# fast build rule for target.
+ap/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/ap/CMakeFiles/ap.dir/build.make kernel/ap/CMakeFiles/ap.dir/build
+.PHONY : ap/fast
+
+#=============================================================================
+# Target rules for targets named internet
+
+# Build rule for target.
+internet: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 internet
+.PHONY : internet
+
+# fast build rule for target.
+internet/fast:
+	$(MAKE) $(MAKESILENT) -f kernel/internet/CMakeFiles/internet.dir/build.make kernel/internet/CMakeFiles/internet.dir/build
+.PHONY : internet/fast
+
+#=============================================================================
 # Target rules for targets named exec_tar
 
 # Build rule for target.
@@ -481,6 +533,32 @@ test_pipe/fast:
 	$(MAKE) $(MAKESILENT) -f test_pipe/CMakeFiles/test_pipe.dir/build.make test_pipe/CMakeFiles/test_pipe.dir/build
 .PHONY : test_pipe/fast
 
+#=============================================================================
+# Target rules for targets named cpp_tar
+
+# Build rule for target.
+cpp_tar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cpp_tar
+.PHONY : cpp_tar
+
+# fast build rule for target.
+cpp_tar/fast:
+	$(MAKE) $(MAKESILENT) -f test_cpp/CMakeFiles/cpp_tar.dir/build.make test_cpp/CMakeFiles/cpp_tar.dir/build
+.PHONY : cpp_tar/fast
+
+#=============================================================================
+# Target rules for targets named test_cpp
+
+# Build rule for target.
+test_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_cpp
+.PHONY : test_cpp
+
+# fast build rule for target.
+test_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f test_cpp/CMakeFiles/test_cpp.dir/build.make test_cpp/CMakeFiles/test_cpp.dir/build
+.PHONY : test_cpp/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -490,8 +568,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... cat_tar"
+	@echo "... cpp_tar"
 	@echo "... exec_tar"
 	@echo "... test_pi"
+	@echo "... ap"
+	@echo "... apic"
 	@echo "... asm"
 	@echo "... bootblock.o"
 	@echo "... bootmain"
@@ -500,17 +581,20 @@ help:
 	@echo "... dt"
 	@echo "... file"
 	@echo "... init"
+	@echo "... internet"
 	@echo "... interrupt"
 	@echo "... kernel"
 	@echo "... keyboard"
 	@echo "... main"
 	@echo "... mem"
+	@echo "... mp"
 	@echo "... pic"
 	@echo "... pipe"
 	@echo "... serial"
 	@echo "... sync"
 	@echo "... task"
 	@echo "... test_cat"
+	@echo "... test_cpp"
 	@echo "... test_exec"
 	@echo "... test_pipe"
 	@echo "... timer"

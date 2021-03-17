@@ -53,9 +53,6 @@ CMAKE_BUILD_TYPE:STRING=
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
-//CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=/usr/local/bin/x86_64-elf-c++
-
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
 CMAKE_CXX_COMPILER_AR:FILEPATH=/usr/local/bin/x86_64-elf-gcc-ar
@@ -256,6 +253,18 @@ FreeFlyOS_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS
 X86_64:FILEPATH=/usr/local/bin/x86_64-elf-gcc
 
 //Value Computed by CMake
+ap_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/ap
+
+//Value Computed by CMake
+ap_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/ap
+
+//Value Computed by CMake
+apic_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/apic
+
+//Value Computed by CMake
+apic_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/apic
+
+//Value Computed by CMake
 asm_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/asm
 
 //Value Computed by CMake
@@ -292,6 +301,12 @@ init_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/init
 init_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/init
 
 //Value Computed by CMake
+internet_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/internet
+
+//Value Computed by CMake
+internet_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/internet
+
+//Value Computed by CMake
 interrupt_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/interrupt
 
 //Value Computed by CMake
@@ -320,6 +335,12 @@ mem_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/mem
 
 //Value Computed by CMake
 mem_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/mem
+
+//Value Computed by CMake
+mp_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/mp
+
+//Value Computed by CMake
+mp_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/kernel/mp
 
 //Value Computed by CMake
 pic_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/kernel/pic
@@ -356,6 +377,12 @@ test_cat_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/test_cat
 
 //Value Computed by CMake
 test_cat_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/test_cat
+
+//Value Computed by CMake
+test_cpp_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/test_cpp
+
+//Value Computed by CMake
+test_cpp_SOURCE_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/test_cpp
 
 //Value Computed by CMake
 test_exec_BINARY_DIR:STATIC=/Users/caoy/Desktop/FreeFlyOS/build/test_exec
@@ -429,8 +456,6 @@ CMAKE_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.17.3/bin/cmake
 CMAKE_CPACK_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.17.3/bin/cpack
 //Path to ctest program executable.
 CMAKE_CTEST_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.17.3/bin/ctest
-//ADVANCED property for variable: CMAKE_CXX_COMPILER
-CMAKE_CXX_COMPILER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_COMPILER_AR
 CMAKE_CXX_COMPILER_AR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_COMPILER_RANLIB
@@ -509,7 +534,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=23
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=28
 //ADVANCED property for variable: CMAKE_OBJDUMP
 CMAKE_OBJDUMP-ADVANCED:INTERNAL=1
 //Platform information initialized

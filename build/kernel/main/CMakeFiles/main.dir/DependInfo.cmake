@@ -23,6 +23,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/task"
   "../kernel/file"
   "../kernel/user"
+  "../kernel/apic"
+  "../kernel/ap"
   )
 
 # Targets to which this target links.

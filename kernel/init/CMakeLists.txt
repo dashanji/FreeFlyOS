@@ -7,4 +7,5 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/mem
     ${FreeFlyOS_SOURCE_DIR}/kernel/main
     ${FreeFlyOS_SOURCE_DIR}/kernel/debug
+    ${FreeFlyOS_SOURCE_DIR}/kernel/mp
 )

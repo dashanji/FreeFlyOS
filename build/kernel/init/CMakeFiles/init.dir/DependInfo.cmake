@@ -14,6 +14,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../kernel/mem"
   "../kernel/main"
   "../kernel/debug"
+  "../kernel/mp"
   )
 
 # Targets to which this target links.

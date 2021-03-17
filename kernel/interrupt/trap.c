@@ -7,8 +7,11 @@
 #include "../task/task.h"
 #include "../sync/sync.h"
 #include "../serial/serial.h"
+#include "../apic/apic.h"
+#include "../internet/rtl8139.h"
+#include "../internet/pci.h"
 extern struct semaphore user_sema;
-
+extern rtl8139 rtl;
 extern unsigned int volatile jiffies; //记录当前系统开机的时钟节拍数
 extern unsigned int volatile second; //记录秒数
 //int test_test=0;
@@ -64,6 +67,11 @@ void print_trapframe(struct trapframe *tf) {
 static void trap_dispatch(struct trapframe *tf) 
 {
     char c;
+    if(tf->tf_trapno==IRQ_OFFSET+rtl.irq){
+        do_rtl8139_irq(&rtl);
+        eoi();
+        return ;
+    }
     switch (tf->tf_trapno) {
         case IRQ_TEST:
             printk("test user trap\n");
@@ -87,6 +95,7 @@ static void trap_dispatch(struct trapframe *tf)
                 //printk("Start Schedule\n",current->counter);
                 schedule();
             }
+            //printk("jiffies:%d",jiffies);
             break;
         case IRQ_OFFSET + IRQ_COM1:
              c = cons_getc();
@@ -127,6 +136,11 @@ static void trap_dispatch(struct trapframe *tf)
                  读取状态寄存器使硬盘控制器认为此次的中断已被处理,从而硬盘可以继续执行新的读写 
                 inb(reg_status(channel));
             }  */
+            break;
+        case VEC_LOCAL_TIMER:
+            //do_timer_irq();
+            //printk("haha\n");
+            eoi();
             break;
         default:
             // in kernel, it must be a mistake
@@ -191,7 +205,7 @@ enum intr_status intr_save(){
 }
 /*
 **      临界区访问,保存中断状态后
-**           <关闭中断>
+**           <访问之前中断状态>
 */
 void intr_restore(enum intr_status status){
     if(status==INTR_ON)

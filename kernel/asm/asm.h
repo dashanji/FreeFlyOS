@@ -24,10 +24,14 @@
 unsigned char inb(unsigned short port);
 //read a word from port
 unsigned short inw(unsigned short port);
+//read two word from port
+unsigned int inl(unsigned short port);
 //write a byte to port
 void outb(unsigned short port,unsigned char data);
 //write a word to port
 void outw(unsigned short port, unsigned short data);
+//write two word to port
+void outl(unsigned short port, unsigned int data);
 void *memset(void *s, char c, unsigned int n); 
 void *memcpy(void *dst, const void *src, unsigned int n);
 unsigned int strlen(const char *s);
@@ -38,4 +42,5 @@ char* strcpy(char* dst_, const char* src_);
 void CPU_INVLPG(unsigned int addr);
 void lcr3(unsigned int cr3);
 int memcmp(const void* a_, const void* b_, unsigned int size) ;
+void nop(void);
 #endif

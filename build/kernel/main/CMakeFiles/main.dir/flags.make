@@ -6,5 +6,5 @@ C_FLAGS = -nostdlib -g -m32 -isysroot /Library/Developer/CommandLineTools/SDKs/M
 
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/debug -I/Users/caoy/Desktop/FreeFlyOS/kernel/dt -I/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt -I/Users/caoy/Desktop/FreeFlyOS/kernel/keyboard -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/pic -I/Users/caoy/Desktop/FreeFlyOS/kernel/serial -I/Users/caoy/Desktop/FreeFlyOS/kernel/timer -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/task -I/Users/caoy/Desktop/FreeFlyOS/kernel/file -I/Users/caoy/Desktop/FreeFlyOS/kernel/user 
+C_INCLUDES = -I/Users/caoy/Desktop/FreeFlyOS/kernel/asm -I/Users/caoy/Desktop/FreeFlyOS/kernel/debug -I/Users/caoy/Desktop/FreeFlyOS/kernel/dt -I/Users/caoy/Desktop/FreeFlyOS/kernel/interrupt -I/Users/caoy/Desktop/FreeFlyOS/kernel/keyboard -I/Users/caoy/Desktop/FreeFlyOS/kernel/mem -I/Users/caoy/Desktop/FreeFlyOS/kernel/pic -I/Users/caoy/Desktop/FreeFlyOS/kernel/serial -I/Users/caoy/Desktop/FreeFlyOS/kernel/timer -I/Users/caoy/Desktop/FreeFlyOS/kernel/vga -I/Users/caoy/Desktop/FreeFlyOS/kernel/task -I/Users/caoy/Desktop/FreeFlyOS/kernel/file -I/Users/caoy/Desktop/FreeFlyOS/kernel/user -I/Users/caoy/Desktop/FreeFlyOS/kernel/apic -I/Users/caoy/Desktop/FreeFlyOS/kernel/ap 
 

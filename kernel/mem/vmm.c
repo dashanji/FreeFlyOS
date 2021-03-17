@@ -8,6 +8,8 @@
 #include "../task/task.h"
 //新页目录表
 unsigned int new_pdt[PAGE_DIR_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
+//线性地址前4MB映射到物理地址前4MB，为了多核启动
+unsigned int pt_4MB[PAGE_TABLE_SIZE]__attribute__( (aligned(VMM_PAGE_SIZE) ) );
 //将DMA和NORMAL区域(0xC0000000-0xF8000000)线性映射到0x0-896MB处，刚好224个页表
 //由于在init部分已经设置栈顶为F8000000，此处已经将其映射到了内核的最后部分
 unsigned int pt_dma_nomal[(unsigned int)HIGHMEM_START/
@@ -24,6 +26,8 @@ unsigned int user_pt_highmem[(unsigned int)0xC0000000/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE)]
 [PAGE_TABLE_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 
+//Local APIC寄存器地址映射(0xFEE00000开始的一页)
+unsigned int local_apic[PAGE_TABLE_SIZE] __attribute__( (aligned(VMM_PAGE_SIZE) ) );
 //用户HIGHMEM区域申请页面对应的物理地址，用户新建页表时需要绑定新页表的实际物理地址
 //struct highmem_va_pa high_va_pa[];
 unsigned int highmem_start=0xF8000000;
@@ -39,11 +43,13 @@ void setup_vpt()
     //页表数量
     unsigned int pt_len=(unsigned int)HIGHMEM_START/
 ((unsigned int)PAGE_TABLE_SIZE*(unsigned int)VMM_PAGE_SIZE);
-
-     for(unsigned int i=0;i<pt_len;i++){
+    //线性地址前4MB映射物理地址前4MB
+    new_pdt[0]=LA_PA((unsigned int)pt_4MB)|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
+    for(unsigned int i=0;i<pt_len;i++){
             new_pdt[i+idx(PA_LA(DMA_START))]=LA_PA((unsigned int)pt_dma_nomal[i])|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
         }
-    
+    //映射apic区域的页表
+    new_pdt[idx(PA_LA((unsigned int)0x3EC00000))]=LA_PA((unsigned int)local_apic)|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
     for(unsigned int i=0,j=0,k=0,n=0;n<pt_len*(unsigned int)PAGE_TABLE_SIZE;i+=(unsigned int)VMM_PAGE_SIZE,n++){
         pt_dma_nomal[j][k++]=i|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
         if(k==PAGE_TABLE_SIZE){
@@ -51,6 +57,15 @@ void setup_vpt()
             k=0;
         }
         //printk("i:%08ux\nj:%08ux\nk:%08ux\n",i,j,k);
+    }
+    //将apic开始的0xFEC00000-0xFF000000映射到物理地址，即虚拟地址0xFEC00000-0xFF000000映射到物理地址0xFEB00000-0xFF000000
+    for(unsigned int i=0,j=0xFEC00000;i<PAGE_TABLE_SIZE;i++,j+=VMM_PAGE_SIZE){
+        local_apic[i]=j|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
+    }
+    //apstart32映射
+        //故将其虚拟地址0-4MB全部映射到物理内存0-4MB
+    for(unsigned int i=0;i<PAGE_TABLE_SIZE;i++){
+        pt_4MB[i]=(i<<12)|VMM_PAGE_PRESENT|VMM_PAGE_RW|VMM_PAGE_KERNEL;
     }
     //用户页表设置为0，防止后面清理用户页表时缺页（需要遍历）
     /*for(unsigned int i=0;i<(unsigned int)0xC0000000/

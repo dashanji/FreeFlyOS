@@ -81,7 +81,6 @@ test_pipe/pip:
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_pipe && x86_64-elf-ld -T ../../test_pipe/test.ld -m elf_i386 -e _start ../../build/kernel/user/CMakeFiles/user.dir/stdio.c.o ../../build/kernel/user/CMakeFiles/user.dir/user_syscall.c.o ../../build/test_pipe/CMakeFiles/test_pipe.dir/test.c.o ../../build/test_pipe/CMakeFiles/test_pipe.dir/start.S.o -o test_pipe
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_pipe && x86_64-elf-objdump -d test_pipe > ../../disassembly/test_pipe_disass.md
 	cd /Users/caoy/Desktop/FreeFlyOS/build/test_pipe && echo pipe\ down!
-	cd /Users/caoy/Desktop/FreeFlyOS/build/test_pipe && qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img
 
 test_pi: test_pipe/CMakeFiles/test_pi
 test_pi: test_pipe/pip

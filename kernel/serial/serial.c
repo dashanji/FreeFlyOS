@@ -4,7 +4,7 @@
 #include "../interrupt/trap.h"
 #include "../vga/vga.h"
 #include "../keyboard/keyboard.h"
-
+#include "../apic/apic.h"
 struct consle cons;
 
 static char serial_exists = 0;
@@ -45,6 +45,7 @@ void serial_init(void) {
     if (serial_exists) {
         printk("serial exist!\n");
         pic_enable(IRQ_COM1);
+        //enable_irq(IRQ_COM1,0);
     }
 }
 void lpt_putc_sub(int c) {

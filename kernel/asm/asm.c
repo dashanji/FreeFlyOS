@@ -19,6 +19,15 @@ inline unsigned short inw(unsigned short port) {
 }
 
 /*
+**   inl(port):从端口port读四个字节数据并返回
+*/
+inline unsigned int inl(unsigned short port) {
+    unsigned int data;
+    asm volatile ("inl %1, %0" : "=a" (data) : "d" (port));
+    return data;
+}
+
+/*
 **   outb(port，data):将一个字节数据data写入端口port中
 */
 inline void outb(unsigned short port, unsigned char data) {
@@ -30,6 +39,13 @@ inline void outb(unsigned short port, unsigned char data) {
 */
 inline void outw(unsigned short port, unsigned short data) {
     asm volatile ("outw %0, %1" :: "a" (data), "d" (port));
+}
+
+/*
+**   outl(port,data):将四个字节数据data写入端口port中
+*/
+inline void outl(unsigned short port, unsigned int data) {
+    asm volatile ("outl %0, %1" :: "a" (data), "d" (port));
 }
 
 /* *
@@ -213,4 +229,8 @@ int memcmp(const void* a_, const void* b_, unsigned int size) {
       b++;
    }
    return 0;
+}
+void nop(void)
+{
+    __asm__ __volatile__("rep; nop");
 }

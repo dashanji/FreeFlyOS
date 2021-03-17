@@ -2,6 +2,7 @@
 #include "../interrupt/trap.h"
 #include "../vga/vga.h"
 #include "../serial/serial.h"
+#include "../apic/apic.h"
 /***** Keyboard input code *****/
 
 #define NO              0
@@ -175,4 +176,5 @@ void kbd_init(void) {
     shift=0;
     kbd_intr();
     pic_enable(IRQ_KBD);
+    //enable_irq(IRQ_KBD,0);
 }

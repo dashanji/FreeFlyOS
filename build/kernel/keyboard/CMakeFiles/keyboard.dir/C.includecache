@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/apic/apic.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.c
@@ -17,6 +19,8 @@ keyboard.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 ../serial/serial.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/serial/serial.h
+../apic/apic.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/apic/apic.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
 

@@ -17,6 +17,24 @@ ENTRY(init)
 
 SECTIONS 
 {
+    . = 0x9000;
+    .apstart.text :   
+    {
+        ap/CMakeFiles/ap.dir/start_ap.S.o(.text)
+    }
+    .apstart.data :  
+    {
+        ap/CMakeFiles/ap.dir/start_ap.S.o(.data)
+        
+    }
+    .apstart.rodata :
+    {
+        ap/CMakeFiles/ap.dir/start_ap.S.o(.rodata)
+    }
+    .apstart.bss :
+    {
+        ap/CMakeFiles/ap.dir/start_ap.S.o(.bss)
+    }
     /* VMA 为顺序排列，LMA 按照 AT(addr) 排列 ,若未指定AT则LMA=VMA */
     /* 指定init部分从虚拟地址0x100000(1MB)处开始 */
     /* 物理地址也从0x100000(1MB)处开始 */
@@ -53,7 +71,6 @@ SECTIONS
     }
 
     PROVIDE(user_end = .);
-
     /* 指定内核从虚拟地址0xC0000000+0x01000000(16MB)处开始 */
     /* 物理地址从0x01000000(16MB)处开始，通过AT命令指定 */
     . = 0xC1000000;

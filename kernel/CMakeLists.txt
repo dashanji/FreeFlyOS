@@ -18,6 +18,10 @@ add_subdirectory(sync)
 add_subdirectory(file)
 add_subdirectory(user)
 add_subdirectory(pipe)
+add_subdirectory(apic)
+add_subdirectory(mp)
+add_subdirectory(ap)
+add_subdirectory(internet)
 add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:init>
         $<TARGET_OBJECTS:asm>
@@ -36,6 +40,10 @@ add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:file>
         $<TARGET_OBJECTS:user>
         $<TARGET_OBJECTS:pipe>
+        $<TARGET_OBJECTS:apic>
+        $<TARGET_OBJECTS:mp>
+        $<TARGET_OBJECTS:ap>
+        $<TARGET_OBJECTS:internet>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE -T ${FreeFlyOS_SOURCE_DIR}/kernel/kernel.ld)

@@ -26,6 +26,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/task/exec.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/task/task.h
 kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o: ../kernel/vga/vga.h
 
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/apic/apic.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/asm/asm.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/debug/debug.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/dt/dt.h
@@ -35,6 +36,8 @@ kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/file.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/fs.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/ide-dev.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/file/super_block.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/internet/pci.h
+kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/internet/rtl8139.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/interrupt/trap.c
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/interrupt/trap.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o: ../kernel/mem/memlayout.h

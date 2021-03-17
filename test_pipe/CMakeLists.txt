@@ -23,7 +23,5 @@ add_custom_command(OUTPUT ${test_name}
     #    dd if=../test_pipe/test_pipe of=../../FreeFlyOS.img bs=512 count=30 seek=570 conv=notrunc
     COMMAND
         echo "pipe down!"
-    COMMAND   
-        qemu-system-i386 -m 2048 -hda ../../FreeFlyOS.img	
 )
 add_custom_target(test_pi ALL DEPENDS ${test_name})

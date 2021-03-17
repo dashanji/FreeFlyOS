@@ -13,6 +13,8 @@ void init()
 {
     //内核 起始页在页目录表中的第几项
     unsigned int kernel_pdt_idx=(KERNEL_START&page_mask)/(vmm_page_size*page_table_size);
+    //APIC起始页在页目录表第几项
+    unsigned int apic_pdt_idx=((unsigned int)0xFEB00000&page_mask)/(vmm_page_size*page_table_size);
     //内核栈 起始页在页目录表中的第几项
     unsigned int stack_pdt_idx=((KERNEL_STACK_START-KERNEL_STACK_SIZE)&page_mask)/(vmm_page_size*page_table_size);
     //user 

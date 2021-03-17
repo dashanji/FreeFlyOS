@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "/usr/local/bin/x86_64-elf-c++")
+set(CMAKE_CXX_COMPILER "/usr/local/bin/x86_64-elf-g++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_COMPILER_VERSION "9.3.0")

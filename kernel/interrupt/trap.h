@@ -43,6 +43,11 @@
 #define T_SWITCH_TOU                120    // user/kernel switch
 #define T_SWITCH_TOK                121    // user/kernel switch
 
+#define VEC_LOCAL_TIMER     (0xfc)
+#define VEC_THERMAL         (0xfd)
+#define VEC_ERROR           (0xfe)
+#define VEC_SPURIOUS        (0xff)
+
 #define NULL ((void *)0)
 #define FL_IOPL_MASK    0x00003000  // I/O Privilege Level bitmask
 

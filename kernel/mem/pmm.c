@@ -26,6 +26,10 @@ void pmm_init(){
 	//物理页初始化，此时已开启新的页表，地址需进行转换
 	struct memory_seg *mem=(struct memory_seg *)(PA_LA(mem_seg_start));
 	for(unsigned int i=*(unsigned int *)(PA_LA(mem_seg_num)),j=0;i>0;i--,j++){
+		//打印内存
+			printk("base:%08ux",mem[j].base);
+			printk("size:%08ux",mem[j].size);
+			printk("type:%d\n",mem[j].state);
 		for(unsigned int x=mem[j].base;x<((x+(unsigned int)mem[j].size)&PMM_PAGE_MASK);x+=PMM_PAGE_SIZE){
 			//使用qemu模拟器时，会打印一些2GB以上的不可用内存，所以直接舍去即可
 			if(x<0x80000000){

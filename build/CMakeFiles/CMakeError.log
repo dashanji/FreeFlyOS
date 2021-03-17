@@ -1,77 +1,5 @@
-Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-Compiler: /usr/local/bin/x86_64-elf-gcc 
-Build flags: 
-Id flags:  
-
-The output was:
-1
-/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find crt0.o: No such file or directory
-/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lc
-collect2: error: ld returned 1 exit status
-
-
-Detecting C compiler ABI info failed to compile with the following output:
-Change Dir: /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles/CMakeTmp
-
-Run Build Command(s):/usr/bin/make cmTC_738bd/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_738bd.dir/build.make CMakeFiles/cmTC_738bd.dir/build
-Building C object CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o
-/usr/local/bin/x86_64-elf-gcc   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -v -Wl,-v -o CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o   -c /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCCompilerABI.c
-Using built-in specs.
-COLLECT_GCC=/usr/local/bin/x86_64-elf-gcc
-Target: x86_64-elf
-Configured with: ../configure --target=x86_64-elf --prefix=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1 --infodir=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/share/info/x86_64-elf-gcc --disable-nls --without-isl --without-headers --with-as=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as --with-ld=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld --enable-languages=c,c++ SED=/usr/bin/sed
-Thread model: single
-gcc version 9.3.0 (GCC) 
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
- /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/cc1 -quiet -v -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o -version -o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccOMUbXM.s
-GNU C17 (GCC) version 9.3.0 (x86_64-elf)
-	compiled by GNU C version 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.32.59), GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
-GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-ignoring nonexistent directory "/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/../../../../x86_64-elf/sys-include"
-ignoring nonexistent directory "/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/../../../../x86_64-elf/include"
-#include "..." search starts here:
-#include <...> search starts here:
- /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/include
- /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/include-fixed
-End of search list.
-GNU C17 (GCC) version 9.3.0 (x86_64-elf)
-	compiled by GNU C version 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.32.59), GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
-GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-Compiler executable checksum: 50122aa49d284839635b9e9c95216696
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
- /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as -v -o CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccOMUbXM.s
-GNU assembler version 2.34 (x86_64-elf) using BFD version (GNU Binutils) 2.34
-COMPILER_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/
-LIBRARY_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
-Linking C executable cmTC_738bd
-/usr/local/Cellar/cmake/3.17.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_738bd.dir/link.txt --verbose=1
-/usr/local/bin/x86_64-elf-gcc   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o  -o cmTC_738bd 
-Using built-in specs.
-COLLECT_GCC=/usr/local/bin/x86_64-elf-gcc
-COLLECT_LTO_WRAPPER=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper
-Target: x86_64-elf
-Configured with: ../configure --target=x86_64-elf --prefix=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1 --infodir=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/share/info/x86_64-elf-gcc --disable-nls --without-isl --without-headers --with-as=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as --with-ld=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld --enable-languages=c,c++ SED=/usr/bin/sed
-Thread model: single
-gcc version 9.3.0 (GCC) 
-COMPILER_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/
-LIBRARY_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'cmTC_738bd' '-mtune=generic' '-march=x86-64'
- /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/collect2 -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccmRxbwo.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_738bd crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
-collect2 version 9.3.0
-/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccmRxbwo.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_738bd crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_738bd.dir/CMakeCCompilerABI.c.o -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
-GNU ld (GNU Binutils) 2.34/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find crt0.o: No such file or directory
-/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lc
-collect2: error: ld returned 1 exit status
-
-make[1]: *** [cmTC_738bd] Error 1
-make: *** [cmTC_738bd/fast] Error 2
-
-
-
-
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
-Compiler: /usr/local/bin/x86_64-elf-c++ 
+Compiler: /usr/local/bin/x86_64-elf-g++ 
 Build flags: 
 Id flags:  
 
@@ -84,20 +12,32 @@ The output was:
 collect2: error: ld returned 1 exit status
 
 
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /usr/local/bin/x86_64-elf-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find crt0.o: No such file or directory
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lc
+collect2: error: ld returned 1 exit status
+
+
 Detecting CXX compiler ABI info failed to compile with the following output:
 Change Dir: /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_7f225/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_7f225.dir/build.make CMakeFiles/cmTC_7f225.dir/build
-Building CXX object CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o
-/usr/local/bin/x86_64-elf-c++    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -v -Wl,-v -o CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+Run Build Command(s):/usr/bin/make cmTC_ac93e/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_ac93e.dir/build.make CMakeFiles/cmTC_ac93e.dir/build
+Building CXX object CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o
+/usr/local/bin/x86_64-elf-g++    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -v -Wl,-v -o CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp
 Using built-in specs.
-COLLECT_GCC=/usr/local/bin/x86_64-elf-c++
+COLLECT_GCC=/usr/local/bin/x86_64-elf-g++
 Target: x86_64-elf
 Configured with: ../configure --target=x86_64-elf --prefix=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1 --infodir=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/share/info/x86_64-elf-gcc --disable-nls --without-isl --without-headers --with-as=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as --with-ld=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld --enable-languages=c,c++ SED=/usr/bin/sed
 Thread model: single
 gcc version 9.3.0 (GCC) 
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mtune=generic' '-march=x86-64'
- /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/cc1plus -quiet -v -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o -version -o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccgldVpz.s
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/cc1plus -quiet -v -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o -version -o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccoq8xHf.s
 GNU C++14 (GCC) version 9.3.0 (x86_64-elf)
 	compiled by GNU C version 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.32.59), GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -115,17 +55,17 @@ GNU C++14 (GCC) version 9.3.0 (x86_64-elf)
 	compiled by GNU C version 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.32.59), GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: dc7e3fd94d3c5f25b1ce021f2c82e3fa
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mtune=generic' '-march=x86-64'
- /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as -v -o CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccgldVpz.s
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as -v -o CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccoq8xHf.s
 GNU assembler version 2.34 (x86_64-elf) using BFD version (GNU Binutils) 2.34
 COMPILER_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/
 LIBRARY_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mtune=generic' '-march=x86-64'
-Linking CXX executable cmTC_7f225
-/usr/local/Cellar/cmake/3.17.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7f225.dir/link.txt --verbose=1
-/usr/local/bin/x86_64-elf-c++    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_7f225 
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mtune=generic' '-march=x86-64'
+Linking CXX executable cmTC_ac93e
+/usr/local/Cellar/cmake/3.17.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac93e.dir/link.txt --verbose=1
+/usr/local/bin/x86_64-elf-g++    -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ac93e 
 Using built-in specs.
-COLLECT_GCC=/usr/local/bin/x86_64-elf-c++
+COLLECT_GCC=/usr/local/bin/x86_64-elf-g++
 COLLECT_LTO_WRAPPER=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper
 Target: x86_64-elf
 Configured with: ../configure --target=x86_64-elf --prefix=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1 --infodir=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/share/info/x86_64-elf-gcc --disable-nls --without-isl --without-headers --with-as=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as --with-ld=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld --enable-languages=c,c++ SED=/usr/bin/sed
@@ -133,18 +73,78 @@ Thread model: single
 gcc version 9.3.0 (GCC) 
 COMPILER_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/
 LIBRARY_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/
-COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'cmTC_7f225' '-mtune=generic' '-march=x86-64'
- /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/collect2 -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccIh19Fl.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_7f225 crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'cmTC_ac93e' '-mtune=generic' '-march=x86-64'
+ /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/collect2 -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccPnmHqh.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_ac93e crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
 collect2 version 9.3.0
-/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccIh19Fl.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_7f225 crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_7f225.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccPnmHqh.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_ac93e crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_ac93e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
 GNU ld (GNU Binutils) 2.34/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find crt0.o: No such file or directory
 /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lstdc++
 /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lm
 /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lc
 collect2: error: ld returned 1 exit status
 
-make[1]: *** [cmTC_7f225] Error 1
-make: *** [cmTC_7f225/fast] Error 2
+make[1]: *** [cmTC_ac93e] Error 1
+make: *** [cmTC_ac93e/fast] Error 2
+
+
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /Users/caoy/Desktop/FreeFlyOS/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_4b534/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_4b534.dir/build.make CMakeFiles/cmTC_4b534.dir/build
+Building C object CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o
+/usr/local/bin/x86_64-elf-gcc   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -v -Wl,-v -o CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o   -c /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/usr/local/bin/x86_64-elf-gcc
+Target: x86_64-elf
+Configured with: ../configure --target=x86_64-elf --prefix=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1 --infodir=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/share/info/x86_64-elf-gcc --disable-nls --without-isl --without-headers --with-as=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as --with-ld=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld --enable-languages=c,c++ SED=/usr/bin/sed
+Thread model: single
+gcc version 9.3.0 (GCC) 
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/cc1 -quiet -v -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk /usr/local/Cellar/cmake/3.17.3/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o -version -o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//cc94fnT3.s
+GNU C17 (GCC) version 9.3.0 (x86_64-elf)
+	compiled by GNU C version 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.32.59), GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/../../../../x86_64-elf/sys-include"
+ignoring nonexistent directory "/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/../../../../x86_64-elf/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/include
+ /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/include-fixed
+End of search list.
+GNU C17 (GCC) version 9.3.0 (x86_64-elf)
+	compiled by GNU C version 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.32.59), GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 50122aa49d284839635b9e9c95216696
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as -v -o CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o /var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//cc94fnT3.s
+GNU assembler version 2.34 (x86_64-elf) using BFD version (GNU Binutils) 2.34
+COMPILER_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/
+LIBRARY_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+Linking C executable cmTC_4b534
+/usr/local/Cellar/cmake/3.17.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4b534.dir/link.txt --verbose=1
+/usr/local/bin/x86_64-elf-gcc   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o  -o cmTC_4b534 
+Using built-in specs.
+COLLECT_GCC=/usr/local/bin/x86_64-elf-gcc
+COLLECT_LTO_WRAPPER=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper
+Target: x86_64-elf
+Configured with: ../configure --target=x86_64-elf --prefix=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1 --infodir=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/share/info/x86_64-elf-gcc --disable-nls --without-isl --without-headers --with-as=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-as --with-ld=/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld --enable-languages=c,c++ SED=/usr/bin/sed
+Thread model: single
+gcc version 9.3.0 (GCC) 
+COMPILER_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/:/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/
+LIBRARY_PATH=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/
+COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk' '-v' '-o' 'cmTC_4b534' '-mtune=generic' '-march=x86-64'
+ /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/collect2 -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccpAtvzj.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_4b534 crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
+collect2 version 9.3.0
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld -plugin /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/liblto_plugin.so -plugin-opt=/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/libexec/gcc/x86_64-elf/9.3.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/2h/vgr4039d2kb4grxzgp6724ph0000gn/T//ccpAtvzj.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_4b534 crt0.o /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtbegin.o -L/usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0 -headerpad_max_install_names -v CMakeFiles/cmTC_4b534.dir/CMakeCCompilerABI.c.o -lgcc -lc -lgcc /usr/local/Cellar/x86_64-elf-gcc/9.3.0_1/lib/gcc/x86_64-elf/9.3.0/crtend.o
+GNU ld (GNU Binutils) 2.34/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find crt0.o: No such file or directory
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: cannot find -lc
+collect2: error: ld returned 1 exit status
+
+make[1]: *** [cmTC_4b534] Error 1
+make: *** [cmTC_4b534/fast] Error 2
 
 
 

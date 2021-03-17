@@ -19,4 +19,5 @@ void timer_init(unsigned int frequency){
         jiffies=0;   //初始化节拍总数，防止更换页表时初始化值更改
         second=0; //初始化秒数
         pic_enable(IRQ_TIMER);
+        //enable_irq(IRQ_TIMER,0);
 }

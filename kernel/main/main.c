@@ -15,7 +15,13 @@
 #include "../file/fs.h"
 #include "../user/user_main.h"
 #include "../keyboard/keyboard.h"
+#include "../apic/apic.h"
+#include "../mp/mp_config.h"
+#include "../ap/ap.h"
+#include "../ap/apheader.h"
+#include "../internet/pci.h"
 #define TIME_FREQUENCY 100
+
 
 //三个管理区
 extern pm_zone dma_zone;
@@ -61,12 +67,42 @@ void main(void)
     
     //必须放在task_init后，不然访问current会出现缺页
     timer_init(TIME_FREQUENCY); //100HZ
-    
+    /*
     sema_init(&user_sema,0);
     
-    intr_enable();
+    intr_enable();*/
     clear();
-    user_task_init(user_main);
+
+    /*************************测试多核********************/
+    
+
+     clear();
+    //init_apic();
+    ioapic_init();
+    
+    enable_irq(IRQ_KBD,0);
+    mp_config_init();
+    ap_init();
+  
+    /*************************测试多核********************/
+   
+    /*************************测试网络********************/
+    clear();
+    pci_init();
+     
+    rtl8139_init();
+    char str[56]={0xff,0xff,0xff,0xff,0xff,0xff,0xa4,0x83,
+    0xe7,0x63,0x0e,0x7a,0x08,0x06,0x00,0x01,
+    0x08,0x00,0x06,0x04,0x00,0x01,0xa4,0x83,
+    0xe7,0x63,0x0e,0x7a,0x0a,0xd2,0x83,0xc9,
+    0x00,0x00,0x00,0x00,0x00,0x00,0x0a,0xd2,
+    0x80,0x01,0x00,0x00,0x00,0x00,0x00,0x00,
+    0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+    //while(1)
+    transmit(str,56);
+    
+    /*************************测试网络********************/
+    //user_task_init(user_main);
     
     //test_schedule();
     //test_schedule();
@@ -116,6 +152,24 @@ static void write2fs(){
       }
     }
     vmm_free(prog,file_size);
+    //写入test_cpp
+    file_size=20796; //通过本机OS 的ls -l命令获得
+    sec_cnt=(file_size+512-1)/512;    //扇区数
+    prog=vmm_malloc(file_size,1);
+    ide_read((void *)prog,600,sec_cnt);
+    fd=sys_open("/testcpp",O_CREAT|O_RDWR);
+    if(fd!=-1){
+      if(sys_write(fd,prog,file_size) == -1){
+            printk("file write error!\n");
+            while(1);
+      }
+    }
+    vmm_free(prog,file_size);
+    //写入test_ap，地址为C0009000
+    //file_size=20796; //通过本机OS 的ls -l命令获得
+    //sec_cnt=(file_size+512-1)/512;    //扇区数
+    //ide_read((void *)0xC0009000,650,sec_cnt);
+   
     //写入file
     fd=sys_open("/file",O_CREAT|O_RDWR);
     char str[20]="Hello I'm a file";
@@ -270,6 +324,7 @@ void test_user(){
 }
 
 
+/*****************************多核测试***********************/
 /*void user_task_print(){
     //while(1){ 
     //    test_user_task++;

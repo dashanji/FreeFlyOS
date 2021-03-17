@@ -16,6 +16,13 @@
         "random": "c",
         "string": "c",
         "sync.h": "c",
-        "user_main.h": "c"
+        "user_main.h": "c",
+        "limits": "c",
+        "chrono": "c",
+        "ratio": "c",
+        "fstream": "c",
+        "iosfwd": "c",
+        "sstream": "c",
+        "streambuf": "c"
     }
 }

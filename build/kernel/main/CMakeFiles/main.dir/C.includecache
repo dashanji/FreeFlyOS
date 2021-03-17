@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+/Users/caoy/Desktop/FreeFlyOS/kernel/ap/ap.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/ap/apheader.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/apic/apic.h
+
 /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
@@ -35,6 +41,8 @@ super_block.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/internet/pci.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/syscall.h
 trap.h
@@ -79,6 +87,16 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/user/user_main.h
 ../keyboard/keyboard.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/keyboard/keyboard.h
+../apic/apic.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/apic/apic.h
+../mp/mp_config.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mp/mp_config.h
+../ap/ap.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/ap/ap.h
+../ap/apheader.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/ap/apheader.h
+../internet/pci.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/internet/pci.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/main/main.h
 
@@ -89,6 +107,8 @@ main.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/mem/vmm.h
 ../stl/list.h
 /Users/caoy/Desktop/FreeFlyOS/kernel/stl/list.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mp/mp_config.h
 
 /Users/caoy/Desktop/FreeFlyOS/kernel/pic/pic.h
 

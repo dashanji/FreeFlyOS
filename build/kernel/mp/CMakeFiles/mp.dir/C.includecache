@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mp/mp_config.c
+mp_config.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mp/mp_config.h
+../mem/memlayout.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
+../asm/asm.h
+/Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
+
+/Users/caoy/Desktop/FreeFlyOS/kernel/mp/mp_config.h
+

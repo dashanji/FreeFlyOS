@@ -12,7 +12,6 @@
 #define vmm_page_present 0x1 
 #define vmm_page_rw      0x2
 #define vmm_page_kernel  0x0
-
 /*
 *__attribute__( (section(".init.data") ) )将其设置为特定的.init.data节
 *方便在链接脚本中区分init部分和kernel部分

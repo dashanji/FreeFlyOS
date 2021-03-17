@@ -27,6 +27,7 @@ kernel/interrupt/CMakeFiles/interrupt.dir/syscall.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/task/task.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/vga/vga.h
 kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o
+ /Users/caoy/Desktop/FreeFlyOS/kernel/apic/apic.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/asm/asm.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/debug/debug.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/dt/dt.h
@@ -36,6 +37,8 @@ kernel/interrupt/CMakeFiles/interrupt.dir/trap.c.o
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/fs.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/ide-dev.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/file/super_block.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/internet/pci.h
+ /Users/caoy/Desktop/FreeFlyOS/kernel/internet/rtl8139.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.c
  /Users/caoy/Desktop/FreeFlyOS/kernel/interrupt/trap.h
  /Users/caoy/Desktop/FreeFlyOS/kernel/mem/memlayout.h
