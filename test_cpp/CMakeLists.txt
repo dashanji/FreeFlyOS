@@ -20,11 +20,9 @@ add_custom_command(OUTPUT ${test_name}
         ../../build/test_cpp/CMakeFiles/test_cpp.dir/test.cpp.o  -o test_cpp
     COMMAND
         x86_64-elf-objdump -d test_cpp > ../../disassembly/test_cpp_disass.md
-    #COMMAND
-    #    dd if=../test_cpp/test_cpp of=../../FreeFlyOS.img bs=512 count=50 seek=600 conv=notrunc
+    COMMAND
+        dd if=../test_cpp/test_cpp of=../../FreeFlyOS.img bs=512 count=50 seek=600 conv=notrunc
     COMMAND
         echo "cpp down!"
-    COMMAND   
-        qemu-system-i386 -m 2048 -net nic,model=rtl8139 -smp 2 -hda ../../FreeFlyOS.img	
 )
 add_custom_target(cpp_tar ALL DEPENDS ${test_name})

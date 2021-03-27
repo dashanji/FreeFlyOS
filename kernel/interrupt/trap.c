@@ -67,11 +67,11 @@ void print_trapframe(struct trapframe *tf) {
 static void trap_dispatch(struct trapframe *tf) 
 {
     char c;
-    if(tf->tf_trapno==IRQ_OFFSET+rtl.irq){
+    /*if(tf->tf_trapno==IRQ_OFFSET+rtl.irq){
         do_rtl8139_irq(&rtl);
         eoi();
         return ;
-    }
+    }*/
     switch (tf->tf_trapno) {
         case IRQ_TEST:
             printk("test user trap\n");

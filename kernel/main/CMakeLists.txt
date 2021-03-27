@@ -18,4 +18,6 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/user
     ${FreeFlyOS_SOURCE_DIR}/kernel/apic
     ${FreeFlyOS_SOURCE_DIR}/kernel/ap
+    ${FreeFlyOS_SOURCE_DIR}/kernel/internet
+    ${FreeFlyOS_SOURCE_DIR}/kernel/sync
 )

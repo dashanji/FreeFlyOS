@@ -45,6 +45,11 @@
 #define SYS_free 56
 #define SYS_mmap 57
 #define SYS_pipe 58
+#define SYS_socket 59
+#define SYS_bind 60
+#define SYS_listen 61
+#define SYS_accept 62
+#define SYS_connect 63
 //__attribute__( (section(".user.text") ) ) 
 enum std_fd{
     stdin_no, //0 标准输入
@@ -91,4 +96,9 @@ void exec(char *path,char **argv);
 int wait(int* status);
 void exit(int status);
 void pipe(int fd[2]);
+int socket();
+int bind(int fd,char *addr);
+int listen(int fd);
+int accept(int fd,char *addr);
+int connect(int fd,char *addr);
 #endif

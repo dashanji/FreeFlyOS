@@ -20,8 +20,13 @@
 #include "../ap/ap.h"
 #include "../ap/apheader.h"
 #include "../internet/pci.h"
+#include "../internet/rtl8139.h"
+#include "../internet/ethernet.h"
+#include "../internet/arp.h"
+#include "../internet/ip.h"
+#include "../internet/icmp.h"
+#include "../socket/localsocket.h"
 #define TIME_FREQUENCY 100
-
 
 //三个管理区
 extern pm_zone dma_zone;
@@ -53,6 +58,7 @@ void main(void)
     
     serial_init();
     kbd_init();
+    
    // ASSERT(1==2);
     setup_vpt();
     pmm_init();
@@ -63,46 +69,62 @@ void main(void)
 
     fs_init();
     kernel_task_init(kernel_main);
-    //write2fs(); //放在进程初始化后，需要安装到当前进程的fd表，写入到文件系统即可，故仅需执行一次
+    write2fs(); //放在进程初始化后，需要安装到当前进程的fd表，写入到文件系统即可，故仅需执行一次
     
     //必须放在task_init后，不然访问current会出现缺页
     timer_init(TIME_FREQUENCY); //100HZ
-    /*
+    /*************************测试socket********************/
+    socket_init();
+    /*************************测试socket********************/
     sema_init(&user_sema,0);
-    
-    intr_enable();*/
+    user_task_init(user_main);
     clear();
-
+    
     /*************************测试多核********************/
     
 
-     clear();
+    // clear();
     //init_apic();
-    ioapic_init();
+    //ioapic_init();
     
-    enable_irq(IRQ_KBD,0);
-    mp_config_init();
-    ap_init();
+    //enable_irq(IRQ_KBD,0);
+   // mp_config_init();
+    //ap_init();
   
     /*************************测试多核********************/
    
     /*************************测试网络********************/
-    clear();
-    pci_init();
+    //clear();
+    //pci_init();
      
-    rtl8139_init();
-    char str[56]={0xff,0xff,0xff,0xff,0xff,0xff,0xa4,0x83,
-    0xe7,0x63,0x0e,0x7a,0x08,0x06,0x00,0x01,
-    0x08,0x00,0x06,0x04,0x00,0x01,0xa4,0x83,
-    0xe7,0x63,0x0e,0x7a,0x0a,0xd2,0x83,0xc9,
-    0x00,0x00,0x00,0x00,0x00,0x00,0x0a,0xd2,
-    0x80,0x01,0x00,0x00,0x00,0x00,0x00,0x00,
-    0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-    //while(1)
-    transmit(str,56);
+    //rtl8139_init();
+
+    //test_arp();
+    //unsigned char dst[eth_macaddr_len]={0xd2,0xc0,0xcb,0x35,0xb2,0xd3};
+    //test_icmp();
+  /*  struct net_buf *nb=(struct net_buf *)vmm_malloc(200,1);
+    nb->data=(char *)nb+sizeof(struct net_buf);
+    nb->data_len=98;
+    char str[98]={
+        0x00,0x50,0x56,0xee,0x8f,0x0c,0x00,0x0c,
+        0x29,0x87,0x7e,0xf3,0x08,0x00,0x45,0x00,
+        0x00,0x54,0x0f,0x55,0x40,0x00,0x40,0x01,
+        0x7e,0x46,0xac,0x10,0xaa,0xea,0xac,0x10,
+        0xaa,0x02,0x08,0x00,0x97,0x33,0x0d,0xde,
+        0x00,0x01,0x55,0x83,0x58,0x60,0x00,0x00,
+        0x00,0x00,0xde,0x36,0x08,0x00,0x00,0x00,
+        0x00,0x00,0x10,0x11,0x12,0x13,0x14,0x15,
+        0x16,0x17,0x18,0x19,0x1a,0x1b,0x1c,0x1d,
+        0x1e,0x1f,0x20,0x21,0x22,0x23,0x24,0x25,
+        0x26,0x27,0x28,0x29,0x2a,0x2b,0x2c,0x2d,
+        0x2e,0x2f,0x30,0x31,0x32,0x33,0x34,0x35,
+        0x36,0x37
+    };
+    memcpy(nb->data,str,98);
+    transmit(nb);*/
     
     /*************************测试网络********************/
-    //user_task_init(user_main);
+    
     
     //test_schedule();
     //test_schedule();
@@ -111,6 +133,48 @@ void main(void)
     //test_ide_io();
     //test_fs();
     while(1);
+}
+void test_arp(){
+     char str[30]="Hello,nice to meet you!\n";
+    int len=sizeof(str)/sizeof(char);
+
+    unsigned char dst_mac[eth_macaddr_len]={0xFF,0xFF
+    ,0xFF,0xFF,0xFF,0xFF};
+    unsigned char dst_ip[ipaddr_len]={172,16,170,2};
+    struct net_buf *nb=arp_request(dst_mac,dst_ip,str,len,ARP_OP_REQUEST);
+    while(1){
+        transmit(nb);
+        delay(10000000);
+    }
+}
+void test_ip(){
+    char str[30]="Hello,nice to meet you!\n";
+    int len=sizeof(str)/sizeof(char);
+
+    unsigned char dst_ip[ipaddr_len]={192,168,0,2};
+    unsigned int dstip=chartoui(dst_ip);
+    for(int i=0;i<3;i++){
+            send_ip_packet(str,len,dstip,RAW_protocal); //0xff -> raw
+            delay(10000000);
+    }
+    clear_net_send_list();
+    
+}
+void test_icmp(){
+    char str[30]="Hello,nice to meet you!\n";
+    int len=sizeof(str)/sizeof(char);
+
+    unsigned char dst_ip[ipaddr_len]={192,168,0,2};
+    unsigned char baidu_ip[ipaddr_len]={103,235,46,39};
+    unsigned char gw[ipaddr_len]={172,16,170,2};
+    unsigned int dstip=chartoui(baidu_ip);
+    for(int i=0;i<3;i++){
+            //send_icmp_request(dstip,0,i,str,len);
+            send_icmp_request(dstip,0,i,NULL,0);
+            //send_ip_packet(str,len,dstip,0xff); //0xff -> raw
+            delay(10000000);
+    }
+    clear_net_send_list();
 }
 /* 将test_exec和test_cat测试程序（占20个扇区）从500扇区处写入到文件系统中 */
 static void write2fs(){
@@ -158,6 +222,20 @@ static void write2fs(){
     prog=vmm_malloc(file_size,1);
     ide_read((void *)prog,600,sec_cnt);
     fd=sys_open("/testcpp",O_CREAT|O_RDWR);
+    if(fd!=-1){
+      if(sys_write(fd,prog,file_size) == -1){
+            printk("file write error!\n");
+            while(1);
+      }
+    }
+    vmm_free(prog,file_size);
+
+    //写入test_socket
+    file_size=15100; //通过本机OS 的ls -l命令获得
+    sec_cnt=(file_size+512-1)/512;    //扇区数
+    prog=vmm_malloc(file_size,1);
+    ide_read((void *)prog,650,sec_cnt);
+    fd=sys_open("/testsocket",O_CREAT|O_RDWR);
     if(fd!=-1){
       if(sys_write(fd,prog,file_size) == -1){
             printk("file write error!\n");

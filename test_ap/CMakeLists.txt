@@ -16,8 +16,8 @@ add_custom_command(OUTPUT ${test_name}
     COMMAND
         x86_64-elf-ld -T ../../test_ap/ap_ld.ld -m elf_i386 -e apstart 
         ../../build/test_ap/CMakeFiles/test_ap.dir/start_ap.S.o  -o test_cpp
-    #COMMAND
-    #    x86_64-elf-objdump -d test_cpp > ../../disassembly/test_cpp_disass.md
+    COMMAND
+        x86_64-elf-objdump -d test_cpp > ../../disassembly/test_cpp_disass.md
     COMMAND
         dd if=../test_ap/test_ap of=../../FreeFlyOS.img bs=512 count=30 seek=650 conv=notrunc
     COMMAND

@@ -19,8 +19,8 @@ add_custom_command(OUTPUT ${test_name}
         ../../build/test_exec/CMakeFiles/test_exec.dir/start.S.o -o test_exec
     COMMAND
         x86_64-elf-objdump -d test_exec > ../../disassembly/test_exec_disass.md
-    #COMMAND
-    #    dd if=../test_exec/test_exec of=../../FreeFlyOS.img bs=512 count=30 seek=500 conv=notrunc
+    COMMAND
+        dd if=../test_exec/test_exec of=../../FreeFlyOS.img bs=512 count=30 seek=500 conv=notrunc
     COMMAND
         echo "exec down!"
 )

@@ -11,4 +11,5 @@ target_include_directories(${PROJECT_NAME}
     ${FreeFlyOS_SOURCE_DIR}/kernel/task
     ${FreeFlyOS_SOURCE_DIR}/kernel/keyboard
     ${FreeFlyOS_SOURCE_DIR}/kernel/pipe
+    ${FreeFlyOS_SOURCE_DIR}/kernel/socket
 )

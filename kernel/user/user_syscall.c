@@ -165,3 +165,18 @@ void exit(int status){
 void pipe(int fd[2]){
    return user_syscall(SYS_pipe,fd);
 }
+int socket(){
+   return user_syscall(SYS_socket);
+}
+int bind(int fd,char *addr){
+   return user_syscall(SYS_bind,fd,addr);
+}
+int listen(int fd){
+   return user_syscall(SYS_listen,fd);
+} 
+int accept(int fd,char *addr){
+   return user_syscall(SYS_accept,fd,addr);
+}
+int connect(int fd,char *addr){
+   return user_syscall(SYS_connect,addr);
+}

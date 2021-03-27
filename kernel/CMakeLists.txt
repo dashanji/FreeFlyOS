@@ -22,6 +22,7 @@ add_subdirectory(apic)
 add_subdirectory(mp)
 add_subdirectory(ap)
 add_subdirectory(internet)
+add_subdirectory(socket)
 add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:init>
         $<TARGET_OBJECTS:asm>
@@ -44,6 +45,7 @@ add_executable(${PROJECT_NAME}
         $<TARGET_OBJECTS:mp>
         $<TARGET_OBJECTS:ap>
         $<TARGET_OBJECTS:internet>
+        $<TARGET_OBJECTS:socket>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE -T ${FreeFlyOS_SOURCE_DIR}/kernel/kernel.ld)

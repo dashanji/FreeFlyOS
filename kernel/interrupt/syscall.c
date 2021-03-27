@@ -5,6 +5,7 @@
 #include "../mem/vmm.h"
 #include "../task/exec.h"
 #include "../pipe/pipe.h"
+#include "../socket/localsocket.h"
 extern struct task_struct *current;  //指向当前进程
 
 static int
@@ -190,6 +191,38 @@ syscall_pipe(unsigned int arg[]){
     sys_pipe(fd);
     return 0;
 }
+
+static int
+syscall_socket(unsigned int arg[]){
+    //unsigned int family=(unsigned int)arg[0];
+    //unsigned int type=(unsigned int)arg[1];
+    //unsigned int protocol=(unsigned int)arg[2];
+    return sys_socket();
+}
+static int
+syscall_bind(unsigned int arg[]){
+    int fd=(int)arg[0];
+    char *myaddr=(char *)arg[1];
+    return sys_bind(fd,myaddr);
+}
+static int
+syscall_listen(unsigned int arg[]){
+    int fd=(int)arg[0];
+//    unsigned int backlog=(unsigned int)arg[1];
+    return sys_listen(fd);
+}
+static int
+syscall_accept(unsigned int arg[]){
+    int fd=(unsigned int)arg[0];
+    char *client_addr=(char *)arg[1];
+    return sys_accept(fd,client_addr);
+}
+static int
+syscall_connect(unsigned int arg[]){
+    int fd=(unsigned int)arg[0];
+    char *server_addr=(char *)arg[1];
+    return sys_connect(fd,server_addr);
+}
 static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_exit]              syscall_exit,
     [SYS_fork]              sys_fork,
@@ -223,6 +256,11 @@ static int (*syscalls[])(unsigned int arg[]) = {
     [SYS_free]              syscall_free,
     [SYS_mmap]              sys_mmap,
     [SYS_pipe]              syscall_pipe,
+    [SYS_socket]            syscall_socket,
+    [SYS_bind]              syscall_bind,
+    [SYS_listen]            syscall_listen,
+    [SYS_accept]            syscall_accept,
+    [SYS_connect]           syscall_connect,
 };
 
 #define NUM_SYSCALLS        ((sizeof(syscalls)) / (sizeof(syscalls[0])))

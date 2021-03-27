@@ -44,6 +44,12 @@
 #define SYS_free 56
 #define SYS_mmap 57
 #define SYS_pipe 58
+//internet
+#define SYS_socket 59
+#define SYS_bind 60
+#define SYS_listen 61
+#define SYS_accept 62
+#define SYS_connect 63
 void syscall_trap(struct trapframe *tf);
 int user_sys_getpid(void);
 void user_print_char(char c); 

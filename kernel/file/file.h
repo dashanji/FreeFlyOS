@@ -3,10 +3,12 @@
 #define MAX_FILE_OPEN 32 //可打开的最大文件数
 #include "dir.h"
 #include "ide-dev.h"
+#include "../socket/localsocket.h"
 /* 文件结构 */
 struct file{
     unsigned int fd_pos; 
     unsigned int fd_flag;
+    struct socket_local_t *lsocket;
     struct inode *fd_inode;
 };
 /* 标准输入输出描述符 */

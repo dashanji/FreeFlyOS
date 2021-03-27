@@ -26,7 +26,7 @@ Disassembly of section .text:
 80000036:	83 e8 30             	sub    $0x30,%eax
 80000039:	83 f8 48             	cmp    $0x48,%eax
 8000003c:	0f 87 6f 02 00 00    	ja     800002b1 <printf+0x2b1>
-80000042:	8b 04 85 10 07 00 80 	mov    -0x7ffff8f0(,%eax,4),%eax
+80000042:	8b 04 85 6c 07 00 80 	mov    -0x7ffff894(,%eax,4),%eax
 80000049:	ff e0                	jmp    *%eax
 8000004b:	83 45 f4 04          	addl   $0x4,-0xc(%ebp)
 8000004f:	8b 45 f4             	mov    -0xc(%ebp),%eax
@@ -230,7 +230,7 @@ Disassembly of section .text:
 800002a9:	88 45 f3             	mov    %al,-0xd(%ebp)
 800002ac:	e9 73 fd ff ff       	jmp    80000024 <printf+0x24>
 800002b1:	83 ec 0c             	sub    $0xc,%esp
-800002b4:	68 f0 06 00 80       	push   $0x800006f0
+800002b4:	68 4c 07 00 80       	push   $0x8000074c
 800002b9:	e8 cc 00 00 00       	call   8000038a <user_print_string>
 800002be:	83 c4 10             	add    $0x10,%esp
 800002c1:	90                   	nop
@@ -621,88 +621,139 @@ Disassembly of section .text:
 800005c3:	c9                   	leave  
 800005c4:	c3                   	ret    
 
-800005c5 <main>:
-800005c5:	8d 4c 24 04          	lea    0x4(%esp),%ecx
-800005c9:	83 e4 f0             	and    $0xfffffff0,%esp
-800005cc:	ff 71 fc             	pushl  -0x4(%ecx)
-800005cf:	55                   	push   %ebp
-800005d0:	89 e5                	mov    %esp,%ebp
-800005d2:	51                   	push   %ecx
-800005d3:	83 ec 34             	sub    $0x34,%esp
-800005d6:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
-800005dd:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
-800005e4:	c7 45 ec ff ff ff ff 	movl   $0xffffffff,-0x14(%ebp)
-800005eb:	83 ec 0c             	sub    $0xc,%esp
-800005ee:	8d 45 ec             	lea    -0x14(%ebp),%eax
-800005f1:	50                   	push   %eax
-800005f2:	e8 bc ff ff ff       	call   800005b3 <pipe>
-800005f7:	83 c4 10             	add    $0x10,%esp
-800005fa:	e8 54 ff ff ff       	call   80000553 <fork>
-800005ff:	89 45 f4             	mov    %eax,-0xc(%ebp)
-80000602:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
-80000606:	74 45                	je     8000064d <main+0x88>
-80000608:	8b 45 ec             	mov    -0x14(%ebp),%eax
-8000060b:	83 ec 0c             	sub    $0xc,%esp
-8000060e:	50                   	push   %eax
-8000060f:	e8 00 fe ff ff       	call   80000414 <close>
-80000614:	83 c4 10             	add    $0x10,%esp
-80000617:	8b 45 f0             	mov    -0x10(%ebp),%eax
-8000061a:	83 ec 04             	sub    $0x4,%esp
-8000061d:	6a 18                	push   $0x18
-8000061f:	68 34 08 00 80       	push   $0x80000834
-80000624:	50                   	push   %eax
-80000625:	e8 fc fd ff ff       	call   80000426 <write>
-8000062a:	83 c4 10             	add    $0x10,%esp
-8000062d:	e8 2b fd ff ff       	call   8000035d <user_sys_getpid>
-80000632:	83 ec 08             	sub    $0x8,%esp
-80000635:	50                   	push   %eax
-80000636:	68 4c 08 00 80       	push   $0x8000084c
-8000063b:	e8 c0 f9 ff ff       	call   80000000 <printf>
-80000640:	83 c4 10             	add    $0x10,%esp
-80000643:	b8 08 00 00 00       	mov    $0x8,%eax
-80000648:	e9 8b 00 00 00       	jmp    800006d8 <main+0x113>
-8000064d:	8b 45 f0             	mov    -0x10(%ebp),%eax
-80000650:	83 ec 0c             	sub    $0xc,%esp
-80000653:	50                   	push   %eax
-80000654:	e8 bb fd ff ff       	call   80000414 <close>
-80000659:	83 c4 10             	add    $0x10,%esp
-8000065c:	c7 45 cc 00 00 00 00 	movl   $0x0,-0x34(%ebp)
-80000663:	c7 45 d0 00 00 00 00 	movl   $0x0,-0x30(%ebp)
-8000066a:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%ebp)
-80000671:	c7 45 d8 00 00 00 00 	movl   $0x0,-0x28(%ebp)
-80000678:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
-8000067f:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
-80000686:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
-8000068d:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
-80000694:	8b 45 ec             	mov    -0x14(%ebp),%eax
-80000697:	83 ec 04             	sub    $0x4,%esp
-8000069a:	6a 18                	push   $0x18
-8000069c:	8d 55 cc             	lea    -0x34(%ebp),%edx
-8000069f:	52                   	push   %edx
-800006a0:	50                   	push   %eax
-800006a1:	e8 36 fd ff ff       	call   800003dc <read>
-800006a6:	83 c4 10             	add    $0x10,%esp
-800006a9:	e8 af fc ff ff       	call   8000035d <user_sys_getpid>
-800006ae:	83 ec 08             	sub    $0x8,%esp
-800006b1:	50                   	push   %eax
-800006b2:	68 67 08 00 80       	push   $0x80000867
-800006b7:	e8 44 f9 ff ff       	call   80000000 <printf>
-800006bc:	83 c4 10             	add    $0x10,%esp
-800006bf:	83 ec 08             	sub    $0x8,%esp
-800006c2:	8d 45 cc             	lea    -0x34(%ebp),%eax
-800006c5:	50                   	push   %eax
-800006c6:	68 84 08 00 80       	push   $0x80000884
-800006cb:	e8 30 f9 ff ff       	call   80000000 <printf>
-800006d0:	83 c4 10             	add    $0x10,%esp
-800006d3:	b8 09 00 00 00       	mov    $0x9,%eax
-800006d8:	8b 4d fc             	mov    -0x4(%ebp),%ecx
-800006db:	c9                   	leave  
-800006dc:	8d 61 fc             	lea    -0x4(%ecx),%esp
-800006df:	c3                   	ret    
+800005c5 <socket>:
+800005c5:	55                   	push   %ebp
+800005c6:	89 e5                	mov    %esp,%ebp
+800005c8:	6a 3b                	push   $0x3b
+800005ca:	e8 32 fd ff ff       	call   80000301 <user_syscall>
+800005cf:	83 c4 04             	add    $0x4,%esp
+800005d2:	c9                   	leave  
+800005d3:	c3                   	ret    
 
-800006e0 <_start>:
-800006e0:	53                   	push   %ebx
-800006e1:	51                   	push   %ecx
-800006e2:	e8 de fe ff ff       	call   800005c5 <main>
-800006e7:	50                   	push   %eax
-800006e8:	e8 b4 fe ff ff       	call   800005a1 <exit>
+800005d4 <bind>:
+800005d4:	55                   	push   %ebp
+800005d5:	89 e5                	mov    %esp,%ebp
+800005d7:	ff 75 0c             	pushl  0xc(%ebp)
+800005da:	ff 75 08             	pushl  0x8(%ebp)
+800005dd:	6a 3c                	push   $0x3c
+800005df:	e8 1d fd ff ff       	call   80000301 <user_syscall>
+800005e4:	83 c4 0c             	add    $0xc,%esp
+800005e7:	c9                   	leave  
+800005e8:	c3                   	ret    
+
+800005e9 <listen>:
+800005e9:	55                   	push   %ebp
+800005ea:	89 e5                	mov    %esp,%ebp
+800005ec:	ff 75 08             	pushl  0x8(%ebp)
+800005ef:	6a 3d                	push   $0x3d
+800005f1:	e8 0b fd ff ff       	call   80000301 <user_syscall>
+800005f6:	83 c4 08             	add    $0x8,%esp
+800005f9:	c9                   	leave  
+800005fa:	c3                   	ret    
+
+800005fb <accept>:
+800005fb:	55                   	push   %ebp
+800005fc:	89 e5                	mov    %esp,%ebp
+800005fe:	ff 75 0c             	pushl  0xc(%ebp)
+80000601:	ff 75 08             	pushl  0x8(%ebp)
+80000604:	6a 3e                	push   $0x3e
+80000606:	e8 f6 fc ff ff       	call   80000301 <user_syscall>
+8000060b:	83 c4 0c             	add    $0xc,%esp
+8000060e:	c9                   	leave  
+8000060f:	c3                   	ret    
+
+80000610 <connect>:
+80000610:	55                   	push   %ebp
+80000611:	89 e5                	mov    %esp,%ebp
+80000613:	ff 75 0c             	pushl  0xc(%ebp)
+80000616:	6a 3f                	push   $0x3f
+80000618:	e8 e4 fc ff ff       	call   80000301 <user_syscall>
+8000061d:	83 c4 08             	add    $0x8,%esp
+80000620:	c9                   	leave  
+80000621:	c3                   	ret    
+
+80000622 <main>:
+80000622:	8d 4c 24 04          	lea    0x4(%esp),%ecx
+80000626:	83 e4 f0             	and    $0xfffffff0,%esp
+80000629:	ff 71 fc             	pushl  -0x4(%ecx)
+8000062c:	55                   	push   %ebp
+8000062d:	89 e5                	mov    %esp,%ebp
+8000062f:	51                   	push   %ecx
+80000630:	83 ec 34             	sub    $0x34,%esp
+80000633:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+8000063a:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+80000641:	c7 45 ec ff ff ff ff 	movl   $0xffffffff,-0x14(%ebp)
+80000648:	83 ec 0c             	sub    $0xc,%esp
+8000064b:	8d 45 ec             	lea    -0x14(%ebp),%eax
+8000064e:	50                   	push   %eax
+8000064f:	e8 5f ff ff ff       	call   800005b3 <pipe>
+80000654:	83 c4 10             	add    $0x10,%esp
+80000657:	e8 f7 fe ff ff       	call   80000553 <fork>
+8000065c:	89 45 f4             	mov    %eax,-0xc(%ebp)
+8000065f:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+80000663:	74 45                	je     800006aa <main+0x88>
+80000665:	8b 45 ec             	mov    -0x14(%ebp),%eax
+80000668:	83 ec 0c             	sub    $0xc,%esp
+8000066b:	50                   	push   %eax
+8000066c:	e8 a3 fd ff ff       	call   80000414 <close>
+80000671:	83 c4 10             	add    $0x10,%esp
+80000674:	8b 45 f0             	mov    -0x10(%ebp),%eax
+80000677:	83 ec 04             	sub    $0x4,%esp
+8000067a:	6a 18                	push   $0x18
+8000067c:	68 90 08 00 80       	push   $0x80000890
+80000681:	50                   	push   %eax
+80000682:	e8 9f fd ff ff       	call   80000426 <write>
+80000687:	83 c4 10             	add    $0x10,%esp
+8000068a:	e8 ce fc ff ff       	call   8000035d <user_sys_getpid>
+8000068f:	83 ec 08             	sub    $0x8,%esp
+80000692:	50                   	push   %eax
+80000693:	68 a8 08 00 80       	push   $0x800008a8
+80000698:	e8 63 f9 ff ff       	call   80000000 <printf>
+8000069d:	83 c4 10             	add    $0x10,%esp
+800006a0:	b8 08 00 00 00       	mov    $0x8,%eax
+800006a5:	e9 8b 00 00 00       	jmp    80000735 <main+0x113>
+800006aa:	8b 45 f0             	mov    -0x10(%ebp),%eax
+800006ad:	83 ec 0c             	sub    $0xc,%esp
+800006b0:	50                   	push   %eax
+800006b1:	e8 5e fd ff ff       	call   80000414 <close>
+800006b6:	83 c4 10             	add    $0x10,%esp
+800006b9:	c7 45 cc 00 00 00 00 	movl   $0x0,-0x34(%ebp)
+800006c0:	c7 45 d0 00 00 00 00 	movl   $0x0,-0x30(%ebp)
+800006c7:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%ebp)
+800006ce:	c7 45 d8 00 00 00 00 	movl   $0x0,-0x28(%ebp)
+800006d5:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
+800006dc:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+800006e3:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+800006ea:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
+800006f1:	8b 45 ec             	mov    -0x14(%ebp),%eax
+800006f4:	83 ec 04             	sub    $0x4,%esp
+800006f7:	6a 18                	push   $0x18
+800006f9:	8d 55 cc             	lea    -0x34(%ebp),%edx
+800006fc:	52                   	push   %edx
+800006fd:	50                   	push   %eax
+800006fe:	e8 d9 fc ff ff       	call   800003dc <read>
+80000703:	83 c4 10             	add    $0x10,%esp
+80000706:	e8 52 fc ff ff       	call   8000035d <user_sys_getpid>
+8000070b:	83 ec 08             	sub    $0x8,%esp
+8000070e:	50                   	push   %eax
+8000070f:	68 c3 08 00 80       	push   $0x800008c3
+80000714:	e8 e7 f8 ff ff       	call   80000000 <printf>
+80000719:	83 c4 10             	add    $0x10,%esp
+8000071c:	83 ec 08             	sub    $0x8,%esp
+8000071f:	8d 45 cc             	lea    -0x34(%ebp),%eax
+80000722:	50                   	push   %eax
+80000723:	68 e0 08 00 80       	push   $0x800008e0
+80000728:	e8 d3 f8 ff ff       	call   80000000 <printf>
+8000072d:	83 c4 10             	add    $0x10,%esp
+80000730:	b8 09 00 00 00       	mov    $0x9,%eax
+80000735:	8b 4d fc             	mov    -0x4(%ebp),%ecx
+80000738:	c9                   	leave  
+80000739:	8d 61 fc             	lea    -0x4(%ecx),%esp
+8000073c:	c3                   	ret    
+
+8000073d <_start>:
+8000073d:	53                   	push   %ebx
+8000073e:	51                   	push   %ecx
+8000073f:	e8 de fe ff ff       	call   80000622 <main>
+80000744:	50                   	push   %eax
+80000745:	e8 57 fe ff ff       	call   800005a1 <exit>
